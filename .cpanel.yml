@@ -1,0 +1,8 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/uninetke/public_html
+    - /bin/mkdir -p $DEPLOYPATH/wp-content/plugins/uninet-core
+    - /bin/mkdir -p $DEPLOYPATH/wp-content/themes/uninet-child
+    - /bin/rsync -a --delete wp-content/plugins/uninet-core/ $DEPLOYPATH/wp-content/plugins/uninet-core/
+    - /bin/rsync -a --delete wp-content/themes/uninet-child/ $DEPLOYPATH/wp-content/themes/uninet-child/

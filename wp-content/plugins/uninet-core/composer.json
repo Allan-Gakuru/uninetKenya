@@ -1,0 +1,11 @@
+﻿{
+  "name": "uninet/uninet-core",
+  "description": "Custom WooCommerce functionality for Uninet Kenya.",
+  "type": "wordpress-plugin",
+  "autoload": {
+    "psr-4": {
+      "Uninet\\Core\\": "includes/"
+    }
+  },
+  "require": {}
+}

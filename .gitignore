@@ -1,0 +1,26 @@
+﻿# OS/editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# WordPress/runtime files
+wp-config.php
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/backup*/
+
+# Dependencies/build caches
+node_modules/
+vendor/
+.cache/
+.npm/
+
+# Logs/env
+*.log
+.env
+.env.*
+
+# Build artifacts may be committed intentionally if cPanel cannot build assets.
+# Keep this section under review once the build pipeline is finalized.
