@@ -60,8 +60,12 @@
     lastActiveElement = document.activeElement;
     form.reset();
     form.hidden = false;
-    success.hidden = true;
-    success.textContent = "";
+
+    if (success) {
+      success.hidden = true;
+      success.textContent = "";
+    }
+
     setStatus("", "");
     setSubmitting(false);
 

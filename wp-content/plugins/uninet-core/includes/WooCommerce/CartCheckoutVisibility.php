@@ -28,10 +28,24 @@ final class CartCheckoutVisibility
     {
         remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30);
         remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
+        remove_action('storefront_before_footer', 'storefront_sticky_single_add_to_cart', 999);
 
         add_filter('woocommerce_cart_needs_payment', '__return_false');
         add_filter('woocommerce_widget_cart_is_hidden', '__return_true');
+        add_filter('storefront_sticky_single_add_to_cart', '__return_false');
+        add_action('wp_enqueue_scripts', [$this, 'hide_storefront_sticky_add_to_cart'], 20);
         add_action('template_redirect', [$this, 'redirect_cart_checkout_pages']);
+    }
+
+    /**
+     * Hide Storefront sticky Add to Cart markup if a theme/plugin still prints it.
+     */
+    public function hide_storefront_sticky_add_to_cart()
+    {
+        wp_add_inline_style(
+            'uninet-core',
+            '.storefront-sticky-add-to-cart{display:none!important;}'
+        );
     }
 
     /**

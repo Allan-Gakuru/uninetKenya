@@ -2,6 +2,10 @@
  * Uninet Core frontend styles.
  */
 
+.storefront-sticky-add-to-cart {
+    display: none !important;
+}
+
 .uninet-product-price-note {
     margin: -0.35rem 0 1rem;
     color: var(--uninet-body, #42526b);
@@ -46,7 +50,7 @@
 .uninet-call-modal {
     position: fixed;
     inset: 0;
-    z-index: 90;
+    z-index: 100000;
     display: flex;
     align-items: center;
     justify-content: center;

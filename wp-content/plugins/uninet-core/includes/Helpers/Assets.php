@@ -32,14 +32,14 @@ final class Assets
             'uninet-core',
             UNINET_CORE_URL . 'assets/css/uninet-core.css',
             [],
-            UNINET_CORE_VERSION
+            $this->asset_version('assets/css/uninet-core.css')
         );
 
         wp_enqueue_script(
             'uninet-call-to-order',
             UNINET_CORE_URL . 'assets/js/call-to-order.js',
             [],
-            UNINET_CORE_VERSION,
+            $this->asset_version('assets/js/call-to-order.js'),
             true
         );
 
@@ -61,5 +61,21 @@ final class Assets
                 ],
             ]
         );
+    }
+
+    /**
+     * Get an asset version that changes when the file changes.
+     *
+     * @param string $relative_path Asset path relative to the plugin root.
+     */
+    private function asset_version($relative_path)
+    {
+        $path = UNINET_CORE_PATH . ltrim($relative_path, '/');
+
+        if (file_exists($path)) {
+            return (string) filemtime($path);
+        }
+
+        return UNINET_CORE_VERSION;
     }
 }

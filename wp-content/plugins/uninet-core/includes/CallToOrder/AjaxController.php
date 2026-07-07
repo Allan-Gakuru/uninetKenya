@@ -68,10 +68,12 @@ final class AjaxController
         $validated = $this->validation->validate($submitted);
 
         if (is_wp_error($validated)) {
+            $error_data = $validated->get_error_data('uninet_call_to_order_invalid');
+
             wp_send_json_error(
                 [
                     'message' => $validated->get_error_message(),
-                    'field' => $validated->get_error_data('uninet_call_to_order_invalid')['field'] ?? '',
+                    'field' => is_array($error_data) && isset($error_data['field']) ? $error_data['field'] : '',
                 ],
                 400
             );
