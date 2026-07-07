@@ -78,18 +78,6 @@ $get_products = static function ($limit = 4, $featured_first = false) {
     });
 };
 
-$render_search = static function () {
-    if (shortcode_exists('fibosearch')) {
-        echo do_shortcode('[fibosearch]'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
-        return;
-    }
-
-    if (function_exists('get_product_search_form')) {
-        echo get_product_search_form(false); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-    }
-};
-
 $render_product_loop = static function (array $products) {
     if (empty($products) || ! function_exists('wc_get_template_part')) {
         return;
@@ -123,8 +111,13 @@ $render_product_loop = static function (array $products) {
     $product = $previous_product; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 };
 
-$hero_products = $get_products(3, true);
 $featured_products = $get_products(4, true);
+$hero_image_id = get_post_thumbnail_id();
+$hero_image_url = $hero_image_id ? wp_get_attachment_image_url($hero_image_id, 'large') : 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80';
+$hero_image_srcset = $hero_image_id ? wp_get_attachment_image_srcset($hero_image_id, 'large') : '';
+$hero_image_sizes = '(min-width: 900px) 38vw, 100vw';
+$hero_image_alt = $hero_image_id ? get_post_meta($hero_image_id, '_wp_attachment_image_alt', true) : '';
+$hero_image_alt = $hero_image_alt ? $hero_image_alt : __('Business laptops and technology devices arranged for office procurement.', 'uninet-child');
 
 $use_cases = [
     [
@@ -189,34 +182,19 @@ get_header();
                 </div>
             </div>
 
-            <div class="uninet-home-hero__tools" aria-label="<?php esc_attr_e('Product search and featured products', 'uninet-child'); ?>">
-                <div class="uninet-home-search">
-                    <p><?php esc_html_e('Find stock faster', 'uninet-child'); ?></p>
-                    <?php $render_search(); ?>
-                </div>
-
-                <?php if (! empty($hero_products)) : ?>
-                    <div class="uninet-home-product-strip" aria-label="<?php esc_attr_e('Recently added products', 'uninet-child'); ?>">
-                        <?php foreach ($hero_products as $hero_product) : ?>
-                            <a class="uninet-home-product-strip__item" href="<?php echo esc_url(get_permalink($hero_product->get_id())); ?>">
-                                <span class="uninet-home-product-strip__image">
-                                    <?php
-                                    if ($hero_product->get_image_id()) {
-                                        echo wp_get_attachment_image($hero_product->get_image_id(), 'woocommerce_thumbnail', false, ['loading' => 'eager']);
-                                    } elseif (function_exists('wc_placeholder_img')) {
-                                        echo wc_placeholder_img('woocommerce_thumbnail'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                                    }
-                                    ?>
-                                </span>
-                                <span class="uninet-home-product-strip__name"><?php echo esc_html($hero_product->get_name()); ?></span>
-                                <?php if ($hero_product->get_price_html()) : ?>
-                                    <span class="uninet-home-product-strip__price"><?php echo wp_kses_post($hero_product->get_price_html()); ?></span>
-                                <?php endif; ?>
-                            </a>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
-            </div>
+            <figure class="uninet-home-hero__media">
+                <img
+                    src="<?php echo esc_url($hero_image_url); ?>"
+                    <?php if ($hero_image_srcset) : ?>
+                        srcset="<?php echo esc_attr($hero_image_srcset); ?>"
+                        sizes="<?php echo esc_attr($hero_image_sizes); ?>"
+                    <?php endif; ?>
+                    alt="<?php echo esc_attr($hero_image_alt); ?>"
+                    loading="eager"
+                    decoding="async"
+                    fetchpriority="high"
+                />
+            </figure>
         </div>
     </section>
 

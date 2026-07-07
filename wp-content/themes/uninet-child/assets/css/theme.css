@@ -217,90 +217,21 @@ input[type="submit"]:focus,
     background: var(--uninet-blue);
 }
 
-.uninet-home-hero__tools {
-    display: grid;
-    gap: 1rem;
-    align-content: end;
-}
-
-.uninet-home-search {
-    padding: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 8px;
-    background: var(--uninet-white);
-}
-
-.uninet-home-search p {
-    margin-bottom: 0.55rem;
-    color: var(--uninet-heading);
-    font-weight: 800;
-}
-
-.uninet-home-search form {
-    margin: 0;
-}
-
-.uninet-home-search input[type="search"],
-.uninet-home-search .dgwt-wcas-search-input {
-    min-height: 2.75rem;
-    border-color: var(--uninet-border);
-    color: var(--uninet-heading);
-    background: var(--uninet-white);
-}
-
-.uninet-home-product-strip {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.65rem;
-}
-
-.uninet-home-product-strip__item {
-    display: grid;
-    gap: 0.4rem;
+.uninet-home-hero__media {
     min-width: 0;
-    padding: 0.65rem;
+    margin: 0;
     border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 8px;
-    color: var(--uninet-white);
-    background: rgba(255, 255, 255, 0.08);
-    text-decoration: none;
-}
-
-.uninet-home-product-strip__item:hover,
-.uninet-home-product-strip__item:focus {
-    border-color: var(--uninet-action);
-    color: var(--uninet-white);
-    background: rgba(67, 196, 99, 0.16);
-}
-
-.uninet-home-product-strip__image {
-    display: grid;
-    aspect-ratio: 1 / 1;
-    place-items: center;
-    padding: 0.4rem;
-    border-radius: 6px;
-    background: var(--uninet-white);
-}
-
-.uninet-home-product-strip__image img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
-
-.uninet-home-product-strip__name {
     overflow: hidden;
-    color: var(--uninet-white);
-    font-size: 0.86rem;
-    font-weight: 800;
-    line-height: 1.3;
-    text-overflow: ellipsis;
+    background: rgba(255, 255, 255, 0.08);
 }
 
-.uninet-home-product-strip__price {
-    color: #9ee4ac;
-    font-size: 0.82rem;
-    font-weight: 800;
+.uninet-home-hero__media img {
+    display: block;
+    width: 100%;
+    min-height: 18rem;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
 }
 
 .uninet-home-section {
@@ -532,17 +463,9 @@ input[type="submit"]:focus,
         padding-bottom: 4rem;
     }
 
-    .uninet-home-product-strip {
-        grid-template-columns: 1fr;
-    }
-
-    .uninet-home-product-strip__item {
-        grid-template-columns: 4.25rem minmax(0, 1fr);
-        align-items: center;
-    }
-
-    .uninet-home-product-strip__image {
-        grid-row: 1 / span 2;
+    .uninet-home-hero__media img {
+        min-height: 14rem;
+        aspect-ratio: 16 / 10;
     }
 }
 
