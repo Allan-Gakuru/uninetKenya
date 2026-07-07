@@ -579,13 +579,12 @@
 }
 
 .uninet-call-modal__dialog {
-    width: min(100%, 560px);
+    width: min(100%, 720px);
     max-height: calc(100vh - 2rem);
     overflow: auto;
     border-radius: 8px;
     background: var(--uninet-white, #ffffff);
-    box-shadow: 0 18px 48px rgba(19, 32, 51, 0.24);
-    padding: 1.25rem;
+    padding: 1rem;
     animation: uninet-modal-enter 160ms ease-out;
 }
 
@@ -624,7 +623,7 @@
 
 .uninet-call-form {
     display: grid;
-    gap: 0.85rem;
+    gap: 1rem;
 }
 
 .uninet-call-form[hidden],
@@ -633,11 +632,24 @@
 }
 
 .uninet-call-form__product {
-    padding: 0.75rem 0.85rem;
+    display: grid;
+    gap: 0.15rem;
+    padding: 0.8rem 0.9rem;
     border-radius: 6px;
     color: var(--uninet-heading, #132033);
     background: var(--uninet-bg, #f5f8fb);
+}
+
+.uninet-call-form__product span {
+    color: var(--uninet-body, #42526b);
+    font-size: 0.78rem;
     font-weight: 700;
+}
+
+.uninet-call-form__product strong {
+    color: var(--uninet-heading, #132033);
+    font-size: 0.98rem;
+    line-height: 1.3;
 }
 
 .uninet-call-form__status {
@@ -663,7 +675,46 @@
     gap: 0.35rem;
 }
 
+.uninet-call-form__group {
+    display: grid;
+    gap: 0.85rem;
+    min-width: 0;
+    margin: 0;
+    padding: 1rem 0 0;
+    border: 0;
+    border-top: 1px solid var(--uninet-border, #d8dee8);
+}
+
+.uninet-call-form__group legend {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin: 0 0 0.35rem;
+    padding: 0;
+    color: var(--uninet-heading, #132033);
+    font-size: 0.98rem;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.uninet-call-form__group legend em {
+    flex: 0 0 auto;
+    padding: 0.15rem 0.45rem;
+    border-radius: 999px;
+    color: var(--uninet-body, #42526b);
+    background: var(--uninet-bg, #f5f8fb);
+    font-size: 0.74rem;
+    font-style: normal;
+    font-weight: 800;
+}
+
 .uninet-call-form__field label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
     color: var(--uninet-heading, #132033);
     font-weight: 700;
     line-height: 1.25;
@@ -679,6 +730,15 @@
     font-size: 1rem;
 }
 
+.uninet-call-form__field input {
+    min-height: 2.75rem;
+}
+
+.uninet-call-form__field textarea {
+    min-height: 5.75rem;
+    resize: vertical;
+}
+
 .uninet-call-form__field input:focus,
 .uninet-call-form__field textarea:focus {
     border-color: var(--uninet-blue, #173f8f);
@@ -688,50 +748,62 @@
 
 .uninet-call-form__required {
     display: inline-flex;
-    margin-left: 0.35rem;
+    flex: 0 0 auto;
     color: var(--uninet-blue, #173f8f);
     font-size: 0.78rem;
     font-weight: 700;
 }
 
-.uninet-call-form__field.is-required label::after {
-    content: " required";
-    color: var(--uninet-blue, #173f8f);
+.uninet-call-form__optional {
+    display: inline-flex;
+    flex: 0 0 auto;
+    color: var(--uninet-body, #42526b);
     font-size: 0.78rem;
+    font-weight: 700;
 }
 
 .uninet-call-form__help {
-    margin: -0.5rem 0 0;
+    margin: -0.45rem 0 0;
     color: var(--uninet-body, #42526b);
     font-size: 0.9rem;
 }
 
 .uninet-call-form__submit {
     width: 100%;
-    margin-top: 0.25rem;
+    min-height: 2.9rem;
+    margin-top: 0.1rem;
 }
 
 .uninet-call-success {
     display: grid;
-    gap: 0.8rem;
+    gap: 0.85rem;
+    padding: 1rem;
+    border: 1px solid var(--uninet-border, #d8dee8);
+    border-radius: 8px;
+    background: var(--uninet-bg, #f5f8fb);
 }
 
 .uninet-call-success h3 {
     margin: 0;
     color: var(--uninet-heading, #132033);
+    font-size: 1.25rem;
+    line-height: 1.2;
 }
 
 .uninet-call-success p {
     margin: 0;
     color: var(--uninet-body, #42526b);
+    line-height: 1.5;
 }
 
 .uninet-call-success__order {
+    color: var(--uninet-heading, #132033);
     font-weight: 700;
 }
 
 .uninet-call-success__phone {
     width: 100%;
+    min-height: 2.9rem;
     text-align: center;
 }
 
@@ -768,6 +840,16 @@
 
     .uninet-call-modal__dialog {
         padding: 1.5rem;
+    }
+
+    .uninet-call-form__group {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .uninet-call-form__group legend,
+    .uninet-call-form__field--pickup-location,
+    .uninet-call-form__field--notes {
+        grid-column: 1 / -1;
     }
 }
 

@@ -46,12 +46,17 @@
 
     var requiresEmail = businessNameInput.value.trim().length > 0;
     var emailField = emailInput.closest(".uninet-call-form__field");
+    var emailBadge = emailField ? emailField.querySelector(".uninet-call-form__optional") : null;
 
     emailInput.required = requiresEmail;
     emailInput.setAttribute("aria-required", requiresEmail ? "true" : "false");
 
     if (emailField) {
       emailField.classList.toggle("is-required", requiresEmail);
+    }
+
+    if (emailBadge) {
+      emailBadge.textContent = requiresEmail ? "Required" : "Conditional";
     }
   }
 
@@ -167,10 +172,10 @@
     var orderNumber = document.createElement("p");
 
     success.textContent = "";
-    title.textContent = "Order saved";
-    message.textContent = payload.message || "Your order details have been saved.";
+    title.textContent = "Order request saved";
+    message.textContent = payload.message || "Your order request has been saved. Call our sales team to finish confirmation.";
     orderNumber.className = "uninet-call-success__order";
-    orderNumber.textContent = payload.orderNumber ? "Pending order #" + payload.orderNumber : "";
+    orderNumber.textContent = payload.orderNumber ? "Reference #" + payload.orderNumber : "";
 
     success.appendChild(title);
     success.appendChild(message);
@@ -183,7 +188,7 @@
       var callLink = document.createElement("a");
       callLink.className = "button uninet-call-success__phone";
       callLink.href = payload.telUrl;
-      callLink.textContent = "Call " + payload.salesPhone;
+      callLink.textContent = "Call to finish: " + payload.salesPhone;
       success.appendChild(callLink);
     } else {
       var fallback = document.createElement("p");
