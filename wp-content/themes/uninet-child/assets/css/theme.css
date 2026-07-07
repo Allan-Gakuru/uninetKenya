@@ -1,0 +1,115 @@
+/**
+ * Uninet child theme foundation.
+ */
+
+body {
+    color: var(--uninet-body);
+    background: var(--uninet-white);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.site-title,
+.entry-title,
+.woocommerce-products-header__title {
+    color: var(--uninet-heading);
+}
+
+a {
+    color: var(--uninet-blue);
+}
+
+a:hover,
+a:focus {
+    color: var(--uninet-green);
+}
+
+button,
+.button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+.woocommerce a.button,
+.woocommerce button.button {
+    border-radius: 6px;
+    font-weight: 700;
+}
+
+.button,
+input[type="submit"],
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce a.button.alt,
+.woocommerce button.button.alt {
+    border-color: var(--uninet-action);
+    background-color: var(--uninet-action);
+    color: var(--uninet-heading);
+}
+
+.button:hover,
+.button:focus,
+input[type="submit"]:hover,
+input[type="submit"]:focus,
+.woocommerce a.button:hover,
+.woocommerce a.button:focus,
+.woocommerce button.button:hover,
+.woocommerce button.button:focus {
+    border-color: var(--uninet-green);
+    background-color: var(--uninet-green);
+    color: var(--uninet-white);
+}
+
+.site-header {
+    border-bottom: 1px solid var(--uninet-border);
+    background: var(--uninet-white);
+}
+
+.site-footer {
+    color: rgba(255, 255, 255, 0.86);
+    background: var(--uninet-heading);
+}
+
+.site-footer a {
+    color: var(--uninet-white);
+}
+
+.site-footer a:hover,
+.site-footer a:focus {
+    color: var(--uninet-action);
+}
+
+.woocommerce ul.products li.product {
+    border: 1px solid var(--uninet-border);
+    border-radius: 8px;
+    background: var(--uninet-white);
+    overflow: hidden;
+}
+
+.woocommerce ul.products li.product .woocommerce-loop-product__title {
+    color: var(--uninet-heading);
+    font-weight: 700;
+}
+
+.woocommerce ul.products li.product .price {
+    color: var(--uninet-blue);
+    font-weight: 800;
+}
+
+.uninet-soft-section {
+    background: var(--uninet-bg);
+}
+
+.uninet-container {
+    width: min(1120px, calc(100% - 2rem));
+    margin-inline: auto;
+}
+
+@media (max-width: 767px) {
+    body {
+        padding-bottom: 4rem;
+    }
+}

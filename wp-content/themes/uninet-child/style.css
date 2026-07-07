@@ -1,4 +1,4 @@
-﻿/*
+/*
 Theme Name: Uninet Child
 Description: Child theme for the Uninet Kenya WooCommerce site.
 Author: Uninet Kenya
@@ -6,3 +6,14 @@ Version: 0.1.0
 Template: storefront
 Text Domain: uninet-child
 */
+
+:root {
+    --uninet-blue: #173f8f;
+    --uninet-green: #2fa84f;
+    --uninet-action: #43c463;
+    --uninet-heading: #132033;
+    --uninet-body: #42526b;
+    --uninet-border: #d8dee8;
+    --uninet-bg: #f5f8fb;
+    --uninet-white: #ffffff;
+}
