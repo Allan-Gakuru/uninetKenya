@@ -8,7 +8,7 @@
 
 .woocommerce ul.products {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: 1fr;
     gap: 1rem;
 }
 
@@ -18,6 +18,7 @@
 }
 
 .woocommerce ul.products li.product {
+    position: relative;
     float: none !important;
     display: grid;
     width: auto !important;
@@ -25,6 +26,25 @@
     padding: 0.85rem;
     align-content: start;
     gap: 0.35rem;
+}
+
+.woocommerce ul.products li.product .onsale {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 2;
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0.4rem 0.6rem;
+    border: 0;
+    border-radius: 999px;
+    color: var(--uninet-white, #ffffff);
+    background: var(--uninet-blue, #173f8f);
+    font-size: 0.78rem;
+    font-weight: 800;
+    line-height: 1;
+    text-transform: none;
 }
 
 .woocommerce ul.products li.product a.woocommerce-LoopProduct-link {
@@ -51,6 +71,16 @@
     line-height: 1.35;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+}
+
+.uninet-product-card-specs strong {
+    color: var(--uninet-heading, #132033);
+    font-weight: 800;
+}
+
+.uninet-product-card-specs__separator {
+    color: var(--uninet-border, #d8dee8);
+    padding: 0 0.25rem;
 }
 
 .uninet-product-card-availability {
@@ -462,6 +492,10 @@
 }
 
 @media (min-width: 640px) {
+    .woocommerce ul.products {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .uninet-product-callout .uninet-call-to-order-button {
         width: auto;
         justify-self: start;
@@ -480,6 +514,12 @@
 
     .uninet-product-details__grid {
         grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .woocommerce ul.products {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 

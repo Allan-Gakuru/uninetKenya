@@ -46,11 +46,28 @@ final class ProductCards
 
         $specs = $this->get_card_specs($product);
 
-        if ('' === $specs) {
+        if (empty($specs)) {
             return;
         }
 
-        echo '<p class="uninet-product-card-specs">' . esc_html($specs) . '</p>';
+        echo '<p class="uninet-product-card-specs">';
+
+        if (isset($specs['summary'])) {
+            echo '<span class="uninet-product-card-specs__summary">' . esc_html($specs['summary']) . '</span>';
+        } else {
+            foreach ($specs as $index => $spec) {
+                echo '<span class="uninet-product-card-specs__item">';
+                echo '<strong>' . esc_html($spec['label']) . ':</strong> ';
+                echo '<span>' . esc_html($spec['value']) . '</span>';
+                echo '</span>';
+
+                if ($index < count($specs) - 1) {
+                    echo '<span class="uninet-product-card-specs__separator" aria-hidden="true">|</span>';
+                }
+            }
+        }
+
+        echo '</p>';
     }
 
     /**
@@ -87,7 +104,7 @@ final class ProductCards
     }
 
     /**
-     * Get a compact card spec string.
+     * Get compact card specs.
      *
      * @param \WC_Product $product Product.
      */
@@ -107,7 +124,10 @@ final class ProductCards
                 continue;
             }
 
-            $parts[] = $label . ': ' . implode(', ', array_slice($values, 0, 2));
+            $parts[] = [
+                'label' => $label,
+                'value' => implode(', ', array_slice($values, 0, 2)),
+            ];
 
             if (3 === count($parts)) {
                 break;
@@ -115,12 +135,12 @@ final class ProductCards
         }
 
         if (! empty($parts)) {
-            return implode(' | ', $parts);
+            return $parts;
         }
 
         $summary = wp_strip_all_tags($product->get_short_description());
 
-        return $summary ? wp_trim_words($summary, 12, '...') : '';
+        return $summary ? ['summary' => wp_trim_words($summary, 12, '...')] : [];
     }
 
     /**
