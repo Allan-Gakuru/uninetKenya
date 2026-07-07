@@ -10,6 +10,9 @@
   var businessNameInput = form ? form.querySelector('[name="business_name"]') : null;
   var emailInput = form ? form.querySelector('[name="email"]') : null;
   var submitButton = document.querySelector("[data-uninet-call-submit]");
+  var stickyOrder = document.querySelector("[data-uninet-sticky-order]");
+  var stickyOrderButton = stickyOrder ? stickyOrder.querySelector("[data-uninet-call-open]") : null;
+  var primaryOrderCallout = document.querySelector(".uninet-product-callout");
   var lastActiveElement = null;
 
   function track(name, params) {
@@ -99,6 +102,47 @@
     if (lastActiveElement && typeof lastActiveElement.focus === "function") {
       lastActiveElement.focus();
     }
+  }
+
+  function setStickyOrderVisible(isVisible) {
+    if (!stickyOrder) {
+      return;
+    }
+
+    stickyOrder.classList.toggle("is-visible", isVisible);
+    stickyOrder.setAttribute("aria-hidden", isVisible ? "false" : "true");
+
+    if (stickyOrderButton) {
+      stickyOrderButton.tabIndex = isVisible ? 0 : -1;
+    }
+  }
+
+  function updateStickyOrder() {
+    if (!stickyOrder || !primaryOrderCallout) {
+      return;
+    }
+
+    var calloutRect = primaryOrderCallout.getBoundingClientRect();
+    setStickyOrderVisible(calloutRect.bottom <= 0);
+  }
+
+  function initStickyOrder() {
+    if (!stickyOrder || !primaryOrderCallout) {
+      return;
+    }
+
+    if ("IntersectionObserver" in window) {
+      var observer = new IntersectionObserver(function () {
+        updateStickyOrder();
+      });
+
+      observer.observe(primaryOrderCallout);
+    } else {
+      window.addEventListener("scroll", updateStickyOrder, { passive: true });
+      window.addEventListener("resize", updateStickyOrder);
+    }
+
+    updateStickyOrder();
   }
 
   function focusInvalidField(fieldName) {
@@ -222,6 +266,8 @@
   if (form) {
     form.addEventListener("submit", submitOrder);
   }
+
+  initStickyOrder();
 
   document.addEventListener("click", function (event) {
     var openButton = event.target.closest("[data-uninet-call-open]");

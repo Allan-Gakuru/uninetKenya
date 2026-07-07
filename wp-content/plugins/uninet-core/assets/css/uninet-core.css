@@ -142,13 +142,16 @@
     line-height: 1.25;
 }
 
-.uninet-product-callout .uninet-call-to-order-button {
+.uninet-call-to-order-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.45rem;
-    width: 100%;
     text-align: center;
+}
+
+.uninet-product-callout .uninet-call-to-order-button {
+    width: 100%;
 }
 
 .uninet-call-to-order-button__icon {
@@ -166,6 +169,78 @@
     color: var(--uninet-body, #42526b);
     font-size: 0.95rem;
     line-height: 1.45;
+}
+
+.uninet-sticky-order {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 9000;
+    border-bottom: 1px solid var(--uninet-border, #d8dee8);
+    background: var(--uninet-white, #ffffff);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-100%);
+    transition: opacity 160ms ease-out, transform 160ms ease-out;
+}
+
+.admin-bar .uninet-sticky-order {
+    top: 32px;
+}
+
+.uninet-sticky-order.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.uninet-sticky-order__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: center;
+    width: min(1120px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: 0.65rem 0;
+}
+
+.uninet-sticky-order__copy {
+    min-width: 0;
+}
+
+.uninet-sticky-order__label,
+.uninet-sticky-order__product,
+.uninet-sticky-order__note {
+    margin: 0;
+}
+
+.uninet-sticky-order__label {
+    color: var(--uninet-heading, #132033);
+    font-size: 0.84rem;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.uninet-sticky-order__product {
+    overflow: hidden;
+    color: var(--uninet-heading, #132033);
+    font-size: 0.96rem;
+    font-weight: 700;
+    line-height: 1.25;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.uninet-sticky-order__note {
+    color: var(--uninet-body, #42526b);
+    font-size: 0.84rem;
+    line-height: 1.35;
+}
+
+.uninet-sticky-order__button {
+    min-height: 2.5rem;
+    white-space: nowrap;
 }
 
 .uninet-product-card-details {
@@ -718,13 +793,48 @@
 }
 
 @media (max-width: 520px) {
+    .uninet-sticky-order__inner {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 0.75rem;
+        width: min(100% - 1rem, 1120px);
+        padding: 0.55rem 0;
+    }
+
+    .uninet-sticky-order__note {
+        display: none;
+    }
+
+    .uninet-sticky-order__label {
+        font-size: 0.8rem;
+    }
+
+    .uninet-sticky-order__product {
+        font-size: 0.9rem;
+    }
+
+    .uninet-sticky-order__button {
+        min-height: 2.35rem;
+        padding-right: 0.7rem;
+        padding-left: 0.7rem;
+    }
+
     .uninet-product-specs__row {
         grid-template-columns: 1fr;
         gap: 0.15rem;
     }
 }
 
+@media (max-width: 782px) {
+    .admin-bar .uninet-sticky-order {
+        top: 46px;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
+    .uninet-sticky-order {
+        transition: none;
+    }
+
     .uninet-call-modal__dialog {
         animation: none;
     }

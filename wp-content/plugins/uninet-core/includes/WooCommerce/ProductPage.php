@@ -21,6 +21,7 @@ final class ProductPage
         add_action('woocommerce_single_product_summary', [$this, 'render_price_note'], 11);
         add_action('woocommerce_single_product_summary', [$this, 'render_call_to_order_cta'], 31);
         add_action('woocommerce_after_single_product_summary', [$this, 'render_business_product_details'], 8);
+        add_action('wp_footer', [$this, 'render_sticky_order_bar']);
         add_filter('woocommerce_product_tabs', [$this, 'customize_product_tabs'], 30);
     }
 
@@ -75,11 +76,37 @@ final class ProductPage
         echo '</div>';
         echo '<div class="uninet-product-callout__action">';
         echo '<button type="button" class="button uninet-call-to-order-button" data-uninet-call-open data-product-id="' . esc_attr($product->get_id()) . '" data-product-name="' . esc_attr($product->get_name()) . '">';
-        echo '<svg class="uninet-call-to-order-button__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5.5 4.75c0 8.01 5.74 13.75 13.75 13.75.69 0 1.25-.56 1.25-1.25v-2.1c0-.56-.38-1.05-.92-1.2l-3.18-.84c-.46-.12-.95.03-1.27.39l-.88 1c-1.78-.86-3.21-2.29-4.07-4.07l1-.88c.36-.32.51-.81.39-1.27l-.84-3.18c-.15-.54-.64-.92-1.2-.92h-2.1c-.69 0-1.25.56-1.25 1.25z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        echo $this->call_icon_svg(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo '<span>' . esc_html__('Call to Order', 'uninet-core') . '</span>';
         echo '</button>';
         echo '</div>';
         echo '</section>';
+    }
+
+    /**
+     * Render a compact sticky order bar once the main callout scrolls away.
+     */
+    public function render_sticky_order_bar()
+    {
+        $product = is_product() ? wc_get_product(get_queried_object_id()) : null;
+
+        if (! $product instanceof \WC_Product) {
+            return;
+        }
+
+        echo '<aside class="uninet-sticky-order" data-uninet-sticky-order aria-hidden="true" aria-label="' . esc_attr__('Make an order', 'uninet-core') . '">';
+        echo '<div class="uninet-sticky-order__inner">';
+        echo '<div class="uninet-sticky-order__copy">';
+        echo '<p class="uninet-sticky-order__label">' . esc_html__('Make an order', 'uninet-core') . '</p>';
+        echo '<p class="uninet-sticky-order__product">' . esc_html($product->get_name()) . '</p>';
+        echo '<p class="uninet-sticky-order__note">' . esc_html__('Staff confirms availability, tax, and invoice total before payment.', 'uninet-core') . '</p>';
+        echo '</div>';
+        echo '<button type="button" class="button uninet-call-to-order-button uninet-sticky-order__button" data-uninet-call-open data-product-id="' . esc_attr($product->get_id()) . '" data-product-name="' . esc_attr($product->get_name()) . '" tabindex="-1">';
+        echo $this->call_icon_svg(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo '<span>' . esc_html__('Call to Order', 'uninet-core') . '</span>';
+        echo '</button>';
+        echo '</div>';
+        echo '</aside>';
     }
 
     /**
@@ -137,7 +164,7 @@ final class ProductPage
         echo '<div class="uninet-product-order-steps" aria-label="' . esc_attr__('How this order is handled', 'uninet-core') . '">';
         echo '<h3>' . esc_html__('How this order is handled', 'uninet-core') . '</h3>';
         echo '<ol>';
-        echo '<li><strong>' . esc_html__('Submit the request', 'uninet-core') . '</strong><span>' . esc_html__('Your details create a pending WooCommerce order for staff follow-up.', 'uninet-core') . '</span></li>';
+        echo '<li><strong>' . esc_html__('Submit the request', 'uninet-core') . '</strong><span>' . esc_html__('Your details create a pending order request for staff follow-up.', 'uninet-core') . '</span></li>';
         echo '<li><strong>' . esc_html__('Staff confirms details', 'uninet-core') . '</strong><span>' . esc_html__('We confirm stock, delivery timing, final tax, and e-TIMS invoice information.', 'uninet-core') . '</span></li>';
         echo '<li><strong>' . esc_html__('Pay after confirmation', 'uninet-core') . '</strong><span>' . esc_html__('Use M-Pesa, bank transfer, or another approved option after totals are confirmed.', 'uninet-core') . '</span></li>';
         echo '</ol>';
@@ -158,6 +185,14 @@ final class ProductPage
         echo '<h4>' . esc_html($title) . '</h4>';
         echo '<p>' . esc_html($body) . '</p>';
         echo '</div>';
+    }
+
+    /**
+     * Inline phone icon used in order buttons.
+     */
+    private function call_icon_svg()
+    {
+        return '<svg class="uninet-call-to-order-button__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5.5 4.75c0 8.01 5.74 13.75 13.75 13.75.69 0 1.25-.56 1.25-1.25v-2.1c0-.56-.38-1.05-.92-1.2l-3.18-.84c-.46-.12-.95.03-1.27.39l-.88 1c-1.78-.86-3.21-2.29-4.07-4.07l1-.88c.36-.32.51-.81.39-1.27l-.84-3.18c-.15-.54-.64-.92-1.2-.92h-2.1c-.69 0-1.25.56-1.25 1.25z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     }
 
     /**
