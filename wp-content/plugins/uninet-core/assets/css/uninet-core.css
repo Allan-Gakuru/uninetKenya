@@ -147,7 +147,14 @@
     align-items: center;
     justify-content: center;
     gap: 0.45rem;
+    line-height: 1.2;
     text-align: center;
+}
+
+.uninet-call-to-order-button span {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1.2;
 }
 
 .uninet-product-callout .uninet-call-to-order-button {
@@ -155,9 +162,11 @@
 }
 
 .uninet-call-to-order-button__icon {
+    display: block;
     flex: 0 0 auto;
     width: 1rem;
     height: 1rem;
+    transform: translateY(0.03em);
 }
 
 .uninet-product-callout__action {

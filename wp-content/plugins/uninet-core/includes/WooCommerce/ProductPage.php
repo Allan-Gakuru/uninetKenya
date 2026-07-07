@@ -52,7 +52,7 @@ final class ProductPage
         }
 
         echo '<p class="uninet-product-price-note">';
-        echo '<span>' . esc_html__('Pre-tax price. Final e-TIMS invoice totals are confirmed by staff.', 'uninet-core') . '</span>';
+        echo '<span>' . esc_html__('Pre-tax price', 'uninet-core') . '</span>';
         echo '</p>';
     }
 
