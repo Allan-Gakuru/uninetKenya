@@ -48,7 +48,15 @@ The plugin currently provides the Phase 2 foundation:
 - WooCommerce UI module boundaries
 - tracking event bridge
 
-The full Call to Order order-creation flow is implemented in later phases.
+The Phase 3 Call to Order flow now:
+
+- renders a product-page Call to Order button
+- collects buyer and business invoice details in a modal form
+- creates WooCommerce `Pending payment` orders
+- stores readable order metadata and an internal staff note
+- leaves stock untouched until staff confirms the order
+- replaces product-card Add to Cart buttons with `View Details`
+- keeps public buyers out of cart and checkout pages during phase one
 
 ## Theme Architecture
 

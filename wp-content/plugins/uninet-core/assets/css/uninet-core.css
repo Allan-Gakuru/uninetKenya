@@ -2,23 +2,51 @@
  * Uninet Core frontend styles.
  */
 
-.uninet-product-action-placeholder {
-    margin: 1rem 0;
-    padding: 0.875rem 1rem;
-    border: 1px solid #d8dee8;
+.uninet-product-price-note {
+    margin: -0.35rem 0 1rem;
+    color: var(--uninet-body, #42526b);
+    font-size: 0.95rem;
+}
+
+.uninet-product-callout {
+    display: grid;
+    gap: 0.65rem;
+    margin: 1.25rem 0 1rem;
+    padding: 1rem;
+    border: 1px solid var(--uninet-border, #d8dee8);
     border-radius: 6px;
-    color: #42526b;
-    background: #f5f8fb;
+    background: var(--uninet-bg, #f5f8fb);
+}
+
+.uninet-product-callout .uninet-call-to-order-button {
+    width: 100%;
+    text-align: center;
+}
+
+.uninet-product-callout__note {
+    margin: 0;
+    color: var(--uninet-body, #42526b);
+    font-size: 0.95rem;
+    line-height: 1.45;
+}
+
+.uninet-product-card-details {
+    width: 100%;
+    text-align: center;
 }
 
 .uninet-call-modal[hidden] {
     display: none;
 }
 
+.uninet-modal-open body {
+    overflow: hidden;
+}
+
 .uninet-call-modal {
     position: fixed;
     inset: 0;
-    z-index: 9999;
+    z-index: 90;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -31,19 +59,183 @@
     max-height: calc(100vh - 2rem);
     overflow: auto;
     border-radius: 8px;
-    background: #fff;
-    box-shadow: 0 24px 80px rgba(19, 32, 51, 0.22);
+    background: var(--uninet-white, #ffffff);
+    box-shadow: 0 18px 48px rgba(19, 32, 51, 0.24);
     padding: 1.25rem;
+    animation: uninet-modal-enter 160ms ease-out;
+}
+
+.uninet-call-modal__dialog h2 {
+    margin: 0 2.5rem 0.35rem 0;
+    color: var(--uninet-heading, #132033);
+    font-size: clamp(1.35rem, 4vw, 1.75rem);
+    line-height: 1.2;
+}
+
+.uninet-call-modal__description {
+    margin: 0 0 1rem;
+    color: var(--uninet-body, #42526b);
+    line-height: 1.5;
 }
 
 .uninet-call-modal__close {
+    position: sticky;
+    top: 0;
     float: right;
     width: 2rem;
     height: 2rem;
     border: 0;
-    color: #132033;
+    color: var(--uninet-heading, #132033);
     background: transparent;
     font-size: 1.5rem;
     line-height: 1;
     cursor: pointer;
+}
+
+.uninet-call-modal__close:hover,
+.uninet-call-modal__close:focus {
+    color: var(--uninet-green, #2fa84f);
+    background: transparent;
+}
+
+.uninet-call-form {
+    display: grid;
+    gap: 0.85rem;
+}
+
+.uninet-call-form[hidden],
+.uninet-call-success[hidden] {
+    display: none;
+}
+
+.uninet-call-form__product {
+    padding: 0.75rem 0.85rem;
+    border-radius: 6px;
+    color: var(--uninet-heading, #132033);
+    background: var(--uninet-bg, #f5f8fb);
+    font-weight: 700;
+}
+
+.uninet-call-form__status {
+    display: none;
+    padding: 0.75rem 0.85rem;
+    border-radius: 6px;
+    color: var(--uninet-heading, #132033);
+    background: var(--uninet-bg, #f5f8fb);
+    line-height: 1.4;
+}
+
+.uninet-call-form__status:not(:empty) {
+    display: block;
+}
+
+.uninet-call-form__status[data-state="error"] {
+    color: #7f1d1d;
+    background: #fee2e2;
+}
+
+.uninet-call-form__field {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.uninet-call-form__field label {
+    color: var(--uninet-heading, #132033);
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.uninet-call-form__field input,
+.uninet-call-form__field textarea {
+    width: 100%;
+    border: 1px solid var(--uninet-border, #d8dee8);
+    border-radius: 6px;
+    color: var(--uninet-heading, #132033);
+    background: var(--uninet-white, #ffffff);
+    font-size: 1rem;
+}
+
+.uninet-call-form__field input:focus,
+.uninet-call-form__field textarea:focus {
+    border-color: var(--uninet-blue, #173f8f);
+    outline: 2px solid rgba(47, 168, 79, 0.22);
+    outline-offset: 1px;
+}
+
+.uninet-call-form__required {
+    display: inline-flex;
+    margin-left: 0.35rem;
+    color: var(--uninet-blue, #173f8f);
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.uninet-call-form__field.is-required label::after {
+    content: " required";
+    color: var(--uninet-blue, #173f8f);
+    font-size: 0.78rem;
+}
+
+.uninet-call-form__help {
+    margin: -0.5rem 0 0;
+    color: var(--uninet-body, #42526b);
+    font-size: 0.9rem;
+}
+
+.uninet-call-form__submit {
+    width: 100%;
+    margin-top: 0.25rem;
+}
+
+.uninet-call-success {
+    display: grid;
+    gap: 0.8rem;
+}
+
+.uninet-call-success h3 {
+    margin: 0;
+    color: var(--uninet-heading, #132033);
+}
+
+.uninet-call-success p {
+    margin: 0;
+    color: var(--uninet-body, #42526b);
+}
+
+.uninet-call-success__order {
+    font-weight: 700;
+}
+
+.uninet-call-success__phone {
+    width: 100%;
+    text-align: center;
+}
+
+@keyframes uninet-modal-enter {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (min-width: 640px) {
+    .uninet-product-callout .uninet-call-to-order-button {
+        width: auto;
+        justify-self: start;
+    }
+
+    .uninet-call-modal__dialog {
+        padding: 1.5rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .uninet-call-modal__dialog {
+        animation: none;
+    }
 }

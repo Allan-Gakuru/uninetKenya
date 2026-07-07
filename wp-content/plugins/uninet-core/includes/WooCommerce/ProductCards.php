@@ -26,6 +26,23 @@ final class ProductCards
      */
     public function prepare_hooks()
     {
-        // Product card behavior will be implemented in the WooCommerce UI phase.
+        remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
+        add_action('woocommerce_after_shop_loop_item', [$this, 'render_details_link'], 10);
+    }
+
+    /**
+     * Render the product-card action link.
+     */
+    public function render_details_link()
+    {
+        global $product;
+
+        if (! $product instanceof \WC_Product) {
+            return;
+        }
+
+        echo '<a class="button uninet-product-card-details" href="' . esc_url(get_permalink($product->get_id())) . '">';
+        echo esc_html__('View Details', 'uninet-core');
+        echo '</a>';
     }
 }
