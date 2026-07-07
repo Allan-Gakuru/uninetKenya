@@ -229,8 +229,8 @@ input[type="submit"]:focus,
 .uninet-home-hero__media img {
     display: block;
     width: 100%;
-    min-height: 18rem;
-    aspect-ratio: 4 / 3;
+    min-height: clamp(19rem, 32vw, 30rem);
+    aspect-ratio: 16 / 9;
     object-fit: cover;
 }
 
@@ -479,8 +479,8 @@ input[type="submit"]:focus,
 
 @media (min-width: 900px) {
     .uninet-home-hero__inner {
-        grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.55fr);
-        align-items: end;
+        grid-template-columns: minmax(0, 0.86fr) minmax(420px, 0.74fr);
+        align-items: center;
     }
 
     .uninet-use-case-grid {

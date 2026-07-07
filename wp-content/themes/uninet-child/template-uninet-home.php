@@ -113,9 +113,9 @@ $render_product_loop = static function (array $products) {
 
 $featured_products = $get_products(4, true);
 $hero_image_id = get_post_thumbnail_id();
-$hero_image_url = $hero_image_id ? wp_get_attachment_image_url($hero_image_id, 'large') : 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80';
+$hero_image_url = $hero_image_id ? wp_get_attachment_image_url($hero_image_id, 'large') : get_theme_file_uri('assets/images/uninet-home-hero.jpg');
 $hero_image_srcset = $hero_image_id ? wp_get_attachment_image_srcset($hero_image_id, 'large') : '';
-$hero_image_sizes = '(min-width: 900px) 38vw, 100vw';
+$hero_image_sizes = '(min-width: 900px) 46vw, 100vw';
 $hero_image_alt = $hero_image_id ? get_post_meta($hero_image_id, '_wp_attachment_image_alt', true) : '';
 $hero_image_alt = $hero_image_alt ? $hero_image_alt : __('Business laptops and technology devices arranged for office procurement.', 'uninet-child');
 
