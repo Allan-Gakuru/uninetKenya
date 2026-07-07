@@ -58,6 +58,15 @@ The Phase 3 Call to Order flow now:
 - replaces product-card Add to Cart buttons with `View Details`
 - keeps public buyers out of cart and checkout pages during phase one
 
+The product/category UX foundation now:
+
+- uses visible WooCommerce attributes or short descriptions for product-card spec lines
+- adds product-card availability language and a `View Details` action
+- adds product archive search with FiboSearch support when available
+- adds top-level product category navigation on shop/category pages
+- adds category-specific buying guidance for core Uninet categories
+- adds product-page business buyer sections for specifications, warranty, delivery, invoice, payment, and availability notes
+
 ## Theme Architecture
 
 `uninet-child` extends Storefront and provides:

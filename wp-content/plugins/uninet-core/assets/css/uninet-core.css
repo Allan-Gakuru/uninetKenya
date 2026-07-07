@@ -6,6 +6,79 @@
     display: none !important;
 }
 
+.woocommerce ul.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.woocommerce ul.products::before,
+.woocommerce ul.products::after {
+    display: none;
+}
+
+.woocommerce ul.products li.product {
+    float: none !important;
+    display: grid;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0.85rem;
+    align-content: start;
+    gap: 0.35rem;
+}
+
+.woocommerce ul.products li.product a.woocommerce-LoopProduct-link {
+    display: grid;
+    gap: 0.55rem;
+}
+
+.woocommerce ul.products li.product img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    padding: 0.75rem;
+    border-radius: 6px;
+    background: var(--uninet-bg, #f5f8fb);
+}
+
+.uninet-product-card-specs {
+    display: -webkit-box;
+    min-height: 2.7em;
+    margin: 0.1rem 0 0.45rem;
+    overflow: hidden;
+    color: var(--uninet-body, #42526b);
+    font-size: 0.9rem;
+    line-height: 1.35;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.uninet-product-card-availability {
+    margin: 0.2rem 0 0.75rem;
+    color: var(--uninet-body, #42526b);
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.uninet-product-card-availability::before {
+    content: "";
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-right: 0.4rem;
+    border-radius: 999px;
+    background: var(--uninet-green, #2fa84f);
+    vertical-align: 0.05em;
+}
+
+.uninet-product-card-availability.is-unavailable::before {
+    background: #a23b3b;
+}
+
+.woocommerce ul.products li.product .price {
+    margin-bottom: 0;
+}
+
 .uninet-product-price-note {
     margin: -0.35rem 0 1rem;
     color: var(--uninet-body, #42526b);
@@ -37,6 +110,167 @@
 .uninet-product-card-details {
     width: 100%;
     text-align: center;
+}
+
+.uninet-archive-tools {
+    display: grid;
+    gap: 1rem;
+    margin: 0 0 1.5rem;
+    padding: 1rem;
+    border: 1px solid var(--uninet-border, #d8dee8);
+    border-radius: 8px;
+    background: var(--uninet-bg, #f5f8fb);
+}
+
+.uninet-archive-search {
+    display: grid;
+    gap: 0.45rem;
+}
+
+.uninet-archive-search__label {
+    margin: 0;
+    color: var(--uninet-heading, #132033);
+    font-weight: 800;
+}
+
+.uninet-archive-search .dgwt-wcas-search-wrapp,
+.uninet-archive-search form {
+    max-width: none;
+}
+
+.uninet-category-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.uninet-category-nav__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.35rem;
+    padding: 0.45rem 0.75rem;
+    border: 1px solid var(--uninet-border, #d8dee8);
+    border-radius: 999px;
+    color: var(--uninet-heading, #132033);
+    background: var(--uninet-white, #ffffff);
+    font-size: 0.92rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.uninet-category-nav__link:hover,
+.uninet-category-nav__link:focus,
+.uninet-category-nav__link.is-active {
+    border-color: var(--uninet-blue, #173f8f);
+    color: var(--uninet-white, #ffffff);
+    background: var(--uninet-blue, #173f8f);
+}
+
+.uninet-category-buying-note {
+    margin: 0.5rem 0 1.25rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--uninet-border, #d8dee8);
+    border-radius: 8px;
+    background: var(--uninet-white, #ffffff);
+}
+
+.uninet-category-buying-note p {
+    max-width: 72ch;
+    margin: 0;
+    color: var(--uninet-body, #42526b);
+    line-height: 1.5;
+}
+
+.uninet-product-details {
+    clear: both;
+    margin: 2.25rem 0;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--uninet-border, #d8dee8);
+    border-bottom: 1px solid var(--uninet-border, #d8dee8);
+}
+
+.uninet-product-details__header {
+    max-width: 72ch;
+    margin-bottom: 1.25rem;
+}
+
+.uninet-product-details__header h2 {
+    margin: 0 0 0.35rem;
+    color: var(--uninet-heading, #132033);
+    font-size: clamp(1.35rem, 3vw, 1.85rem);
+    line-height: 1.2;
+}
+
+.uninet-product-details__header p {
+    margin: 0;
+    color: var(--uninet-body, #42526b);
+    line-height: 1.55;
+}
+
+.uninet-product-details__grid {
+    display: grid;
+    gap: 1.25rem;
+}
+
+.uninet-product-specs-panel,
+.uninet-procurement-panel {
+    min-width: 0;
+}
+
+.uninet-product-specs-panel h3,
+.uninet-procurement-panel h3 {
+    margin: 0 0 0.75rem;
+    color: var(--uninet-heading, #132033);
+    font-size: 1.05rem;
+}
+
+.uninet-product-specs {
+    margin: 0;
+    border-top: 1px solid var(--uninet-border, #d8dee8);
+}
+
+.uninet-product-specs__row {
+    display: grid;
+    grid-template-columns: minmax(120px, 0.38fr) minmax(0, 1fr);
+    gap: 0.85rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--uninet-border, #d8dee8);
+}
+
+.uninet-product-specs dt {
+    color: var(--uninet-body, #42526b);
+    font-weight: 700;
+}
+
+.uninet-product-specs dd {
+    margin: 0;
+    color: var(--uninet-heading, #132033);
+}
+
+.uninet-product-specs-panel__empty {
+    margin: 0;
+    color: var(--uninet-body, #42526b);
+}
+
+.uninet-procurement-notes {
+    border-top: 1px solid var(--uninet-border, #d8dee8);
+}
+
+.uninet-procurement-note {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--uninet-border, #d8dee8);
+}
+
+.uninet-procurement-note h4 {
+    margin: 0 0 0.2rem;
+    color: var(--uninet-heading, #132033);
+    font-size: 0.98rem;
+}
+
+.uninet-procurement-note p {
+    margin: 0;
+    color: var(--uninet-body, #42526b);
+    line-height: 1.45;
 }
 
 .uninet-call-modal[hidden] {
@@ -235,6 +469,24 @@
 
     .uninet-call-modal__dialog {
         padding: 1.5rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .uninet-archive-tools {
+        grid-template-columns: minmax(280px, 0.75fr) minmax(0, 1.25fr);
+        align-items: end;
+    }
+
+    .uninet-product-details__grid {
+        grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+    }
+}
+
+@media (max-width: 520px) {
+    .uninet-product-specs__row {
+        grid-template-columns: 1fr;
+        gap: 0.15rem;
     }
 }
 

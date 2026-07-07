@@ -16,6 +16,7 @@ use Uninet\Core\CallToOrder\Validation;
 use Uninet\Core\Helpers\Assets;
 use Uninet\Core\Tracking\Events;
 use Uninet\Core\WooCommerce\CartCheckoutVisibility;
+use Uninet\Core\WooCommerce\ProductArchives;
 use Uninet\Core\WooCommerce\ProductCards;
 use Uninet\Core\WooCommerce\ProductPage;
 
@@ -71,6 +72,7 @@ final class Plugin
         (new AjaxController($validation, $order_factory))->register();
         (new ProductCards())->register();
         (new ProductPage())->register();
+        (new ProductArchives())->register();
         (new CartCheckoutVisibility())->register();
     }
 
