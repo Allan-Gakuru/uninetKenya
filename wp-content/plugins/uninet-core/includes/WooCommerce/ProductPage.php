@@ -66,25 +66,18 @@ final class ProductPage
             return;
         }
 
-        $availability = $this->availability_summary($product);
-
-        echo '<section class="uninet-product-callout" aria-label="' . esc_attr__('Business order request', 'uninet-core') . '">';
+        echo '<section class="uninet-product-callout" aria-label="' . esc_attr__('Make an order', 'uninet-core') . '">';
         echo '<div class="uninet-product-callout__body">';
-        echo '<h2 class="uninet-product-callout__title">' . esc_html__('Business order request', 'uninet-core') . '</h2>';
+        echo '<h2 class="uninet-product-callout__title">' . esc_html__('Make an order', 'uninet-core') . '</h2>';
         echo '<p class="uninet-product-callout__note">';
-        echo esc_html__('Send your details and our team will confirm availability, delivery, tax, and invoice totals before payment.', 'uninet-core');
+        echo esc_html__('Click Call to Order, fill in your details, then view the phone number to call. Our team will confirm availability, tax, and invoice total before payment.', 'uninet-core');
         echo '</p>';
-        echo '<ul class="uninet-product-callout__checks" aria-label="' . esc_attr__('Order handling notes', 'uninet-core') . '">';
-        echo '<li>' . esc_html__('One product per request', 'uninet-core') . '</li>';
-        echo '<li>' . esc_html__('Pending order created for staff follow-up', 'uninet-core') . '</li>';
-        echo '<li>' . esc_html__('Stock is confirmed manually', 'uninet-core') . '</li>';
-        echo '</ul>';
         echo '</div>';
         echo '<div class="uninet-product-callout__action">';
         echo '<button type="button" class="button uninet-call-to-order-button" data-uninet-call-open data-product-id="' . esc_attr($product->get_id()) . '" data-product-name="' . esc_attr($product->get_name()) . '">';
-        echo esc_html__('Call to Order', 'uninet-core');
+        echo '<svg class="uninet-call-to-order-button__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5.5 4.75c0 8.01 5.74 13.75 13.75 13.75.69 0 1.25-.56 1.25-1.25v-2.1c0-.56-.38-1.05-.92-1.2l-3.18-.84c-.46-.12-.95.03-1.27.39l-.88 1c-1.78-.86-3.21-2.29-4.07-4.07l1-.88c.36-.32.51-.81.39-1.27l-.84-3.18c-.15-.54-.64-.92-1.2-.92h-2.1c-.69 0-1.25.56-1.25 1.25z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        echo '<span>' . esc_html__('Call to Order', 'uninet-core') . '</span>';
         echo '</button>';
-        echo '<p class="uninet-product-callout__availability">' . esc_html($availability) . '</p>';
         echo '</div>';
         echo '</section>';
     }
@@ -165,24 +158,6 @@ final class ProductPage
         echo '<h4>' . esc_html($title) . '</h4>';
         echo '<p>' . esc_html($body) . '</p>';
         echo '</div>';
-    }
-
-    /**
-     * Get a buyer-facing availability summary.
-     *
-     * @param \WC_Product $product Product.
-     */
-    private function availability_summary(\WC_Product $product)
-    {
-        if (! $product->is_in_stock()) {
-            return __('Currently unavailable. Staff can advise on alternatives.', 'uninet-core');
-        }
-
-        if ($product->is_on_backorder()) {
-            return __('Available on backorder. Staff will confirm timing.', 'uninet-core');
-        }
-
-        return __('Availability is confirmed by staff before payment.', 'uninet-core');
     }
 
     /**
