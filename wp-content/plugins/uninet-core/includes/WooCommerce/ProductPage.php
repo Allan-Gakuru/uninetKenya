@@ -67,9 +67,9 @@ final class ProductPage
             return;
         }
 
-        echo '<section class="uninet-product-callout" aria-label="' . esc_attr__('Make an order', 'uninet-core') . '">';
+        echo '<section class="uninet-product-callout" aria-label="' . esc_attr__('Make an Order', 'uninet-core') . '">';
         echo '<div class="uninet-product-callout__body">';
-        echo '<h2 class="uninet-product-callout__title">' . esc_html__('Make an order', 'uninet-core') . '</h2>';
+        echo '<h2 class="uninet-product-callout__title">' . esc_html__('Make an Order', 'uninet-core') . '</h2>';
         echo '<p class="uninet-product-callout__note">';
         echo esc_html__('Click Call to Order, fill in your details, then view the phone number to call. Our team will confirm availability, tax, and invoice total before payment.', 'uninet-core');
         echo '</p>';
@@ -94,10 +94,10 @@ final class ProductPage
             return;
         }
 
-        echo '<aside class="uninet-sticky-order" data-uninet-sticky-order aria-hidden="true" aria-label="' . esc_attr__('Make an order', 'uninet-core') . '">';
+        echo '<aside class="uninet-sticky-order" data-uninet-sticky-order aria-hidden="true" aria-label="' . esc_attr__('Make an Order', 'uninet-core') . '">';
         echo '<div class="uninet-sticky-order__inner">';
         echo '<div class="uninet-sticky-order__copy">';
-        echo '<p class="uninet-sticky-order__label">' . esc_html__('Make an order', 'uninet-core') . '</p>';
+        echo '<p class="uninet-sticky-order__label">' . esc_html__('Make an Order', 'uninet-core') . '</p>';
         echo '<p class="uninet-sticky-order__product">' . esc_html($product->get_name()) . '</p>';
         echo '<p class="uninet-sticky-order__note">' . esc_html__('Staff confirms availability, tax, and invoice total before payment.', 'uninet-core') . '</p>';
         echo '</div>';
