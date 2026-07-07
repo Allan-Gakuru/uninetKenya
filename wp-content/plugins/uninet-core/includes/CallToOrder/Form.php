@@ -35,7 +35,7 @@ final class Form
         echo '<button type="button" class="uninet-call-modal__close" data-uninet-call-close aria-label="' . esc_attr__('Close', 'uninet-core') . '">&times;</button>';
         echo '<h2 id="uninet-call-modal-title">' . esc_html__('Call to Order', 'uninet-core') . '</h2>';
         echo '<p id="uninet-call-modal-description" class="uninet-call-modal__description">';
-        echo esc_html__('Fill in the required details first. We will save your request, then show the sales number to call for final confirmation.', 'uninet-core');
+        echo esc_html__('Fill in the required details first. We will reserve your order, then show the sales number to call for final confirmation.', 'uninet-core');
         echo '</p>';
 
         echo '<form class="uninet-call-form" data-uninet-call-form novalidate>';
@@ -66,11 +66,11 @@ final class Form
         echo '<p>' . esc_html__('Check this if you want us to capture business invoice details for iTax or e-TIMS follow-up.', 'uninet-core') . '</p>';
         echo '</div>';
 
-        $this->render_group_start(__('Business invoice details', 'uninet-core'), __('Optional', 'uninet-core'), 'id="uninet-call-business-group" data-uninet-business-fields hidden disabled');
-        $this->render_input('business_name', __('Business name', 'uninet-core'), 'text', false, 'organization', '', __('e.g. Uninet Technologies Ltd', 'uninet-core'), '', __('Optional', 'uninet-core'));
-        $this->render_input('email', __('Email for iTax invoice', 'uninet-core'), 'email', false, 'email', '', __('e.g. accounts@company.co.ke', 'uninet-core'), 'data-uninet-business-email aria-describedby="uninet-call-email-help"', __('Conditional', 'uninet-core'));
-        echo '<p id="uninet-call-email-help" class="uninet-call-form__help">' . esc_html__('Email becomes required when business name is filled.', 'uninet-core') . '</p>';
-        $this->render_input('kra_pin', __('Business KRA PIN', 'uninet-core'), 'text', false, '', '', __('e.g. P051234567A', 'uninet-core'), '', __('Optional', 'uninet-core'));
+        $this->render_group_start(__('Business invoice details', 'uninet-core'), __('Required', 'uninet-core'), 'id="uninet-call-business-group" data-uninet-business-fields hidden disabled');
+        $this->render_input('business_name', __('Business name', 'uninet-core'), 'text', true, 'organization', '', __('e.g. Uninet Technologies Ltd', 'uninet-core'), 'data-uninet-business-required');
+        $this->render_input('email', __('Email for iTax invoice', 'uninet-core'), 'email', true, 'email', '', __('e.g. accounts@company.co.ke', 'uninet-core'), 'data-uninet-business-email data-uninet-business-required aria-describedby="uninet-call-email-help"');
+        echo '<p id="uninet-call-email-help" class="uninet-call-form__help">' . esc_html__('Required for business purchases so staff can follow up on invoice details.', 'uninet-core') . '</p>';
+        $this->render_input('kra_pin', __('Business KRA PIN', 'uninet-core'), 'text', true, '', '', __('e.g. P051234567A', 'uninet-core'), 'data-uninet-business-required');
         $this->render_group_end();
 
         $this->render_group_start(__('Final note', 'uninet-core'), __('Optional', 'uninet-core'));

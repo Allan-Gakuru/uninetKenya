@@ -28,6 +28,7 @@ final class Validation
             'county' => isset($data['county']) ? sanitize_text_field($data['county']) : '',
             'town' => isset($data['town']) ? sanitize_text_field($data['town']) : '',
             'pickup_location' => isset($data['pickup_location']) ? sanitize_text_field($data['pickup_location']) : '',
+            'business_purchase' => ! empty($data['business_purchase']),
             'business_name' => isset($data['business_name']) ? sanitize_text_field($data['business_name']) : '',
             'email' => isset($data['email']) ? sanitize_email($data['email']) : '',
             'kra_pin' => isset($data['kra_pin']) ? strtoupper(sanitize_text_field($data['kra_pin'])) : '',
@@ -62,8 +63,22 @@ final class Validation
             return $this->error('pickup_location', __('Please enter your pickup point or delivery location.', 'uninet-core'));
         }
 
-        if ('' !== $validated['business_name'] && '' === $validated['email']) {
-            return $this->error('email', __('Please enter an email address when ordering for a business.', 'uninet-core'));
+        if (! $validated['business_purchase']) {
+            $validated['business_name'] = '';
+            $validated['email'] = '';
+            $validated['kra_pin'] = '';
+        }
+
+        if ($validated['business_purchase'] && '' === $validated['business_name']) {
+            return $this->error('business_name', __('Please enter the business name.', 'uninet-core'));
+        }
+
+        if ($validated['business_purchase'] && '' === $validated['email']) {
+            return $this->error('email', __('Please enter the business email for invoice follow-up.', 'uninet-core'));
+        }
+
+        if ($validated['business_purchase'] && '' === $validated['kra_pin']) {
+            return $this->error('kra_pin', __('Please enter the business KRA PIN.', 'uninet-core'));
         }
 
         if ('' !== $validated['email'] && ! is_email($validated['email'])) {

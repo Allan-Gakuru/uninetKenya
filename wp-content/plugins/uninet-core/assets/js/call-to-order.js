@@ -7,10 +7,9 @@
   var success = document.querySelector("[data-uninet-call-success]");
   var productIdInput = document.querySelector("[data-uninet-call-product-id]");
   var productName = document.querySelector("[data-uninet-call-product-name]");
-  var businessNameInput = form ? form.querySelector('[name="business_name"]') : null;
-  var emailInput = form ? form.querySelector('[name="email"]') : null;
   var businessPurchaseInput = form ? form.querySelector("[data-uninet-business-purchase]") : null;
   var businessFields = form ? form.querySelector("[data-uninet-business-fields]") : null;
+  var businessRequiredFields = businessFields ? businessFields.querySelectorAll("[data-uninet-business-required]") : [];
   var submitButton = document.querySelector("[data-uninet-call-submit]");
   var stickyOrder = document.querySelector("[data-uninet-sticky-order]");
   var stickyOrderButton = stickyOrder ? stickyOrder.querySelector("[data-uninet-call-open]") : null;
@@ -41,25 +40,11 @@
     submitButton.textContent = isSubmitting ? "Saving order..." : "Finish order to call";
   }
 
-  function updateBusinessEmailRequirement() {
-    if (!businessNameInput || !emailInput) {
-      return;
-    }
-
-    var requiresEmail = businessNameInput.value.trim().length > 0;
-    var emailField = emailInput.closest(".uninet-call-form__field");
-    var emailBadge = emailField ? emailField.querySelector(".uninet-call-form__optional") : null;
-
-    emailInput.required = requiresEmail;
-    emailInput.setAttribute("aria-required", requiresEmail ? "true" : "false");
-
-    if (emailField) {
-      emailField.classList.toggle("is-required", requiresEmail);
-    }
-
-    if (emailBadge) {
-      emailBadge.textContent = requiresEmail ? "Required" : "Conditional";
-    }
+  function updateBusinessRequirements(isBusinessPurchase) {
+    businessRequiredFields.forEach(function (field) {
+      field.required = isBusinessPurchase;
+      field.setAttribute("aria-required", isBusinessPurchase ? "true" : "false");
+    });
   }
 
   function clearBusinessFields() {
@@ -85,12 +70,11 @@
 
     businessFields.hidden = !isBusinessPurchase;
     businessFields.disabled = !isBusinessPurchase;
+    updateBusinessRequirements(isBusinessPurchase);
 
     if (!isBusinessPurchase) {
       clearBusinessFields();
     }
-
-    updateBusinessEmailRequirement();
   }
 
   function openModal(button) {
@@ -113,7 +97,6 @@
     productIdInput.value = button.getAttribute("data-product-id") || "";
     productName.textContent = button.getAttribute("data-product-name") || "";
     updateBusinessFields();
-    updateBusinessEmailRequirement();
 
     modal.hidden = false;
     document.documentElement.classList.add("uninet-modal-open");
@@ -247,7 +230,7 @@
       return;
     }
 
-    updateBusinessEmailRequirement();
+    updateBusinessFields();
 
     if (!form.checkValidity()) {
       form.reportValidity();
@@ -296,10 +279,6 @@
       .finally(function () {
         setSubmitting(false);
       });
-  }
-
-  if (businessNameInput) {
-    businessNameInput.addEventListener("input", updateBusinessEmailRequirement);
   }
 
   if (businessPurchaseInput) {
