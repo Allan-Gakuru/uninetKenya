@@ -110,24 +110,46 @@
 }
 
 .uninet-product-price-note {
-    margin: -0.35rem 0 1rem;
-    color: var(--uninet-body, #42526b);
-    font-size: 0.95rem;
+    display: inline-flex;
+    width: auto;
+    max-width: 100%;
+    margin: -0.1rem 0 1rem;
+    padding: 0.18rem 0.5rem;
+    border: 1px solid var(--uninet-border, #d8dee8);
+    border-radius: 999px;
+    color: #526074;
+    background: var(--uninet-bg, #f5f8fb);
+    font-size: 0.78rem;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.35;
 }
 
 .uninet-product-callout {
     display: grid;
-    gap: 0.65rem;
-    margin: 1.25rem 0 1rem;
+    gap: 1rem;
+    margin: 1.1rem 0 1.35rem;
     padding: 1rem;
     border: 1px solid var(--uninet-border, #d8dee8);
-    border-radius: 6px;
-    background: var(--uninet-bg, #f5f8fb);
+    border-radius: 8px;
+    background: var(--uninet-white, #ffffff);
+}
+
+.uninet-product-callout__title {
+    margin: 0 0 0.35rem;
+    color: var(--uninet-heading, #132033);
+    font-size: 1.05rem;
+    line-height: 1.25;
 }
 
 .uninet-product-callout .uninet-call-to-order-button {
     width: 100%;
     text-align: center;
+}
+
+.uninet-product-callout__action {
+    display: grid;
+    gap: 0.55rem;
 }
 
 .uninet-product-callout__note {
@@ -137,9 +159,63 @@
     line-height: 1.45;
 }
 
+.uninet-product-callout__checks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 0.75rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.uninet-product-callout__checks li {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.85rem;
+    padding: 0.25rem 0.55rem;
+    border: 1px solid var(--uninet-border, #d8dee8);
+    border-radius: 999px;
+    color: var(--uninet-heading, #132033);
+    background: var(--uninet-bg, #f5f8fb);
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.uninet-product-callout__availability {
+    margin: 0;
+    color: var(--uninet-body, #42526b);
+    font-size: 0.86rem;
+    line-height: 1.35;
+}
+
 .uninet-product-card-details {
     width: 100%;
     text-align: center;
+}
+
+.single-product div.product .product_title {
+    margin-bottom: 0.55rem;
+    color: var(--uninet-heading, #132033);
+    font-size: clamp(1.65rem, 3vw, 2.25rem);
+    line-height: 1.15;
+    text-wrap: balance;
+}
+
+.single-product div.product .summary .price {
+    margin-bottom: 0.35rem;
+    color: var(--uninet-blue, #173f8f);
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-weight: 800;
+}
+
+.woocommerce div.product div.images img {
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    padding: 1rem;
+    border: 1px solid var(--uninet-border, #d8dee8);
+    border-radius: 8px;
+    background: var(--uninet-bg, #f5f8fb);
 }
 
 .uninet-archive-tools {
@@ -213,15 +289,14 @@
 
 .uninet-product-details {
     clear: both;
-    margin: 2.25rem 0;
-    padding: 1.5rem 0;
+    margin: 2.5rem 0;
+    padding: 1.5rem 0 0;
     border-top: 1px solid var(--uninet-border, #d8dee8);
-    border-bottom: 1px solid var(--uninet-border, #d8dee8);
 }
 
 .uninet-product-details__header {
     max-width: 72ch;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.35rem;
 }
 
 .uninet-product-details__header h2 {
@@ -239,7 +314,8 @@
 
 .uninet-product-details__grid {
     display: grid;
-    gap: 1.25rem;
+    gap: 1.5rem;
+    align-items: start;
 }
 
 .uninet-product-specs-panel,
@@ -251,7 +327,8 @@
 .uninet-procurement-panel h3 {
     margin: 0 0 0.75rem;
     color: var(--uninet-heading, #132033);
-    font-size: 1.05rem;
+    font-size: 1.08rem;
+    line-height: 1.25;
 }
 
 .uninet-product-specs {
@@ -263,18 +340,18 @@
     display: grid;
     grid-template-columns: minmax(120px, 0.38fr) minmax(0, 1fr);
     gap: 0.85rem;
-    padding: 0.75rem 0;
+    padding: 0.8rem 0;
     border-bottom: 1px solid var(--uninet-border, #d8dee8);
 }
 
 .uninet-product-specs dt {
-    color: var(--uninet-body, #42526b);
-    font-weight: 700;
+    color: var(--uninet-heading, #132033);
+    font-weight: 800;
 }
 
 .uninet-product-specs dd {
     margin: 0;
-    color: var(--uninet-heading, #132033);
+    color: var(--uninet-body, #42526b);
 }
 
 .uninet-product-specs-panel__empty {
@@ -287,7 +364,9 @@
 }
 
 .uninet-procurement-note {
-    padding: 0.75rem 0;
+    display: grid;
+    gap: 0.2rem;
+    padding: 0.8rem 0;
     border-bottom: 1px solid var(--uninet-border, #d8dee8);
 }
 
@@ -301,6 +380,126 @@
     margin: 0;
     color: var(--uninet-body, #42526b);
     line-height: 1.45;
+}
+
+.uninet-product-order-steps {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border: 1px solid var(--uninet-border, #d8dee8);
+    border-radius: 8px;
+    background: var(--uninet-bg, #f5f8fb);
+}
+
+.uninet-product-order-steps h3 {
+    margin: 0 0 0.85rem;
+    color: var(--uninet-heading, #132033);
+    font-size: 1.05rem;
+    line-height: 1.25;
+}
+
+.uninet-product-order-steps ol {
+    display: grid;
+    gap: 0.8rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: uninet-order-step;
+}
+
+.uninet-product-order-steps li {
+    display: grid;
+    grid-template-columns: 1.85rem minmax(0, 1fr);
+    gap: 0.7rem;
+    align-items: start;
+    color: var(--uninet-body, #42526b);
+    line-height: 1.4;
+    counter-increment: uninet-order-step;
+}
+
+.uninet-product-order-steps li::before {
+    content: counter(uninet-order-step);
+    display: inline-grid;
+    width: 1.85rem;
+    height: 1.85rem;
+    place-items: center;
+    border-radius: 999px;
+    color: var(--uninet-white, #ffffff);
+    background: var(--uninet-blue, #173f8f);
+    font-size: 0.85rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.uninet-product-order-steps strong {
+    display: block;
+    margin-bottom: 0.1rem;
+    color: var(--uninet-heading, #132033);
+}
+
+.uninet-product-order-steps span {
+    display: block;
+}
+
+.single-product .woocommerce-tabs {
+    clear: both;
+    margin: 2rem 0 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--uninet-border, #d8dee8);
+}
+
+.single-product .woocommerce-tabs ul.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0 0 1rem;
+    padding: 0;
+    border: 0;
+}
+
+.single-product .woocommerce-tabs ul.tabs::before,
+.single-product .woocommerce-tabs ul.tabs::after {
+    display: none;
+}
+
+.single-product .woocommerce-tabs ul.tabs li {
+    margin: 0;
+    border: 1px solid var(--uninet-border, #d8dee8);
+    border-radius: 999px;
+    background: var(--uninet-bg, #f5f8fb);
+}
+
+.single-product .woocommerce-tabs ul.tabs li::before,
+.single-product .woocommerce-tabs ul.tabs li::after {
+    display: none;
+}
+
+.single-product .woocommerce-tabs ul.tabs li a {
+    padding: 0.45rem 0.8rem;
+    color: var(--uninet-heading, #132033);
+    font-size: 0.92rem;
+    font-weight: 800;
+}
+
+.single-product .woocommerce-tabs ul.tabs li.active {
+    border-color: var(--uninet-blue, #173f8f);
+    background: var(--uninet-blue, #173f8f);
+}
+
+.single-product .woocommerce-tabs ul.tabs li.active a {
+    color: var(--uninet-white, #ffffff);
+}
+
+.single-product .woocommerce-tabs .panel {
+    margin: 0;
+    color: var(--uninet-body, #42526b);
+    line-height: 1.6;
+}
+
+.single-product .woocommerce-tabs .panel h2 {
+    margin: 0 0 0.65rem;
+    color: var(--uninet-heading, #132033);
+    font-size: clamp(1.2rem, 2vw, 1.45rem);
+    line-height: 1.25;
 }
 
 .uninet-call-modal[hidden] {
@@ -496,9 +695,22 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .uninet-product-callout {
+        grid-template-columns: minmax(0, 1fr) minmax(190px, 0.38fr);
+        align-items: center;
+    }
+
     .uninet-product-callout .uninet-call-to-order-button {
         width: auto;
-        justify-self: start;
+        justify-self: end;
+    }
+
+    .uninet-product-callout__action {
+        justify-items: end;
+    }
+
+    .uninet-product-callout__availability {
+        text-align: right;
     }
 
     .uninet-call-modal__dialog {
@@ -514,6 +726,10 @@
 
     .uninet-product-details__grid {
         grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+    }
+
+    .uninet-product-order-steps ol {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
