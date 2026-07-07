@@ -67,6 +67,12 @@ The product/category UX foundation now:
 - adds category-specific buying guidance for core Uninet categories
 - adds product-page business buyer sections for specifications, warranty, delivery, invoice, payment, and availability notes
 
+The homepage foundation now:
+
+- adds a selectable `Uninet Homepage` page template in the child theme
+- organizes the homepage around business use cases, featured products, category entry points, procurement process, and trust details
+- uses real WooCommerce products/categories where available, with safe fallbacks to the shop page
+
 ## Theme Architecture
 
 `uninet-child` extends Storefront and provides:
