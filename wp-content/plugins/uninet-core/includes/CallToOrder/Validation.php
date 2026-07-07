@@ -51,7 +51,7 @@ final class Validation
         }
 
         if ('' === $validated['county']) {
-            return $this->error('county', __('Please enter your county.', 'uninet-core'));
+            return $this->error('county', __('Please select your county.', 'uninet-core'));
         }
 
         if ('' === $validated['town']) {

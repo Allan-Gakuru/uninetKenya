@@ -721,6 +721,7 @@
 }
 
 .uninet-call-form__field input,
+.uninet-call-form__field select,
 .uninet-call-form__field textarea {
     width: 100%;
     border: 1px solid var(--uninet-border, #d8dee8);
@@ -734,12 +735,27 @@
     min-height: 2.75rem;
 }
 
+.uninet-call-form__field select {
+    min-height: 2.75rem;
+}
+
 .uninet-call-form__field textarea {
     min-height: 5.75rem;
     resize: vertical;
 }
 
+.uninet-call-form__field input::placeholder,
+.uninet-call-form__field textarea::placeholder {
+    color: #5b6678;
+    opacity: 1;
+}
+
+.uninet-call-form__field select:required:invalid {
+    color: #5b6678;
+}
+
 .uninet-call-form__field input:focus,
+.uninet-call-form__field select:focus,
 .uninet-call-form__field textarea:focus {
     border-color: var(--uninet-blue, #173f8f);
     outline: 2px solid rgba(47, 168, 79, 0.22);
@@ -763,9 +779,42 @@
 }
 
 .uninet-call-form__help {
+    grid-column: 1 / -1;
     margin: -0.45rem 0 0;
     color: var(--uninet-body, #42526b);
     font-size: 0.9rem;
+}
+
+.uninet-call-form__business-toggle {
+    padding: 0.9rem;
+    border: 1px solid var(--uninet-border, #d8dee8);
+    border-radius: 8px;
+    background: var(--uninet-bg, #f5f8fb);
+}
+
+.uninet-call-form__business-toggle label {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+    margin: 0;
+    color: var(--uninet-heading, #132033);
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.uninet-call-form__business-toggle input {
+    flex: 0 0 auto;
+    width: 1.05rem;
+    height: 1.05rem;
+    margin: 0.12rem 0 0;
+    accent-color: var(--uninet-blue, #173f8f);
+}
+
+.uninet-call-form__business-toggle p {
+    margin: 0.35rem 0 0 1.7rem;
+    color: var(--uninet-body, #42526b);
+    font-size: 0.9rem;
+    line-height: 1.45;
 }
 
 .uninet-call-form__submit {

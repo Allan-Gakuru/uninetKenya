@@ -9,6 +9,8 @@
   var productName = document.querySelector("[data-uninet-call-product-name]");
   var businessNameInput = form ? form.querySelector('[name="business_name"]') : null;
   var emailInput = form ? form.querySelector('[name="email"]') : null;
+  var businessPurchaseInput = form ? form.querySelector("[data-uninet-business-purchase]") : null;
+  var businessFields = form ? form.querySelector("[data-uninet-business-fields]") : null;
   var submitButton = document.querySelector("[data-uninet-call-submit]");
   var stickyOrder = document.querySelector("[data-uninet-sticky-order]");
   var stickyOrderButton = stickyOrder ? stickyOrder.querySelector("[data-uninet-call-open]") : null;
@@ -60,6 +62,37 @@
     }
   }
 
+  function clearBusinessFields() {
+    if (!businessFields) {
+      return;
+    }
+
+    businessFields.querySelectorAll("input, textarea, select").forEach(function (field) {
+      if (field.type === "checkbox" || field.type === "radio") {
+        field.checked = false;
+      } else {
+        field.value = "";
+      }
+    });
+  }
+
+  function updateBusinessFields() {
+    if (!businessPurchaseInput || !businessFields) {
+      return;
+    }
+
+    var isBusinessPurchase = businessPurchaseInput.checked;
+
+    businessFields.hidden = !isBusinessPurchase;
+    businessFields.disabled = !isBusinessPurchase;
+
+    if (!isBusinessPurchase) {
+      clearBusinessFields();
+    }
+
+    updateBusinessEmailRequirement();
+  }
+
   function openModal(button) {
     if (!modal || !form || !productIdInput || !productName) {
       return;
@@ -79,6 +112,7 @@
 
     productIdInput.value = button.getAttribute("data-product-id") || "";
     productName.textContent = button.getAttribute("data-product-name") || "";
+    updateBusinessFields();
     updateBusinessEmailRequirement();
 
     modal.hidden = false;
@@ -266,6 +300,10 @@
 
   if (businessNameInput) {
     businessNameInput.addEventListener("input", updateBusinessEmailRequirement);
+  }
+
+  if (businessPurchaseInput) {
+    businessPurchaseInput.addEventListener("change", updateBusinessFields);
   }
 
   if (form) {
