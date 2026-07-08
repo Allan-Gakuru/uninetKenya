@@ -114,10 +114,6 @@ $render_product_loop = static function (array $products) {
 $featured_products = $get_products(4, true);
 $hero_image_id = get_post_thumbnail_id();
 $hero_image_url = $hero_image_id ? wp_get_attachment_image_url($hero_image_id, 'large') : get_theme_file_uri('assets/images/uninet-home-hero.jpg');
-$hero_image_srcset = $hero_image_id ? wp_get_attachment_image_srcset($hero_image_id, 'large') : '';
-$hero_image_sizes = '(min-width: 900px) 46vw, 100vw';
-$hero_image_alt = $hero_image_id ? get_post_meta($hero_image_id, '_wp_attachment_image_alt', true) : '';
-$hero_image_alt = $hero_image_alt ? $hero_image_alt : __('Business laptops and technology devices arranged for office procurement.', 'uninet-child');
 
 $use_cases = [
     [
@@ -170,7 +166,7 @@ get_header();
 ?>
 
 <main id="primary" class="site-main uninet-home">
-    <section class="uninet-home-hero" aria-labelledby="uninet-home-title">
+    <section class="uninet-home-hero" style="--uninet-home-hero-image: url('<?php echo esc_url($hero_image_url); ?>');" aria-labelledby="uninet-home-title">
         <div class="uninet-container uninet-home-hero__inner">
             <div class="uninet-home-hero__copy">
                 <p class="uninet-home-hero__brand"><?php esc_html_e('Uninet Technologies', 'uninet-child'); ?></p>
@@ -181,20 +177,6 @@ get_header();
                     <a class="uninet-home-link-button" href="#uninet-home-use-cases"><?php esc_html_e('Shop by business need', 'uninet-child'); ?></a>
                 </div>
             </div>
-
-            <figure class="uninet-home-hero__media">
-                <img
-                    src="<?php echo esc_url($hero_image_url); ?>"
-                    <?php if ($hero_image_srcset) : ?>
-                        srcset="<?php echo esc_attr($hero_image_srcset); ?>"
-                        sizes="<?php echo esc_attr($hero_image_sizes); ?>"
-                    <?php endif; ?>
-                    alt="<?php echo esc_attr($hero_image_alt); ?>"
-                    loading="eager"
-                    decoding="async"
-                    fetchpriority="high"
-                />
-            </figure>
         </div>
     </section>
 
