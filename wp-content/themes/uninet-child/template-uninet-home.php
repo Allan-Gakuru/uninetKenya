@@ -150,9 +150,7 @@ $outcome_paths = [
                 'url' => $find_category_url(['monitors', 'monitor'], __('Monitors', 'uninet-child')),
                 'description' => __('Screens selected by size, resolution, port compatibility, and multi-display productivity.', 'uninet-child'),
                 'items' => [
-                    ['label' => __('Screen size', 'uninet-child')],
-                    ['label' => __('Resolution', 'uninet-child')],
-                    ['label' => __('Ports', 'uninet-child')],
+                    ['label' => __('Shop monitors', 'uninet-child'), 'url' => $find_category_url(['monitors', 'monitor'], __('Monitors', 'uninet-child'))],
                 ],
             ],
         ],
