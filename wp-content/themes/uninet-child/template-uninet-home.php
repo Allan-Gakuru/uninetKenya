@@ -120,6 +120,8 @@ $outcome_paths = [
         'label' => __('Team devices', 'uninet-child'),
         'title' => __('Outfit productive workstations', 'uninet-child'),
         'summary' => __('Match employees with the right computing setup for their role, desk, budget, and performance needs.', 'uninet-child'),
+        'image' => get_theme_file_uri('assets/images/outcome-workstations.jpg'),
+        'image_alt' => __('Laptops, desktop computers, and monitors arranged for a business workstation setup.', 'uninet-child'),
         'categories' => [
             [
                 'name' => __('Laptops', 'uninet-child'),
@@ -159,6 +161,8 @@ $outcome_paths = [
         'label' => __('Desk essentials', 'uninet-child'),
         'title' => __('Complete everyday office setups', 'uninet-child'),
         'summary' => __('Finish workstations with the accessories staff touch every day, from input devices to ergonomic desk support.', 'uninet-child'),
+        'image' => get_theme_file_uri('assets/images/outcome-office-essentials.jpg'),
+        'image_alt' => __('Office desk accessories including a keyboard, mouse, laptop stand, cables, and storage devices.', 'uninet-child'),
         'categories' => [
             [
                 'name' => __('Accessories & Cables', 'uninet-child'),
@@ -177,6 +181,8 @@ $outcome_paths = [
         'label' => __('Premises security', 'uninet-child'),
         'title' => __('Secure and monitor your premises', 'uninet-child'),
         'summary' => __('Plan CCTV and access control around the site, not just the device list, so staff can confirm fit before payment.', 'uninet-child'),
+        'image' => get_theme_file_uri('assets/images/outcome-security.jpg'),
+        'image_alt' => __('CCTV cameras, access control hardware, network equipment, and security cables on an office desk.', 'uninet-child'),
         'categories' => [
             [
                 'name' => __('CCTV & Security', 'uninet-child'),
@@ -233,6 +239,12 @@ get_header();
             <div class="uninet-outcome-map">
                 <?php foreach ($outcome_paths as $path) : ?>
                     <article class="uninet-outcome-lane">
+                        <?php if (! empty($path['image'])) : ?>
+                            <figure class="uninet-outcome-lane__media">
+                                <img src="<?php echo esc_url($path['image']); ?>" alt="<?php echo esc_attr($path['image_alt'] ?? ''); ?>" width="1680" height="945" loading="lazy" decoding="async" />
+                            </figure>
+                        <?php endif; ?>
+
                         <div class="uninet-outcome-lane__intro">
                             <span><?php echo esc_html($path['label']); ?></span>
                             <h3><?php echo esc_html($path['title']); ?></h3>

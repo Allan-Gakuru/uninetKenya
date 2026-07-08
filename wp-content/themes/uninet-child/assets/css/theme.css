@@ -303,16 +303,31 @@ input[type="submit"]:focus,
 }
 
 .uninet-outcome-lane {
+    --uninet-outcome-lane-pad: clamp(1rem, 2vw, 1.35rem);
+
     display: grid;
     gap: 1rem;
     align-content: start;
     min-width: 0;
-    padding: clamp(1rem, 2vw, 1.35rem);
+    padding: var(--uninet-outcome-lane-pad);
     border-bottom: 1px solid var(--uninet-border);
 }
 
 .uninet-outcome-lane:last-child {
     border-bottom: 0;
+}
+
+.uninet-outcome-lane__media {
+    margin: calc(var(--uninet-outcome-lane-pad) * -1) calc(var(--uninet-outcome-lane-pad) * -1) 0;
+    overflow: hidden;
+    background: var(--uninet-bg);
+}
+
+.uninet-outcome-lane__media img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
 }
 
 .uninet-outcome-lane__intro {
