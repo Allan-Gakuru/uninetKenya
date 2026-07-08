@@ -115,39 +115,79 @@ $featured_products = $get_products(4, true);
 $hero_image_id = get_post_thumbnail_id();
 $hero_image_url = $hero_image_id ? wp_get_attachment_image_url($hero_image_id, 'large') : get_theme_file_uri('assets/images/uninet-home-hero.jpg');
 
-$use_cases = [
+$outcome_paths = [
     [
-        'title' => __('Empower your team', 'uninet-child'),
-        'body' => __('Business laptops, desktops, and monitors for productive staff, reliable office workstations, and focused day-to-day operations.', 'uninet-child'),
-        'links' => [
-            ['label' => __('Laptops', 'uninet-child'), 'url' => $find_category_url(['laptops', 'laptop'], __('Laptops', 'uninet-child'))],
-            ['label' => __('Desktops', 'uninet-child'), 'url' => $find_category_url(['desktops', 'desktop'], __('Desktops', 'uninet-child'))],
-            ['label' => __('Monitors', 'uninet-child'), 'url' => $find_category_url(['monitors', 'monitor'], __('Monitors', 'uninet-child'))],
+        'label' => __('Team devices', 'uninet-child'),
+        'title' => __('Outfit productive workstations', 'uninet-child'),
+        'summary' => __('Match employees with the right computing setup for their role, desk, budget, and performance needs.', 'uninet-child'),
+        'categories' => [
+            [
+                'name' => __('Laptops', 'uninet-child'),
+                'url' => $find_category_url(['laptops', 'laptop'], __('Laptops', 'uninet-child')),
+                'description' => __('Portable machines for field work, office staff, executives, and student users.', 'uninet-child'),
+                'items' => [
+                    ['label' => __('Business laptops', 'uninet-child'), 'url' => $find_category_url(['business-laptops'], __('Business laptops', 'uninet-child'))],
+                    ['label' => __('Entry-level laptops', 'uninet-child'), 'url' => $find_category_url(['entry-level-laptops'], __('Entry-level laptops', 'uninet-child'))],
+                    ['label' => __('Executive laptops', 'uninet-child'), 'url' => $find_category_url(['executive-laptops'], __('Executive laptops', 'uninet-child'))],
+                    ['label' => __('Student laptops', 'uninet-child'), 'url' => $find_category_url(['student-laptops'], __('Student laptops', 'uninet-child'))],
+                ],
+            ],
+            [
+                'name' => __('Desktops', 'uninet-child'),
+                'url' => $find_category_url(['desktops', 'desktop'], __('Desktops', 'uninet-child')),
+                'description' => __('Fixed workstations for offices, front desks, labs, and performance-heavy desks.', 'uninet-child'),
+                'items' => [
+                    ['label' => __('All-in-one computers', 'uninet-child'), 'url' => $find_category_url(['all-in-one-computers', 'all-in-one-desktops'], __('All-in-one computers', 'uninet-child'))],
+                    ['label' => __('Complete desktop PCs', 'uninet-child'), 'url' => $find_category_url(['complete-desktop-pcs'], __('Complete desktop PCs', 'uninet-child'))],
+                    ['label' => __('High-end desktop PCs', 'uninet-child'), 'url' => $find_category_url(['high-end-desktop-pcs'], __('High-end desktop PCs', 'uninet-child'))],
+                    ['label' => __('Office desktop PCs', 'uninet-child'), 'url' => $find_category_url(['office-desktop-pcs'], __('Office desktop PCs', 'uninet-child'))],
+                ],
+            ],
+            [
+                'name' => __('Monitors', 'uninet-child'),
+                'url' => $find_category_url(['monitors', 'monitor'], __('Monitors', 'uninet-child')),
+                'description' => __('Screens selected by size, resolution, port compatibility, and multi-display productivity.', 'uninet-child'),
+                'items' => [
+                    ['label' => __('Screen size', 'uninet-child')],
+                    ['label' => __('Resolution', 'uninet-child')],
+                    ['label' => __('Ports', 'uninet-child')],
+                ],
+            ],
         ],
     ],
     [
-        'title' => __('Equip your office', 'uninet-child'),
-        'body' => __('Printers, office equipment, and power backup options that keep paperwork, service desks, and daily operations moving.', 'uninet-child'),
-        'links' => [
-            ['label' => __('Printers & Office', 'uninet-child'), 'url' => $find_category_url(['printers-office', 'printers-and-office', 'printers-office-equipment', 'printers'], __('Printers & Office', 'uninet-child'))],
-            ['label' => __('Power backup', 'uninet-child'), 'url' => $find_category_url(['power-backup', 'ups'], __('Power backup', 'uninet-child'))],
-            ['label' => __('Accessories', 'uninet-child'), 'url' => $find_category_url(['accessories', 'cables-accessories'], __('Accessories', 'uninet-child'))],
+        'label' => __('Desk essentials', 'uninet-child'),
+        'title' => __('Complete everyday office setups', 'uninet-child'),
+        'summary' => __('Finish workstations with the accessories staff touch every day, from input devices to ergonomic desk support.', 'uninet-child'),
+        'categories' => [
+            [
+                'name' => __('Accessories & Cables', 'uninet-child'),
+                'url' => $find_category_url(['accessories-cables', 'accessories-and-cables', 'accessories-and-kibbles', 'cables-accessories', 'accessories'], __('Accessories & Cables', 'uninet-child')),
+                'description' => __('Practical add-ons for cleaner desks, better comfort, and faster replacement procurement.', 'uninet-child'),
+                'items' => [
+                    ['label' => __('Computer mouse', 'uninet-child'), 'url' => $find_category_url(['computer-mouse', 'mice'], __('Computer mouse', 'uninet-child'))],
+                    ['label' => __('Keyboards', 'uninet-child'), 'url' => $find_category_url(['keyboards'], __('Keyboards', 'uninet-child'))],
+                    ['label' => __('Laptop stands', 'uninet-child'), 'url' => $find_category_url(['laptop-stands'], __('Laptop stands', 'uninet-child'))],
+                    ['label' => __('Mouse pads', 'uninet-child'), 'url' => $find_category_url(['mouse-pads'], __('Mouse pads', 'uninet-child'))],
+                ],
+            ],
         ],
     ],
     [
-        'title' => __('Secure your premises', 'uninet-child'),
-        'body' => __('CCTV, access control, and security equipment for shops, offices, schools, warehouses, and multi-site teams.', 'uninet-child'),
-        'links' => [
-            ['label' => __('CCTV & Security', 'uninet-child'), 'url' => $find_category_url(['cctv-security', 'cctv-and-security', 'security'], __('CCTV & Security', 'uninet-child'))],
-            ['label' => __('Networking', 'uninet-child'), 'url' => $find_category_url(['networking', 'networking-equipment'], __('Networking', 'uninet-child'))],
-        ],
-    ],
-    [
-        'title' => __('Procure with confidence', 'uninet-child'),
-        'body' => __('Use Uninet as a practical IT partner: confirm fit, availability, warranty, delivery, tax, and invoice details before payment.', 'uninet-child'),
-        'links' => [
-            ['label' => __('Browse all products', 'uninet-child'), 'url' => $shop_url],
-            ['label' => __('View bundles', 'uninet-child'), 'url' => $find_category_url(['bundles', 'product-bundles'], __('Bundles', 'uninet-child'))],
+        'label' => __('Premises security', 'uninet-child'),
+        'title' => __('Secure and monitor your premises', 'uninet-child'),
+        'summary' => __('Plan CCTV and access control around the site, not just the device list, so staff can confirm fit before payment.', 'uninet-child'),
+        'categories' => [
+            [
+                'name' => __('CCTV & Security', 'uninet-child'),
+                'url' => $find_category_url(['cctv-security', 'cctv-and-security', 'security'], __('CCTV & Security', 'uninet-child')),
+                'description' => __('Security equipment for offices, shops, schools, warehouses, gates, and multi-room sites.', 'uninet-child'),
+                'items' => [
+                    ['label' => __('Access control', 'uninet-child'), 'url' => $find_category_url(['access-control'], __('Access control', 'uninet-child'))],
+                    ['label' => __('CCTV cameras', 'uninet-child'), 'url' => $find_category_url(['cctv-cameras'], __('CCTV cameras', 'uninet-child'))],
+                    ['label' => __('Digital video recorders', 'uninet-child'), 'url' => $find_category_url(['digital-video-recorders', 'dvrs', 'dvr'], __('Digital video recorders', 'uninet-child'))],
+                ],
+            ],
         ],
     ],
 ];
@@ -180,23 +220,41 @@ get_header();
         </div>
     </section>
 
-    <section id="uninet-home-use-cases" class="uninet-home-section" aria-labelledby="uninet-use-cases-title">
+    <section id="uninet-home-use-cases" class="uninet-home-section uninet-home-section--outcomes" aria-labelledby="uninet-use-cases-title">
         <div class="uninet-container">
-            <div class="uninet-home-section__header">
-                <h2 id="uninet-use-cases-title"><?php esc_html_e('Start with the business outcome.', 'uninet-child'); ?></h2>
-                <p><?php esc_html_e('Choose the buying path that matches what your team needs to get done, then compare real products inside each category.', 'uninet-child'); ?></p>
+            <div class="uninet-outcome-header">
+                <div>
+                    <h2 id="uninet-use-cases-title"><?php esc_html_e('Start with the business outcome.', 'uninet-child'); ?></h2>
+                    <p><?php esc_html_e('Use the procurement map below to move from business need to the right product family, then compare real stock on the category pages.', 'uninet-child'); ?></p>
+                </div>
+                <a class="button uninet-outcome-header__cta" href="<?php echo esc_url($shop_url); ?>"><?php esc_html_e('Browse all products', 'uninet-child'); ?></a>
             </div>
 
-            <div class="uninet-use-case-grid">
-                <?php foreach ($use_cases as $use_case) : ?>
-                    <article class="uninet-use-case">
-                        <h3><?php echo esc_html($use_case['title']); ?></h3>
-                        <p><?php echo esc_html($use_case['body']); ?></p>
-                        <div class="uninet-use-case__links">
-                            <?php foreach ($use_case['links'] as $link) : ?>
-                                <a href="<?php echo esc_url($link['url']); ?>"><?php echo esc_html($link['label']); ?></a>
-                            <?php endforeach; ?>
+            <div class="uninet-outcome-map">
+                <?php foreach ($outcome_paths as $path) : ?>
+                    <article class="uninet-outcome-lane">
+                        <div class="uninet-outcome-lane__intro">
+                            <span><?php echo esc_html($path['label']); ?></span>
+                            <h3><?php echo esc_html($path['title']); ?></h3>
+                            <p><?php echo esc_html($path['summary']); ?></p>
                         </div>
+
+                        <?php foreach ($path['categories'] as $category) : ?>
+                            <div class="uninet-outcome-category">
+                                <a class="uninet-outcome-category__title" href="<?php echo esc_url($category['url']); ?>"><?php echo esc_html($category['name']); ?></a>
+                                <p><?php echo esc_html($category['description']); ?></p>
+
+                                <div class="uninet-outcome-items">
+                                    <?php foreach ($category['items'] as $item) : ?>
+                                        <?php if (! empty($item['url'])) : ?>
+                                            <a href="<?php echo esc_url($item['url']); ?>"><?php echo esc_html($item['label']); ?></a>
+                                        <?php else : ?>
+                                            <span><?php echo esc_html($item['label']); ?></span>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
                     </article>
                 <?php endforeach; ?>
             </div>
