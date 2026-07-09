@@ -128,7 +128,10 @@ $outcome_paths = [
                 'url' => $find_category_url(['laptops', 'laptop'], __('Laptops', 'uninet-child')),
                 'description' => __('Portable machines for field work, office staff, executives, and student users.', 'uninet-child'),
                 'items' => [
-                    ['label' => __('Shop laptops', 'uninet-child'), 'url' => $find_category_url(['laptops', 'laptop'], __('Laptops', 'uninet-child'))],
+                    ['label' => __('Business laptops', 'uninet-child'), 'url' => $find_category_url(['business-laptops'], __('Business laptops', 'uninet-child'))],
+                    ['label' => __('Entry-level laptops', 'uninet-child'), 'url' => $find_category_url(['entry-level-laptops'], __('Entry-level laptops', 'uninet-child'))],
+                    ['label' => __('Executive laptops', 'uninet-child'), 'url' => $find_category_url(['executive-laptops'], __('Executive laptops', 'uninet-child'))],
+                    ['label' => __('Student laptops', 'uninet-child'), 'url' => $find_category_url(['student-laptops'], __('Student laptops', 'uninet-child'))],
                 ],
             ],
             [
@@ -136,7 +139,10 @@ $outcome_paths = [
                 'url' => $find_category_url(['desktops', 'desktop'], __('Desktops', 'uninet-child')),
                 'description' => __('Fixed workstations for offices, front desks, labs, and performance-heavy desks.', 'uninet-child'),
                 'items' => [
-                    ['label' => __('Shop desktops', 'uninet-child'), 'url' => $find_category_url(['desktops', 'desktop'], __('Desktops', 'uninet-child'))],
+                    ['label' => __('All-in-one computers', 'uninet-child'), 'url' => $find_category_url(['all-in-one-computers', 'all-in-one-desktops'], __('All-in-one computers', 'uninet-child'))],
+                    ['label' => __('Complete desktop PCs', 'uninet-child'), 'url' => $find_category_url(['complete-desktop-pcs'], __('Complete desktop PCs', 'uninet-child'))],
+                    ['label' => __('High-end desktop PCs', 'uninet-child'), 'url' => $find_category_url(['high-end-desktop-pcs'], __('High-end desktop PCs', 'uninet-child'))],
+                    ['label' => __('Office desktop PCs', 'uninet-child'), 'url' => $find_category_url(['office-desktop-pcs'], __('Office desktop PCs', 'uninet-child'))],
                 ],
             ],
             [
@@ -161,7 +167,10 @@ $outcome_paths = [
                 'url' => $find_category_url(['accessories-cables', 'accessories-and-cables', 'accessories-and-kibbles', 'cables-accessories', 'accessories'], __('Accessories & Cables', 'uninet-child')),
                 'description' => __('Practical add-ons for cleaner desks, better comfort, and faster replacement procurement.', 'uninet-child'),
                 'items' => [
-                    ['label' => __('Shop accessories', 'uninet-child'), 'url' => $find_category_url(['accessories-cables', 'accessories-and-cables', 'accessories-and-kibbles', 'cables-accessories', 'accessories'], __('Accessories & Cables', 'uninet-child'))],
+                    ['label' => __('Computer mouse', 'uninet-child'), 'url' => $find_category_url(['computer-mouse', 'mice'], __('Computer mouse', 'uninet-child'))],
+                    ['label' => __('Keyboards', 'uninet-child'), 'url' => $find_category_url(['keyboards'], __('Keyboards', 'uninet-child'))],
+                    ['label' => __('Laptop stands', 'uninet-child'), 'url' => $find_category_url(['laptop-stands'], __('Laptop stands', 'uninet-child'))],
+                    ['label' => __('Mouse pads', 'uninet-child'), 'url' => $find_category_url(['mouse-pads'], __('Mouse pads', 'uninet-child'))],
                 ],
             ],
         ],
@@ -178,7 +187,9 @@ $outcome_paths = [
                 'url' => $find_category_url(['cctv-security', 'cctv-and-security', 'security'], __('CCTV & Security', 'uninet-child')),
                 'description' => __('Security equipment for offices, shops, schools, warehouses, gates, and multi-room sites.', 'uninet-child'),
                 'items' => [
-                    ['label' => __('Shop CCTV & Security', 'uninet-child'), 'url' => $find_category_url(['cctv-security', 'cctv-and-security', 'security'], __('CCTV & Security', 'uninet-child'))],
+                    ['label' => __('Access control', 'uninet-child'), 'url' => $find_category_url(['access-control'], __('Access control', 'uninet-child'))],
+                    ['label' => __('CCTV cameras', 'uninet-child'), 'url' => $find_category_url(['cctv-cameras'], __('CCTV cameras', 'uninet-child'))],
+                    ['label' => __('Digital video recorders', 'uninet-child'), 'url' => $find_category_url(['digital-video-recorders', 'dvrs', 'dvr'], __('Digital video recorders', 'uninet-child'))],
                 ],
             ],
         ],
