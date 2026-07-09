@@ -505,7 +505,7 @@ input[type="submit"]:focus,
 }
 
 .uninet-home-category-grid,
-.uninet-trust-grid {
+.uninet-faq-list {
     display: grid;
     gap: 0.8rem;
 }
@@ -515,7 +515,7 @@ input[type="submit"]:focus,
 }
 
 .uninet-home-category-grid a,
-.uninet-trust-grid div {
+.uninet-faq-item {
     min-width: 0;
     padding: 1rem;
     border: 1px solid var(--uninet-border);
@@ -539,7 +539,7 @@ input[type="submit"]:focus,
 }
 
 .uninet-home-category-grid span,
-.uninet-trust-grid strong {
+.uninet-faq-item h3 {
     color: var(--uninet-heading);
     font-weight: 900;
 }
@@ -739,14 +739,26 @@ input[type="submit"]:focus,
     line-height: 1.45;
 }
 
-.uninet-trust-grid div {
-    display: grid;
-    gap: 0.35rem;
+.uninet-home-section--faq {
+    background: var(--uninet-white);
 }
 
-.uninet-trust-grid p {
+.uninet-faq-item {
+    display: grid;
+    gap: 0.45rem;
+    align-content: start;
+}
+
+.uninet-faq-item h3 {
     margin-bottom: 0;
-    line-height: 1.45;
+    font-size: 1rem;
+    line-height: 1.28;
+    text-wrap: pretty;
+}
+
+.uninet-faq-item p {
+    margin-bottom: 0;
+    line-height: 1.5;
 }
 
 .uninet-home-final {
@@ -773,7 +785,7 @@ input[type="submit"]:focus,
 
 @media (min-width: 680px) {
     .uninet-home-category-grid,
-    .uninet-trust-grid {
+    .uninet-faq-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
@@ -801,10 +813,6 @@ input[type="submit"]:focus,
     }
 
     .uninet-brand-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    .uninet-trust-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 

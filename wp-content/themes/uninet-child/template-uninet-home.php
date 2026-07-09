@@ -263,6 +263,48 @@ $brand_links = [
     ['label' => __('HIK Vision', 'uninet-child'), 'mark' => 'HIKVISION', 'style' => 'hikvision', 'url' => $find_brand_url(['hik-vision', 'hikvision'], __('HIK Vision', 'uninet-child'))],
 ];
 
+$faq_items = [
+    [
+        'question' => __('Can I order business laptops, desktops, printers, CCTV, or networking equipment before paying?', 'uninet-child'),
+        'answer' => __('Yes. Choose one product, send your order details, and the Uninet team confirms stock, tax, delivery, warranty, and the final invoice total before payment.', 'uninet-child'),
+    ],
+    [
+        'question' => __('Are Uninet Kenya product prices pre-tax or inclusive of VAT?', 'uninet-child'),
+        'answer' => __('Displayed prices are pre-tax. Staff confirms the applicable tax and final invoice total before you pay, especially where an e-TIMS invoice is needed.', 'uninet-child'),
+    ],
+    [
+        'question' => __('Can Uninet provide an e-TIMS invoice for company purchases?', 'uninet-child'),
+        'answer' => __('Yes. Select business purchase in the order form and provide the business name, email address, and KRA PIN details. Staff verifies the invoice details before payment.', 'uninet-child'),
+    ],
+    [
+        'question' => __('How fast can you deliver office technology in Nairobi?', 'uninet-child'),
+        'answer' => __('Same-day delivery may be available within Nairobi and the Nairobi metropolitan area after product availability and destination are confirmed. Other locations are confirmed case by case.', 'uninet-child'),
+    ],
+    [
+        'question' => __('What warranty do laptops, desktops, printers, CCTV, and office devices have?', 'uninet-child'),
+        'answer' => __('Products have a six-month warranty for component failure. The warranty does not cover physical damage, water damage, or damage caused by misuse.', 'uninet-child'),
+    ],
+    [
+        'question' => __('Which payment methods can a business use for a confirmed order?', 'uninet-child'),
+        'answer' => __('M-Pesa, bank transfer, and approved payment options are supported after staff confirmation. Cheques are not accepted.', 'uninet-child'),
+    ],
+];
+
+$faq_schema = [
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => array_map(static function ($faq_item) {
+        return [
+            '@type' => 'Question',
+            'name' => wp_strip_all_tags($faq_item['question']),
+            'acceptedAnswer' => [
+                '@type' => 'Answer',
+                'text' => wp_strip_all_tags($faq_item['answer']),
+            ],
+        ];
+    }, $faq_items),
+];
+
 get_header();
 ?>
 
@@ -412,31 +454,23 @@ get_header();
         </div>
     </section>
 
-    <section class="uninet-home-section" aria-labelledby="uninet-trust-title">
+    <section class="uninet-home-section uninet-home-section--faq" aria-labelledby="uninet-trust-title">
         <div class="uninet-container">
             <div class="uninet-home-section__header">
-                <h2 id="uninet-trust-title"><?php esc_html_e('The details business buyers ask about first.', 'uninet-child'); ?></h2>
+                <h2 id="uninet-trust-title"><?php esc_html_e('The details business buyers ask about first (Frequently Asked Questions).', 'uninet-child'); ?></h2>
+                <p><?php esc_html_e('Clear answers for business owners, office administrators, and procurement teams comparing technology before requesting an order confirmation.', 'uninet-child'); ?></p>
             </div>
 
-            <div class="uninet-trust-grid">
-                <div>
-                    <strong><?php esc_html_e('Six-month warranty', 'uninet-child'); ?></strong>
-                    <p><?php esc_html_e('Covered for component failure, excluding physical and water damage.', 'uninet-child'); ?></p>
-                </div>
-                <div>
-                    <strong><?php esc_html_e('Nairobi delivery support', 'uninet-child'); ?></strong>
-                    <p><?php esc_html_e('Same-day delivery may be available within Nairobi and the metropolitan area after confirmation.', 'uninet-child'); ?></p>
-                </div>
-                <div>
-                    <strong><?php esc_html_e('Business invoicing', 'uninet-child'); ?></strong>
-                    <p><?php esc_html_e('Staff confirms final tax and e-TIMS invoice totals before payment.', 'uninet-child'); ?></p>
-                </div>
-                <div>
-                    <strong><?php esc_html_e('Flexible payment options', 'uninet-child'); ?></strong>
-                    <p><?php esc_html_e('M-Pesa, bank transfer, and approved payment options are supported. Cheques are not accepted.', 'uninet-child'); ?></p>
-                </div>
+            <div class="uninet-faq-list">
+                <?php foreach ($faq_items as $faq_index => $faq_item) : ?>
+                    <article class="uninet-faq-item" aria-labelledby="uninet-faq-<?php echo esc_attr($faq_index); ?>">
+                        <h3 id="uninet-faq-<?php echo esc_attr($faq_index); ?>"><?php echo esc_html($faq_item['question']); ?></h3>
+                        <p><?php echo esc_html($faq_item['answer']); ?></p>
+                    </article>
+                <?php endforeach; ?>
             </div>
         </div>
+        <script type="application/ld+json"><?php echo wp_json_encode($faq_schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?></script>
     </section>
 
     <section class="uninet-home-final" aria-labelledby="uninet-home-final-title">
