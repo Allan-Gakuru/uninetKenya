@@ -272,7 +272,7 @@ get_header();
     </section>
 
     <?php if (! empty($featured_products)) : ?>
-        <section class="uninet-home-section uninet-home-section--soft" aria-labelledby="uninet-featured-title">
+        <section class="uninet-home-section uninet-home-section--featured" aria-labelledby="uninet-featured-title">
             <div class="uninet-container">
                 <div class="uninet-home-section__header uninet-home-section__header--row">
                     <div>
