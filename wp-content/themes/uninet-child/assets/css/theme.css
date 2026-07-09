@@ -626,6 +626,7 @@ input[type="submit"]:focus,
 .uninet-home-procurement li::before {
     content: counter(uninet-home-step);
     display: grid;
+    grid-row: 1 / span 2;
     width: 2.15rem;
     height: 2.15rem;
     place-items: center;
@@ -638,11 +639,13 @@ input[type="submit"]:focus,
 
 .uninet-home-procurement strong {
     display: block;
+    grid-column: 2;
     color: var(--uninet-white);
 }
 
 .uninet-home-procurement span {
     display: block;
+    grid-column: 2;
     color: rgba(255, 255, 255, 0.82);
     line-height: 1.45;
 }
