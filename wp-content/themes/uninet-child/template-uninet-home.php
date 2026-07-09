@@ -328,7 +328,7 @@ get_header();
 
     <section class="uninet-home-procurement" aria-labelledby="uninet-procurement-title">
         <div class="uninet-container uninet-home-procurement__inner">
-            <div>
+            <div class="uninet-home-procurement__copy">
                 <h2 id="uninet-procurement-title"><?php esc_html_e('A buying flow built for business decisions.', 'uninet-child'); ?></h2>
                 <p><?php esc_html_e('Instead of rushing buyers through a cart, Uninet captures the request, reserves the conversation, and confirms the practical details before payment.', 'uninet-child'); ?></p>
             </div>
