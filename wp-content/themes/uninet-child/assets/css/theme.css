@@ -446,15 +446,14 @@ input[type="submit"]:focus,
 }
 
 .uninet-home-section--featured .uninet-home-products .products li.product {
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 0;
     color: rgba(255, 255, 255, 0.84);
-    background: rgba(9, 27, 60, 0.62);
+    background: transparent;
 }
 
 .uninet-home-section--featured .uninet-home-products .products li.product:first-child {
-    border-color: rgba(67, 196, 99, 0.55);
-    background: rgba(8, 34, 77, 0.78);
-    box-shadow: inset 0 4px 0 var(--uninet-action);
+    background: transparent;
+    box-shadow: none;
 }
 
 .uninet-home-section--featured .uninet-home-products .products li.product img {
