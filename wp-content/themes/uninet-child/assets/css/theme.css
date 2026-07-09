@@ -544,6 +544,30 @@ input[type="submit"]:focus,
     font-weight: 900;
 }
 
+.uninet-home-category-grid__label {
+    display: inline-flex;
+    min-width: 0;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.uninet-home-category-grid__icon {
+    flex: 0 0 auto;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--uninet-blue);
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.uninet-home-category-grid a:hover .uninet-home-category-grid__icon,
+.uninet-home-category-grid a:focus .uninet-home-category-grid__icon {
+    color: var(--uninet-green);
+}
+
 .uninet-home-category-grid strong {
     flex: 0 0 auto;
     color: var(--uninet-body);

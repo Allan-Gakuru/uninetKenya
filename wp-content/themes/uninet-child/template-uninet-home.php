@@ -196,14 +196,28 @@ $outcome_paths = [
     ],
 ];
 
+$render_category_icon = static function ($icon) {
+    $icons = [
+        'laptop' => '<svg class="uninet-home-category-grid__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="5" y="5" width="14" height="10" rx="1.5"></rect><path d="M3 19h18l-2-4H5z"></path></svg>',
+        'desktop' => '<svg class="uninet-home-category-grid__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="4" width="13" height="10" rx="1.5"></rect><path d="M10.5 14v3M7 20h7M19 7h2v11h-4v-3"></path></svg>',
+        'monitor' => '<svg class="uninet-home-category-grid__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="5" width="16" height="11" rx="1.5"></rect><path d="M12 16v3M8 20h8"></path></svg>',
+        'security' => '<svg class="uninet-home-category-grid__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 10l9-3 1.5 4.5-9 3z"></path><circle cx="15.5" cy="10" r="1.5"></circle><path d="M17 10.5l3 1M8 14l-1 4h4"></path></svg>',
+        'networking' => '<svg class="uninet-home-category-grid__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="12" width="16" height="6" rx="1.5"></rect><path d="M8 12V9m4 3V6m4 6V9M8 15h.01M12 15h.01M16 15h.01"></path></svg>',
+        'printer' => '<svg class="uninet-home-category-grid__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 8V4h10v4"></path><rect x="5" y="9" width="14" height="8" rx="1.5"></rect><path d="M8 15h8v5H8zM17 12h.01"></path></svg>',
+        'accessories' => '<svg class="uninet-home-category-grid__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v4"></path><rect x="8" y="8" width="8" height="12" rx="4"></rect><path d="M12 8v4M5 16h3M16 16h3"></path></svg>',
+    ];
+
+    return $icons[$icon] ?? '';
+};
+
 $category_links = [
-    ['label' => __('Laptops', 'uninet-child'), 'url' => $find_category_url(['laptops', 'laptop'], __('Laptops', 'uninet-child'))],
-    ['label' => __('Desktops', 'uninet-child'), 'url' => $find_category_url(['desktops', 'desktop'], __('Desktops', 'uninet-child'))],
-    ['label' => __('Monitors', 'uninet-child'), 'url' => $find_category_url(['monitors', 'monitor'], __('Monitors', 'uninet-child'))],
-    ['label' => __('CCTV & Security', 'uninet-child'), 'url' => $find_category_url(['cctv-security', 'cctv-and-security', 'security'], __('CCTV & Security', 'uninet-child'))],
-    ['label' => __('Networking', 'uninet-child'), 'url' => $find_category_url(['networking', 'networking-equipment'], __('Networking', 'uninet-child'))],
-    ['label' => __('Printers & Office', 'uninet-child'), 'url' => $find_category_url(['printers-office', 'printers-and-office', 'printers-office-equipment', 'printers'], __('Printers & Office', 'uninet-child'))],
-    ['label' => __('Accessories', 'uninet-child'), 'url' => $find_category_url(['accessories', 'cables-accessories'], __('Accessories', 'uninet-child'))],
+    ['label' => __('Laptops', 'uninet-child'), 'url' => $find_category_url(['laptops', 'laptop'], __('Laptops', 'uninet-child')), 'icon' => 'laptop'],
+    ['label' => __('Desktops', 'uninet-child'), 'url' => $find_category_url(['desktops', 'desktop'], __('Desktops', 'uninet-child')), 'icon' => 'desktop'],
+    ['label' => __('Monitors', 'uninet-child'), 'url' => $find_category_url(['monitors', 'monitor'], __('Monitors', 'uninet-child')), 'icon' => 'monitor'],
+    ['label' => __('CCTV & Security', 'uninet-child'), 'url' => $find_category_url(['cctv-security', 'cctv-and-security', 'security'], __('CCTV & Security', 'uninet-child')), 'icon' => 'security'],
+    ['label' => __('Networking', 'uninet-child'), 'url' => $find_category_url(['networking', 'networking-equipment'], __('Networking', 'uninet-child')), 'icon' => 'networking'],
+    ['label' => __('Printers & Office', 'uninet-child'), 'url' => $find_category_url(['printers-office', 'printers-and-office', 'printers-office-equipment', 'printers'], __('Printers & Office', 'uninet-child')), 'icon' => 'printer'],
+    ['label' => __('Accessories', 'uninet-child'), 'url' => $find_category_url(['accessories-cables', 'accessories-and-cables', 'accessories-and-kibbles', 'cables-accessories', 'accessories'], __('Accessories & Cables', 'uninet-child')), 'icon' => 'accessories'],
 ];
 
 get_header();
@@ -293,7 +307,7 @@ get_header();
         <div class="uninet-container">
             <div class="uninet-home-section__header uninet-home-section__header--row">
                 <div>
-                    <h2 id="uninet-categories-title"><?php esc_html_e('Browse core product categories.', 'uninet-child'); ?></h2>
+                    <h2 id="uninet-categories-title"><?php esc_html_e('Shop by tech category.', 'uninet-child'); ?></h2>
                     <p><?php esc_html_e('Each category page is structured for comparison, product search, and fast call-to-order requests.', 'uninet-child'); ?></p>
                 </div>
             </div>
@@ -301,7 +315,10 @@ get_header();
             <nav class="uninet-home-category-grid" aria-label="<?php esc_attr_e('Product categories', 'uninet-child'); ?>">
                 <?php foreach ($category_links as $category_link) : ?>
                     <a href="<?php echo esc_url($category_link['url']); ?>">
-                        <span><?php echo esc_html($category_link['label']); ?></span>
+                        <span class="uninet-home-category-grid__label">
+                            <span><?php echo esc_html($category_link['label']); ?></span>
+                            <?php echo $render_category_icon($category_link['icon']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                        </span>
                         <strong><?php esc_html_e('View products', 'uninet-child'); ?></strong>
                     </a>
                 <?php endforeach; ?>
