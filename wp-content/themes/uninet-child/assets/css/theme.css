@@ -446,19 +446,62 @@ input[type="submit"]:focus,
 }
 
 .uninet-home-section--featured .uninet-home-products .products li.product {
-    border: 0;
-    background: var(--uninet-white);
-    box-shadow: 0 6px 12px rgba(3, 10, 24, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.84);
+    background: rgba(9, 27, 60, 0.62);
 }
 
 .uninet-home-section--featured .uninet-home-products .products li.product:first-child {
-    box-shadow:
-        inset 0 4px 0 var(--uninet-action),
-        0 8px 14px rgba(3, 10, 24, 0.26);
+    border-color: rgba(67, 196, 99, 0.55);
+    background: rgba(8, 34, 77, 0.78);
+    box-shadow: inset 0 4px 0 var(--uninet-action);
 }
 
 .uninet-home-section--featured .uninet-home-products .products li.product img {
+    border: 1px solid rgba(255, 255, 255, 0.16);
     background: #eef4fb;
+}
+
+.uninet-home-section--featured .uninet-home-products .products li.product .onsale {
+    color: var(--uninet-heading);
+    background: var(--uninet-action);
+}
+
+.uninet-home-section--featured .uninet-home-products .products li.product .woocommerce-loop-product__title {
+    color: var(--uninet-white);
+}
+
+.uninet-home-section--featured .uninet-home-products .products li.product .price {
+    color: #a7efb5;
+}
+
+.uninet-home-section--featured .uninet-product-card-specs {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.uninet-home-section--featured .uninet-product-card-specs strong {
+    color: var(--uninet-white);
+}
+
+.uninet-home-section--featured .uninet-product-card-specs__separator {
+    color: rgba(255, 255, 255, 0.28);
+}
+
+.uninet-home-section--featured .uninet-product-card-availability {
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.uninet-home-section--featured .uninet-product-card-details {
+    border-color: var(--uninet-action);
+    color: var(--uninet-heading);
+    background: var(--uninet-action);
+}
+
+.uninet-home-section--featured .uninet-product-card-details:hover,
+.uninet-home-section--featured .uninet-product-card-details:focus {
+    border-color: var(--uninet-white);
+    color: var(--uninet-heading);
+    background: var(--uninet-white);
 }
 
 .uninet-home-category-grid,
