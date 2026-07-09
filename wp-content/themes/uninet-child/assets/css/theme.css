@@ -574,6 +574,95 @@ input[type="submit"]:focus,
     font-size: 0.86rem;
 }
 
+.uninet-home-section--brands {
+    background: var(--uninet-bg);
+}
+
+.uninet-brand-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+}
+
+.uninet-brand-card {
+    display: grid;
+    min-height: 5.25rem;
+    place-items: center;
+    padding: 1rem;
+    border: 1px solid var(--uninet-border);
+    border-radius: 8px;
+    color: var(--uninet-heading);
+    background: var(--uninet-white);
+    text-decoration: none;
+}
+
+.uninet-brand-card:hover,
+.uninet-brand-card:focus {
+    border-color: var(--uninet-blue);
+    color: var(--uninet-blue);
+    background: var(--uninet-white);
+}
+
+.uninet-brand-card__mark {
+    display: inline-flex;
+    min-height: 2.4rem;
+    align-items: center;
+    justify-content: center;
+    color: currentColor;
+    font-size: clamp(1.1rem, 2vw, 1.55rem);
+    font-weight: 900;
+    line-height: 1;
+    text-align: center;
+}
+
+.uninet-brand-card__mark--brother {
+    color: #004f9f;
+    font-size: clamp(1.2rem, 2vw, 1.65rem);
+    text-transform: lowercase;
+}
+
+.uninet-brand-card__mark--canon {
+    color: #c40018;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.35rem, 2.3vw, 1.95rem);
+    font-style: italic;
+}
+
+.uninet-brand-card__mark--dell,
+.uninet-brand-card__mark--epson {
+    color: #1f55a5;
+    letter-spacing: 0.04em;
+}
+
+.uninet-brand-card__mark--hp {
+    width: 3.15rem;
+    height: 3.15rem;
+    border: 2px solid #173f8f;
+    border-radius: 999px;
+    color: #173f8f;
+    font-size: 1.35rem;
+    font-style: italic;
+    text-transform: lowercase;
+}
+
+.uninet-brand-card__mark--kyocera {
+    color: #c51f2f;
+    letter-spacing: 0.03em;
+}
+
+.uninet-brand-card__mark--lenovo {
+    padding: 0.45rem 0.7rem;
+    border-radius: 4px;
+    color: var(--uninet-white);
+    background: #e2231a;
+    font-size: clamp(1.05rem, 2vw, 1.45rem);
+}
+
+.uninet-brand-card__mark--hikvision {
+    color: #d71920;
+    letter-spacing: 0.03em;
+}
+
 .uninet-home-procurement {
     padding: clamp(2.2rem, 6vw, 4.5rem) 0;
     color: var(--uninet-white);
@@ -708,6 +797,10 @@ input[type="submit"]:focus,
     }
 
     .uninet-home-category-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .uninet-brand-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 

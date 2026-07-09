@@ -40,6 +40,38 @@ $find_category_url = static function (array $slugs, $name = '') use ($shop_url) 
     return $shop_url;
 };
 
+$find_brand_url = static function (array $slugs, $name = '') use ($shop_url) {
+    $brand_taxonomies = ['product_brand', 'pwb-brand', 'yith_product_brand', 'pa_brand'];
+
+    foreach ($brand_taxonomies as $taxonomy) {
+        if (! taxonomy_exists($taxonomy)) {
+            continue;
+        }
+
+        foreach ($slugs as $slug) {
+            $term = get_term_by('slug', sanitize_title($slug), $taxonomy);
+
+            if ($term && ! is_wp_error($term)) {
+                $link = get_term_link($term);
+
+                return is_wp_error($link) ? $shop_url : $link;
+            }
+        }
+
+        if ($name) {
+            $term = get_term_by('name', $name, $taxonomy);
+
+            if ($term && ! is_wp_error($term)) {
+                $link = get_term_link($term);
+
+                return is_wp_error($link) ? $shop_url : $link;
+            }
+        }
+    }
+
+    return $shop_url;
+};
+
 $get_products = static function ($limit = 4, $featured_first = false) {
     if (! function_exists('wc_get_products')) {
         return [];
@@ -220,6 +252,17 @@ $category_links = [
     ['label' => __('Accessories', 'uninet-child'), 'url' => $find_category_url(['accessories-cables', 'accessories-and-cables', 'accessories-and-kibbles', 'cables-accessories', 'accessories'], __('Accessories & Cables', 'uninet-child')), 'icon' => 'accessories'],
 ];
 
+$brand_links = [
+    ['label' => __('Brother', 'uninet-child'), 'mark' => 'brother', 'style' => 'brother', 'url' => $find_brand_url(['brother'], __('Brother', 'uninet-child'))],
+    ['label' => __('Canon', 'uninet-child'), 'mark' => 'Canon', 'style' => 'canon', 'url' => $find_brand_url(['canon'], __('Canon', 'uninet-child'))],
+    ['label' => __('Dell', 'uninet-child'), 'mark' => 'DELL', 'style' => 'dell', 'url' => $find_brand_url(['dell'], __('Dell', 'uninet-child'))],
+    ['label' => __('Epson', 'uninet-child'), 'mark' => 'EPSON', 'style' => 'epson', 'url' => $find_brand_url(['epson'], __('Epson', 'uninet-child'))],
+    ['label' => __('HP', 'uninet-child'), 'mark' => 'hp', 'style' => 'hp', 'url' => $find_brand_url(['hp', 'hewlett-packard'], __('HP', 'uninet-child'))],
+    ['label' => __('Kyocera', 'uninet-child'), 'mark' => 'KYOCERA', 'style' => 'kyocera', 'url' => $find_brand_url(['kyocera'], __('Kyocera', 'uninet-child'))],
+    ['label' => __('Lenovo', 'uninet-child'), 'mark' => 'Lenovo', 'style' => 'lenovo', 'url' => $find_brand_url(['lenovo'], __('Lenovo', 'uninet-child'))],
+    ['label' => __('HIK Vision', 'uninet-child'), 'mark' => 'HIKVISION', 'style' => 'hikvision', 'url' => $find_brand_url(['hik-vision', 'hikvision'], __('HIK Vision', 'uninet-child'))],
+];
+
 get_header();
 ?>
 
@@ -320,6 +363,26 @@ get_header();
                             <?php echo $render_category_icon($category_link['icon']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                         </span>
                         <strong><?php esc_html_e('View products', 'uninet-child'); ?></strong>
+                    </a>
+                <?php endforeach; ?>
+            </nav>
+        </div>
+    </section>
+
+    <section class="uninet-home-section uninet-home-section--brands" aria-labelledby="uninet-brands-title">
+        <div class="uninet-container">
+            <div class="uninet-home-section__header uninet-home-section__header--row">
+                <div>
+                    <h2 id="uninet-brands-title"><?php esc_html_e('Shop trusted technology brands.', 'uninet-child'); ?></h2>
+                    <p><?php esc_html_e('Browse products by the manufacturers your team already knows, then request confirmation before payment.', 'uninet-child'); ?></p>
+                </div>
+            </div>
+
+            <nav class="uninet-brand-grid" aria-label="<?php esc_attr_e('Technology brands', 'uninet-child'); ?>">
+                <?php foreach ($brand_links as $brand_link) : ?>
+                    <a class="uninet-brand-card" href="<?php echo esc_url($brand_link['url']); ?>">
+                        <span class="uninet-brand-card__mark uninet-brand-card__mark--<?php echo esc_attr($brand_link['style']); ?>"><?php echo esc_html($brand_link['mark']); ?></span>
+                        <span class="screen-reader-text"><?php printf(esc_html__('Shop %s products', 'uninet-child'), esc_html($brand_link['label'])); ?></span>
                     </a>
                 <?php endforeach; ?>
             </nav>
