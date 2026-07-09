@@ -458,6 +458,7 @@ input[type="submit"]:focus,
 
 .uninet-home-section--featured .uninet-home-products .products li.product img {
     border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 10px;
     background: #eef4fb;
 }
 
