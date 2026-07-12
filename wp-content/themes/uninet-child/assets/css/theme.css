@@ -135,31 +135,52 @@ input[type="submit"]:focus,
 
 .uninet-header__main-inner {
     display: grid;
-    grid-template-columns: minmax(170px, 230px) minmax(280px, 1fr);
-    gap: clamp(1.5rem, 5vw, 4.5rem);
+    grid-template-columns: minmax(160px, 210px) minmax(320px, 1fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
     align-items: center;
-    min-height: 6.35rem;
-    padding-block: 1rem;
+    min-height: 5.75rem;
+    padding-block: 0.75rem;
 }
 
-.uninet-header__brand,
-.uninet-header__brand .site-branding {
+.uninet-header__main-inner::before,
+.uninet-header__main-inner::after {
+    content: none;
+    display: none;
+}
+
+.uninet-header__brand {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+}
+
+.site-header .uninet-header__brand .site-branding {
     min-width: 0;
     width: 100%;
     margin: 0;
     float: none;
+    clear: none;
 }
 
-.uninet-header__brand .custom-logo-link {
+.site-header .uninet-header__brand .custom-logo-link {
     display: inline-flex;
     align-items: center;
+    line-height: 1;
 }
 
-.uninet-header__brand .custom-logo {
+.site-header .uninet-header__brand .custom-logo {
+    display: block;
     width: auto;
-    max-width: min(100%, 220px);
-    max-height: 4.2rem;
+    height: auto;
+    max-width: min(100%, 180px);
+    max-height: 5rem;
     object-fit: contain;
+}
+
+.site-header .uninet-header__brand .custom-logo-link:focus-visible {
+    border-radius: 4px;
+    outline: 3px solid rgba(23, 63, 143, 0.28);
+    outline-offset: 4px;
 }
 
 .uninet-header__brand .site-title,
@@ -283,10 +304,11 @@ input[type="submit"]:focus,
     min-height: 3.15rem;
 }
 
-.uninet-header__navigation .main-navigation {
+.site-header .uninet-header__navigation .main-navigation {
     width: 100%;
     margin: 0;
     float: none;
+    clear: none;
 }
 
 .uninet-header__navigation .main-navigation ul.menu,
@@ -1085,9 +1107,9 @@ input[type="submit"]:focus,
         padding-block: 0.85rem 1rem;
     }
 
-    .uninet-header__brand .custom-logo {
-        max-width: 178px;
-        max-height: 3.6rem;
+    .site-header .uninet-header__brand .custom-logo {
+        max-width: 160px;
+        max-height: 4.5rem;
     }
 
     .uninet-product-search,
@@ -1101,11 +1123,12 @@ input[type="submit"]:focus,
         min-height: 3rem;
     }
 
-    .uninet-header__navigation .main-navigation button.menu-toggle {
+    .site-header .uninet-header__navigation .main-navigation button.menu-toggle {
+        position: relative;
         width: 100%;
         min-height: 3rem;
         margin: 0;
-        padding: 0.7rem 0;
+        padding: 0.7rem 0 0.7rem 2.4rem;
         border: 0;
         color: var(--uninet-white);
         background: transparent;
@@ -1198,6 +1221,18 @@ input[type="submit"]:focus,
 @media (min-width: 768px) {
     .uninet-header__navigation .main-navigation button.menu-toggle {
         display: none;
+    }
+
+    .site-header .uninet-header__navigation .main-navigation ul.menu,
+    .site-header .uninet-header__navigation .main-navigation ul.nav-menu {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: stretch;
+    }
+
+    .site-header .uninet-header__navigation .main-navigation ul.menu > li,
+    .site-header .uninet-header__navigation .main-navigation ul.nav-menu > li {
+        flex: 0 0 auto;
     }
 }
 
