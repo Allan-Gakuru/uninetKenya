@@ -64,8 +64,284 @@ input[type="submit"]:focus,
 }
 
 .site-header {
+    margin-bottom: 0;
+    padding: 0;
     border-bottom: 1px solid var(--uninet-border);
     background: var(--uninet-white);
+}
+
+.site-content {
+    padding-top: clamp(1.5rem, 3vw, 2.75rem);
+}
+
+.page-template-template-uninet-home .site-content {
+    padding-top: 0;
+}
+
+.uninet-header .col-full {
+    width: min(1180px, calc(100% - 2rem));
+    max-width: none;
+    margin-inline: auto;
+    padding-inline: 0;
+}
+
+.uninet-header__trust {
+    color: rgba(255, 255, 255, 0.9);
+    background: var(--uninet-heading);
+    font-size: 0.78rem;
+    line-height: 1.3;
+}
+
+.uninet-header__trust-inner {
+    display: flex;
+    min-height: 2.15rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.uninet-header__trust-copy {
+    font-weight: 700;
+}
+
+.uninet-header__trust-list {
+    display: flex;
+    gap: 1.15rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.uninet-header__trust-list li {
+    position: relative;
+    margin: 0;
+    padding-left: 1rem;
+}
+
+.uninet-header__trust-list li::before {
+    content: "";
+    position: absolute;
+    top: 0.31em;
+    left: 0;
+    width: 0.48rem;
+    height: 0.48rem;
+    border-radius: 999px;
+    background: var(--uninet-action);
+}
+
+.uninet-header__main {
+    background: var(--uninet-white);
+}
+
+.uninet-header__main-inner {
+    display: grid;
+    grid-template-columns: minmax(170px, 230px) minmax(280px, 1fr);
+    gap: clamp(1.5rem, 5vw, 4.5rem);
+    align-items: center;
+    min-height: 6.35rem;
+    padding-block: 1rem;
+}
+
+.uninet-header__brand,
+.uninet-header__brand .site-branding {
+    min-width: 0;
+    width: 100%;
+    margin: 0;
+    float: none;
+}
+
+.uninet-header__brand .custom-logo-link {
+    display: inline-flex;
+    align-items: center;
+}
+
+.uninet-header__brand .custom-logo {
+    width: auto;
+    max-width: min(100%, 220px);
+    max-height: 4.2rem;
+    object-fit: contain;
+}
+
+.uninet-header__brand .site-title,
+.uninet-header__site-title {
+    margin: 0;
+    color: var(--uninet-blue);
+    font-size: 1.5rem;
+    font-weight: 900;
+    line-height: 1.1;
+    text-decoration: none;
+}
+
+.uninet-header__brand .site-description {
+    display: none;
+}
+
+.uninet-header__search {
+    min-width: 0;
+}
+
+.uninet-product-search {
+    position: relative;
+    display: flex;
+    width: 100%;
+    max-width: 760px;
+    margin: 0 0 0 auto;
+}
+
+.uninet-product-search__field {
+    width: 100%;
+    height: 3rem;
+    padding: 0.7rem 3.25rem 0.7rem 1rem;
+    border: 1px solid #9aa8bb;
+    border-radius: 6px;
+    color: var(--uninet-heading);
+    background: var(--uninet-white);
+    box-shadow: none;
+}
+
+.uninet-product-search__field::placeholder {
+    color: #536176;
+    opacity: 1;
+}
+
+.uninet-product-search__field:focus {
+    border-color: var(--uninet-blue);
+    outline: 3px solid rgba(23, 63, 143, 0.16);
+    background: var(--uninet-white);
+}
+
+.uninet-product-search__submit {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 0 6px 6px 0;
+    color: var(--uninet-white);
+    background: var(--uninet-blue);
+}
+
+.uninet-product-search__submit:hover,
+.uninet-product-search__submit:focus {
+    color: var(--uninet-heading);
+    background: var(--uninet-action);
+}
+
+.uninet-product-search__submit:focus-visible {
+    outline: 3px solid rgba(67, 196, 99, 0.45);
+    outline-offset: 2px;
+}
+
+.uninet-product-search__submit svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+}
+
+.uninet-header__search .dgwt-wcas-search-wrapp {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 0 0 auto;
+}
+
+.uninet-header__search .dgwt-wcas-style-pirx .dgwt-wcas-sf-wrapp {
+    padding: 0;
+    border-radius: 6px;
+    background: transparent;
+}
+
+.uninet-header__search .dgwt-wcas-style-pirx .dgwt-wcas-sf-wrapp input[type="search"].dgwt-wcas-search-input {
+    height: 3rem;
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+    border: 1px solid #9aa8bb;
+    border-radius: 6px;
+    color: var(--uninet-heading);
+    background: var(--uninet-white);
+    font-size: 1rem;
+}
+
+.uninet-header__search .dgwt-wcas-search-input::placeholder {
+    color: #536176;
+    opacity: 1;
+}
+
+.uninet-header__navigation {
+    color: var(--uninet-white);
+    background: var(--uninet-blue);
+}
+
+.uninet-header__navigation-inner,
+.uninet-header__navigation .main-navigation {
+    min-height: 3.15rem;
+}
+
+.uninet-header__navigation .main-navigation {
+    width: 100%;
+    margin: 0;
+    float: none;
+}
+
+.uninet-header__navigation .main-navigation ul.menu,
+.uninet-header__navigation .main-navigation ul.nav-menu {
+    margin: 0;
+}
+
+.uninet-header__navigation .main-navigation ul.menu > li > a,
+.uninet-header__navigation .main-navigation ul.nav-menu > li > a {
+    padding: 0.95rem clamp(0.7rem, 1.4vw, 1rem);
+    color: var(--uninet-white);
+    font-size: 0.9rem;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.uninet-header__navigation .main-navigation ul.menu > li:first-child > a,
+.uninet-header__navigation .main-navigation ul.nav-menu > li:first-child > a {
+    padding-left: 0;
+}
+
+.uninet-header__navigation .main-navigation ul.menu > li:hover > a,
+.uninet-header__navigation .main-navigation ul.menu > li.focus > a,
+.uninet-header__navigation .main-navigation ul.menu > li.current-menu-item > a,
+.uninet-header__navigation .main-navigation ul.menu > li.current-menu-ancestor > a,
+.uninet-header__navigation .main-navigation ul.nav-menu > li:hover > a,
+.uninet-header__navigation .main-navigation ul.nav-menu > li.focus > a,
+.uninet-header__navigation .main-navigation ul.nav-menu > li.current-menu-item > a,
+.uninet-header__navigation .main-navigation ul.nav-menu > li.current-menu-ancestor > a {
+    color: #b9f2c4;
+}
+
+.uninet-header__navigation .main-navigation ul ul {
+    min-width: 15rem;
+    border-radius: 0 0 6px 6px;
+    background: var(--uninet-white);
+    box-shadow: 0 4px 8px rgba(19, 32, 51, 0.16);
+}
+
+.uninet-header__navigation .main-navigation ul ul a {
+    padding: 0.75rem 1rem;
+    color: var(--uninet-heading);
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.uninet-header__navigation .main-navigation ul ul a:hover,
+.uninet-header__navigation .main-navigation ul ul a:focus {
+    color: var(--uninet-blue);
+    background: var(--uninet-bg);
+}
+
+.uninet-header__navigation .main-navigation a:focus-visible {
+    outline: 2px solid var(--uninet-action);
+    outline-offset: -3px;
 }
 
 .site-footer {
@@ -777,6 +1053,103 @@ input[type="submit"]:focus,
         padding-bottom: 4rem;
     }
 
+    .site-content {
+        padding-top: 1.25rem;
+    }
+
+    .page-template-template-uninet-home .site-content {
+        padding-top: 0;
+    }
+
+    .uninet-header__trust-inner {
+        min-height: 2.4rem;
+    }
+
+    .uninet-header__trust-copy {
+        display: none;
+    }
+
+    .uninet-header__trust-list {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 0.7rem;
+        padding-block: 0.45rem;
+        font-size: 0.7rem;
+    }
+
+    .uninet-header__main-inner {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.85rem;
+        min-height: 0;
+        padding-block: 0.85rem 1rem;
+    }
+
+    .uninet-header__brand .custom-logo {
+        max-width: 178px;
+        max-height: 3.6rem;
+    }
+
+    .uninet-product-search,
+    .uninet-header__search .dgwt-wcas-search-wrapp {
+        max-width: none;
+        margin: 0;
+    }
+
+    .uninet-header__navigation-inner,
+    .uninet-header__navigation .main-navigation {
+        min-height: 3rem;
+    }
+
+    .uninet-header__navigation .main-navigation button.menu-toggle {
+        width: 100%;
+        min-height: 3rem;
+        margin: 0;
+        padding: 0.7rem 0;
+        border: 0;
+        color: var(--uninet-white);
+        background: transparent;
+        font-size: 0.9rem;
+        font-weight: 800;
+        text-align: left;
+        float: none;
+    }
+
+    .uninet-header__navigation .main-navigation button.menu-toggle::before,
+    .uninet-header__navigation .main-navigation button.menu-toggle::after,
+    .uninet-header__navigation .main-navigation button.menu-toggle span::before {
+        background-color: var(--uninet-white);
+    }
+
+    .uninet-header__navigation .main-navigation ul.menu,
+    .uninet-header__navigation .main-navigation ul.nav-menu {
+        padding-bottom: 0.7rem;
+    }
+
+    .uninet-header__navigation .main-navigation ul.menu > li > a,
+    .uninet-header__navigation .main-navigation ul.nav-menu > li > a,
+    .uninet-header__navigation .main-navigation ul.menu > li:first-child > a,
+    .uninet-header__navigation .main-navigation ul.nav-menu > li:first-child > a {
+        padding: 0.72rem 0;
+    }
+
+    .uninet-header__navigation .main-navigation ul ul {
+        min-width: 0;
+        border-radius: 0;
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: none;
+    }
+
+    .uninet-header__navigation .main-navigation ul ul a {
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .uninet-header__navigation .main-navigation ul ul a:hover,
+    .uninet-header__navigation .main-navigation ul ul a:focus {
+        color: var(--uninet-white);
+        background: rgba(255, 255, 255, 0.08);
+    }
+
     .uninet-home-hero {
         min-height: clamp(560px, calc(100vh - 3rem), 780px);
         background-position: center right;
@@ -819,6 +1192,12 @@ input[type="submit"]:focus,
     .uninet-home-procurement__inner {
         grid-template-columns: minmax(0, 0.8fr) minmax(380px, 1fr);
         align-items: start;
+    }
+}
+
+@media (min-width: 768px) {
+    .uninet-header__navigation .main-navigation button.menu-toggle {
+        display: none;
     }
 }
 

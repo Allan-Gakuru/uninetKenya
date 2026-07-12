@@ -33,8 +33,24 @@ final class CartCheckoutVisibility
         add_filter('woocommerce_cart_needs_payment', '__return_false');
         add_filter('woocommerce_widget_cart_is_hidden', '__return_true');
         add_filter('storefront_sticky_single_add_to_cart', '__return_false');
+        add_filter('storefront_handheld_footer_bar_links', [$this, 'remove_handheld_cart_link']);
         add_action('wp_enqueue_scripts', [$this, 'hide_storefront_sticky_add_to_cart'], 20);
         add_action('template_redirect', [$this, 'redirect_cart_checkout_pages']);
+    }
+
+    /**
+     * Remove Storefront's independent mobile cart shortcut.
+     *
+     * @param array $links Handheld footer bar links.
+     * @return array
+     */
+    public function remove_handheld_cart_link($links)
+    {
+        if (is_array($links)) {
+            unset($links['cart']);
+        }
+
+        return $links;
     }
 
     /**
