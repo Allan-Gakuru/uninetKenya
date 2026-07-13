@@ -535,6 +535,116 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
 
 .uninet-price-filter {
     display: grid;
+    gap: 0.75rem;
+}
+
+.uninet-price-filter__values {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.uninet-price-filter__values > span {
+    display: grid;
+    gap: 0.12rem;
+}
+
+.uninet-price-filter__values > span:last-child {
+    justify-items: end;
+    text-align: right;
+}
+
+.uninet-price-filter__values small {
+    color: #536176;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.uninet-price-filter__values output {
+    color: var(--uninet-heading, #132033);
+    font-size: 0.86rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 850;
+}
+
+.uninet-price-slider {
+    position: relative;
+    height: 1.9rem;
+}
+
+.uninet-price-slider__track,
+.uninet-price-slider__track > span {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    height: 0.3rem;
+    border-radius: 999px;
+    transform: translateY(-50%);
+}
+
+.uninet-price-slider__track {
+    background: #d8dee8;
+}
+
+.uninet-price-slider__track > span {
+    background: var(--uninet-blue, #173f8f);
+}
+
+.uninet-price-slider input[type="range"] {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1.9rem;
+    margin: 0;
+    padding: 0;
+    appearance: none;
+    background: transparent;
+    pointer-events: none;
+}
+
+.uninet-price-slider input[data-uninet-price-max-range] {
+    z-index: 3;
+}
+
+.uninet-price-slider input[type="range"]::-webkit-slider-thumb {
+    width: 1.15rem;
+    height: 1.15rem;
+    border: 3px solid var(--uninet-blue, #173f8f);
+    border-radius: 50%;
+    appearance: none;
+    background: var(--uninet-white, #ffffff);
+    box-shadow: 0 1px 4px rgba(19, 32, 51, 0.24);
+    cursor: grab;
+    pointer-events: auto;
+}
+
+.uninet-price-slider input[type="range"]::-moz-range-thumb {
+    width: 0.8rem;
+    height: 0.8rem;
+    border: 3px solid var(--uninet-blue, #173f8f);
+    border-radius: 50%;
+    background: var(--uninet-white, #ffffff);
+    box-shadow: 0 1px 4px rgba(19, 32, 51, 0.24);
+    cursor: grab;
+    pointer-events: auto;
+}
+
+.uninet-price-slider input[type="range"]:focus-visible::-webkit-slider-thumb {
+    outline: 3px solid rgba(67, 196, 99, 0.42);
+    outline-offset: 2px;
+}
+
+.uninet-price-slider input[type="range"]:focus-visible::-moz-range-thumb {
+    outline: 3px solid rgba(67, 196, 99, 0.42);
+    outline-offset: 2px;
+}
+
+.uninet-price-filter__inputs {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.65rem;
 }

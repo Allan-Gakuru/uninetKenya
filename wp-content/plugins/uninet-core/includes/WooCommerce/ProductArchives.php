@@ -41,9 +41,8 @@ final class ProductArchives
      */
     public function register()
     {
-        remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
-        remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
         remove_action('woocommerce_no_products_found', 'wc_no_products_found', 10);
+        add_action('wp', [$this, 'remove_default_archive_controls']);
 
         add_filter('woocommerce_product_query_tax_query', [$this, 'apply_archive_filters'], 20);
         add_filter('woocommerce_product_query_meta_query', [$this, 'apply_archive_price_filter'], 20);
@@ -53,10 +52,32 @@ final class ProductArchives
 
         add_action('woocommerce_archive_description', [$this, 'render_category_buying_note'], 20);
         add_action('woocommerce_archive_description', [$this, 'render_category_navigation'], 30);
-        add_action('woocommerce_before_shop_loop', [$this, 'render_archive_layout_open'], 10);
+        add_action('woocommerce_before_shop_loop', [$this, 'render_archive_layout_open'], 8);
         add_action('woocommerce_before_shop_loop', [$this, 'render_archive_controls'], 15);
-        add_action('woocommerce_after_shop_loop', [$this, 'render_archive_layout_close'], 20);
+        add_action('woocommerce_after_shop_loop', [$this, 'render_archive_layout_close'], 35);
         add_action('woocommerce_no_products_found', [$this, 'render_empty_state'], 10);
+    }
+
+    /**
+     * Remove Storefront's duplicate archive controls after the theme registers them.
+     */
+    public function remove_default_archive_controls()
+    {
+        if (! $this->is_supported_archive()) {
+            return;
+        }
+
+        foreach ([10, 30] as $priority) {
+            remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', $priority);
+            remove_action('woocommerce_after_shop_loop', 'woocommerce_catalog_ordering', $priority);
+        }
+
+        remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
+        remove_action('woocommerce_after_shop_loop', 'woocommerce_result_count', 20);
+
+        // Keep pagination below the products, but remove Storefront's duplicate above the grid.
+        remove_action('woocommerce_before_shop_loop', 'storefront_woocommerce_pagination', 30);
+        remove_action('woocommerce_before_shop_loop', 'woocommerce_pagination', 10);
     }
 
     /**
@@ -418,20 +439,54 @@ final class ProductArchives
      */
     private function render_price_filter($bounds)
     {
-        $minimum = $this->requested_price('minimum');
-        $maximum = $this->requested_price('maximum');
+        $minimum       = $this->requested_price('minimum');
+        $maximum       = $this->requested_price('maximum');
+        $range_minimum = (int) floor($bounds['minimum']);
+        $range_maximum = (int) ceil($bounds['maximum']);
+        $range_span    = $range_maximum - $range_minimum;
+        $step          = 1;
+
+        if ($range_span >= 100000) {
+            $step = 1000;
+        } elseif ($range_span >= 10000) {
+            $step = 500;
+        } elseif ($range_span >= 1000) {
+            $step = 100;
+        } elseif ($range_span >= 100) {
+            $step = 10;
+        }
+
+        $minimum_value = null !== $minimum ? max($range_minimum, min($range_maximum, (int) round($minimum))) : $range_minimum;
+        $maximum_value = null !== $maximum ? max($range_minimum, min($range_maximum, (int) round($maximum))) : $range_maximum;
+
+        if ($minimum_value > $maximum_value) {
+            $temporary     = $minimum_value;
+            $minimum_value = $maximum_value;
+            $maximum_value = $temporary;
+        }
 
         echo '<fieldset class="uninet-filter-group uninet-filter-group--price">';
         echo '<legend>' . esc_html__('Price range', 'uninet-core') . '</legend>';
-        echo '<div class="uninet-price-filter">';
+        echo '<div class="uninet-price-filter" data-uninet-price-filter>';
+        echo '<div class="uninet-price-filter__values" aria-live="polite">';
+        echo '<span><small>' . esc_html__('From', 'uninet-core') . '</small><output data-uninet-price-min-output>KSh ' . esc_html(number_format_i18n($minimum_value, 0)) . '</output></span>';
+        echo '<span><small>' . esc_html__('To', 'uninet-core') . '</small><output data-uninet-price-max-output>KSh ' . esc_html(number_format_i18n($maximum_value, 0)) . '</output></span>';
+        echo '</div>';
+        echo '<div class="uninet-price-slider">';
+        echo '<span class="uninet-price-slider__track" aria-hidden="true"><span data-uninet-price-track></span></span>';
+        echo '<input type="range" min="' . esc_attr($range_minimum) . '" max="' . esc_attr($range_maximum) . '" step="' . esc_attr($step) . '" value="' . esc_attr($minimum_value) . '" data-uninet-price-min-range aria-label="' . esc_attr__('Minimum price', 'uninet-core') . '" />';
+        echo '<input type="range" min="' . esc_attr($range_minimum) . '" max="' . esc_attr($range_maximum) . '" step="' . esc_attr($step) . '" value="' . esc_attr($maximum_value) . '" data-uninet-price-max-range aria-label="' . esc_attr__('Maximum price', 'uninet-core') . '" />';
+        echo '</div>';
+        echo '<div class="uninet-price-filter__inputs">';
         echo '<label>';
         echo '<span>' . esc_html__('Minimum (KSh)', 'uninet-core') . '</span>';
-        echo '<input type="number" name="uninet_min_price" min="0" step="100" placeholder="' . esc_attr(wc_format_decimal($bounds['minimum'], 0)) . '" value="' . esc_attr(null !== $minimum ? wc_format_decimal($minimum, 0) : '') . '" />';
+        echo '<input type="number" name="uninet_min_price" min="' . esc_attr($range_minimum) . '" max="' . esc_attr($range_maximum) . '" step="' . esc_attr($step) . '" placeholder="' . esc_attr($range_minimum) . '" value="' . esc_attr(null !== $minimum ? $minimum_value : '') . '" data-uninet-price-min-input />';
         echo '</label>';
         echo '<label>';
         echo '<span>' . esc_html__('Maximum (KSh)', 'uninet-core') . '</span>';
-        echo '<input type="number" name="uninet_max_price" min="0" step="100" placeholder="' . esc_attr(wc_format_decimal($bounds['maximum'], 0)) . '" value="' . esc_attr(null !== $maximum ? wc_format_decimal($maximum, 0) : '') . '" />';
+        echo '<input type="number" name="uninet_max_price" min="' . esc_attr($range_minimum) . '" max="' . esc_attr($range_maximum) . '" step="' . esc_attr($step) . '" placeholder="' . esc_attr($range_maximum) . '" value="' . esc_attr(null !== $maximum ? $maximum_value : '') . '" data-uninet-price-max-input />';
         echo '</label>';
+        echo '</div>';
         echo '</div>';
         echo '<p class="uninet-price-filter__note">' . esc_html__('Displayed prices are pre-tax.', 'uninet-core') . '</p>';
         echo '</fieldset>';
