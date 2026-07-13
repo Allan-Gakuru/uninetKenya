@@ -285,60 +285,48 @@ body.search-results.woocommerce .site-content {
 
 body.archive.woocommerce .woocommerce-breadcrumb,
 body.search-results.woocommerce .woocommerce-breadcrumb {
-    margin-bottom: clamp(0.55rem, 0.9vw, 0.75rem);
+    margin-bottom: 0.3rem;
     color: #5a687c;
     font-size: 0.88rem;
 }
 
 body.archive.woocommerce.storefront-full-width-content .woocommerce-products-header,
 body.search-results.woocommerce.storefront-full-width-content .woocommerce-products-header {
-    margin: 0 0 clamp(1.1rem, 2vw, 1.6rem);
-    padding: 0 0 clamp(1.1rem, 2vw, 1.5rem);
+    display: block;
+    margin: 0 0 clamp(0.9rem, 1.6vw, 1.25rem);
+    padding: 0 0 clamp(1rem, 1.8vw, 1.35rem);
     border-bottom: 1px solid var(--uninet-border, #d8dee8);
     text-align: left;
 }
 
-body.tax-product_cat .woocommerce-products-header {
-    display: grid;
-    grid-template-columns: minmax(13rem, 0.42fr) minmax(0, 0.58fr);
-    align-items: end;
-    gap: 0.75rem clamp(1.5rem, 4vw, 3.5rem);
-}
-
 .woocommerce-products-header__title.page-title {
     max-width: 24ch;
-    margin: 0;
-    color: var(--uninet-blue, #173f8f);
-    font-size: clamp(1.9rem, 3vw, 2.65rem);
+    margin: 0 0 0.22rem;
+    color: var(--uninet-heading, #132033);
+    font-size: clamp(1.8rem, 2.6vw, 2.35rem);
     font-weight: 800;
-    line-height: 1.1;
+    line-height: 1.12;
     text-wrap: balance;
 }
 
 .woocommerce-products-header .term-description {
-    max-width: 62ch;
-    align-self: center;
-    margin: 0 0 0.12rem;
+    max-width: 70ch;
+    margin: 0;
 }
 
 .woocommerce-products-header .term-description p {
     margin: 0;
-    color: #33435b;
-    font-size: clamp(1rem, 1.35vw, 1.12rem);
-    font-weight: 650;
+    color: #536176;
+    font-size: 1rem;
+    font-weight: 500;
     line-height: 1.5;
     text-wrap: pretty;
-}
-
-body.tax-product_cat .uninet-category-buying-note,
-body.tax-product_cat .uninet-archive-category-bar {
-    grid-column: 1 / -1;
 }
 
 .uninet-category-buying-note {
     position: relative;
     max-width: 72ch;
-    margin: 0.8rem 0 0;
+    margin: 0.6rem 0 0;
     padding-left: 1.55rem;
     color: var(--uninet-body, #42526b);
     line-height: 1.55;
@@ -364,7 +352,7 @@ body.tax-product_cat .uninet-archive-category-bar {
 .uninet-archive-category-bar {
     display: grid;
     gap: 0.65rem;
-    margin-top: 0.25rem;
+    margin-top: 0.8rem;
 }
 
 .uninet-archive-category-bar__label {
@@ -1052,7 +1040,7 @@ body.tax-product_cat .uninet-archive-category-bar {
 @media (max-width: 767px) {
     body.archive.woocommerce .woocommerce-breadcrumb,
     body.search-results.woocommerce .woocommerce-breadcrumb {
-        margin-bottom: 0.55rem;
+        margin-bottom: 0.25rem;
     }
 
     body.archive.woocommerce.storefront-full-width-content .woocommerce-products-header,
@@ -1061,13 +1049,9 @@ body.tax-product_cat .uninet-archive-category-bar {
         padding-bottom: 1.1rem;
     }
 
-    body.tax-product_cat .woocommerce-products-header {
-        display: block;
-    }
-
     .woocommerce-products-header__title.page-title {
-        margin-bottom: 0.35rem;
-        font-size: 1.85rem;
+        margin-bottom: 0.2rem;
+        font-size: 1.75rem;
     }
 
     .woocommerce-products-header .term-description {
