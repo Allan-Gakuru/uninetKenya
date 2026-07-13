@@ -63,6 +63,28 @@ function uninet_child_prepare_header()
 add_action('after_setup_theme', 'uninet_child_prepare_header', 20);
 
 /**
+ * Replace Storefront's platform credit with a concise Uninet copyright.
+ */
+function uninet_child_prepare_footer()
+{
+    remove_action('storefront_footer', 'storefront_credit', 20);
+    add_action('storefront_footer', 'uninet_child_render_footer_credit', 20);
+}
+add_action('after_setup_theme', 'uninet_child_prepare_footer', 20);
+
+/**
+ * Render the client-facing footer credit.
+ */
+function uninet_child_render_footer_credit()
+{
+    ?>
+    <div class="site-info">
+        &copy; <?php echo esc_html(wp_date('Y')); ?> <?php esc_html_e('Uninet Technologies. All rights reserved.', 'uninet-child'); ?>
+    </div>
+    <?php
+}
+
+/**
  * Render the Uninet site header.
  */
 function uninet_child_render_header()
@@ -73,6 +95,14 @@ function uninet_child_render_header()
             <div class="col-full uninet-header__trust-inner">
                 <span class="uninet-header__trust-copy"><?php esc_html_e('Business technology for Kenyan organisations', 'uninet-child'); ?></span>
                 <ul class="uninet-header__trust-list" aria-label="<?php esc_attr_e('Buyer assurances', 'uninet-child'); ?>">
+                    <li class="uninet-header__phone">
+                        <a href="tel:+254770313200" aria-label="<?php esc_attr_e('Call Uninet Technologies on 0770 313 200', 'uninet-child'); ?>">
+                            <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.33 1.84.56 2.8.69A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                            <span>0770 313 200</span>
+                        </a>
+                    </li>
                     <li><?php esc_html_e('6-month warranty', 'uninet-child'); ?></li>
                     <li><?php esc_html_e('Same-day Nairobi delivery may be available', 'uninet-child'); ?></li>
                 </ul>
@@ -87,6 +117,7 @@ function uninet_child_render_header()
                 <div class="uninet-header__search">
                     <?php uninet_child_render_product_search(); ?>
                 </div>
+                <?php uninet_child_render_header_actions(); ?>
             </div>
         </div>
 
@@ -98,6 +129,132 @@ function uninet_child_render_header()
     </div>
     <?php
 }
+
+/**
+ * Return the Contact Us page URL, with a stable fallback while the page is created.
+ */
+function uninet_child_get_contact_url()
+{
+    $contact_page = get_page_by_path('contact-us');
+
+    if ($contact_page instanceof WP_Post) {
+        return get_permalink($contact_page);
+    }
+
+    return home_url('/contact-us/');
+}
+
+/**
+ * Return editable social profile URLs for the header.
+ */
+function uninet_child_get_header_social_links()
+{
+    return [
+        'facebook' => [
+            'label' => __('Facebook', 'uninet-child'),
+            'url' => get_theme_mod('uninet_header_facebook_url', 'https://www.facebook.com/UninetKenya/'),
+        ],
+        'instagram' => [
+            'label' => __('Instagram', 'uninet-child'),
+            'url' => get_theme_mod('uninet_header_instagram_url', 'https://www.instagram.com/uninetkenya/'),
+        ],
+        'x' => [
+            'label' => __('X', 'uninet-child'),
+            'url' => get_theme_mod('uninet_header_x_url', 'https://x.com/UninetKenya'),
+        ],
+    ];
+}
+
+/**
+ * Return the inline icon for a supported social network.
+ */
+function uninet_child_get_social_icon($network)
+{
+    $icons = [
+        'facebook' => '<svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.5 1.6-1.5h1.7V5a22 22 0 0 0-2.5-.1c-2.5 0-4.2 1.5-4.2 4.3V11H7.3v3h2.8v8h3.4Z"></path></svg>',
+        'instagram' => '<svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.25"></circle><circle cx="17.4" cy="6.7" r="1"></circle></svg>',
+        'x' => '<svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><path d="M18.9 2H22l-6.8 7.8L23.2 22H17l-4.9-6.4L6.5 22H3.4l7.2-8.3L2.8 2h6.4l4.4 5.8L18.9 2Zm-1.1 17.8h1.7L8.3 4H6.5l11.3 15.8Z"></path></svg>',
+    ];
+
+    return isset($icons[$network]) ? $icons[$network] : '';
+}
+
+/**
+ * Render contact and social actions beside product search.
+ */
+function uninet_child_render_header_actions()
+{
+    $social_links = uninet_child_get_header_social_links();
+    ?>
+    <div class="uninet-header__actions">
+        <a class="uninet-header__contact" href="<?php echo esc_url(uninet_child_get_contact_url()); ?>">
+            <?php esc_html_e('Contact us', 'uninet-child'); ?>
+        </a>
+        <nav class="uninet-header__socials" aria-label="<?php esc_attr_e('Uninet social media', 'uninet-child'); ?>">
+            <?php foreach ($social_links as $network => $social_link) : ?>
+                <?php if (empty($social_link['url'])) : ?>
+                    <?php continue; ?>
+                <?php endif; ?>
+                <a
+                    class="uninet-header__social uninet-header__social--<?php echo esc_attr($network); ?>"
+                    href="<?php echo esc_url($social_link['url']); ?>"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="<?php echo esc_attr($social_link['label']); ?>"
+                    title="<?php echo esc_attr($social_link['label']); ?>"
+                >
+                    <?php echo uninet_child_get_social_icon($network); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                </a>
+            <?php endforeach; ?>
+        </nav>
+    </div>
+    <?php
+}
+
+/**
+ * Add editable header social profile URLs to the Customizer.
+ */
+function uninet_child_customize_header($wp_customize)
+{
+    $wp_customize->add_section('uninet_header', [
+        'title' => __('Uninet Header', 'uninet-child'),
+        'priority' => 35,
+    ]);
+
+    $social_settings = [
+        'facebook' => [
+            'label' => __('Facebook profile URL', 'uninet-child'),
+            'default' => 'https://www.facebook.com/UninetKenya/',
+        ],
+        'instagram' => [
+            'label' => __('Instagram profile URL', 'uninet-child'),
+            'default' => 'https://www.instagram.com/uninetkenya/',
+        ],
+        'x' => [
+            'label' => __('X profile URL', 'uninet-child'),
+            'default' => 'https://x.com/UninetKenya',
+        ],
+    ];
+
+    foreach ($social_settings as $network => $setting) {
+        $setting_id = 'uninet_header_' . $network . '_url';
+
+        $wp_customize->add_setting($setting_id, [
+            'default' => $setting['default'],
+            'sanitize_callback' => 'esc_url_raw',
+        ]);
+
+        $wp_customize->add_control($setting_id, [
+            'type' => 'url',
+            'section' => 'uninet_header',
+            'label' => $setting['label'],
+            'input_attrs' => [
+                'placeholder' => 'https://',
+            ],
+        ]);
+    }
+}
+add_action('customize_register', 'uninet_child_customize_header');
 
 /**
  * Render the configured WordPress logo and site title fallback.
