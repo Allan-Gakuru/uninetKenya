@@ -78,7 +78,7 @@ input[type="submit"]:focus,
     padding-top: 0;
 }
 
-.page-template-template-uninet-home .site-header {
+body.page-template-template-uninet-home .site-header {
     margin-bottom: 0;
     border-bottom: 0;
 }
