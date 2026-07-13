@@ -1558,42 +1558,50 @@ input[type="submit"]:focus,
         line-height: 1;
     }
 
-    .uninet-mega-feature__cta {
+    .site-header .uninet-header__navigation .primary-navigation > ul.menu > li.uninet-mega-item > .uninet-mega-feature .uninet-mega-feature__cta {
         display: inline-flex;
         flex: 0 0 auto;
         min-height: 2.75rem;
         align-items: center;
+        justify-content: center;
+        gap: 0.65rem;
+        max-width: 100%;
         margin-top: auto;
-        padding: 0.7rem 1.05rem;
+        padding: 0.8rem 1.25rem;
         border-radius: 6px;
         color: var(--uninet-heading);
         background: var(--uninet-action);
+        box-shadow: 0 2px 4px rgba(19, 32, 51, 0.18);
         font-size: 0.9rem;
         font-weight: 850;
-        line-height: 1.2;
+        line-height: 1.25;
+        text-align: center;
         text-decoration: none;
         transition-property: color, background-color, transform;
         transition-duration: 150ms;
         transition-timing-function: ease-out;
+        white-space: normal;
     }
 
-    .uninet-mega-feature__cta::after {
+    .site-header .uninet-header__navigation .primary-navigation > ul.menu > li.uninet-mega-item > .uninet-mega-feature .uninet-mega-feature__cta::after {
         content: "\2192";
-        margin-left: 0.7rem;
+        flex: 0 0 auto;
+        margin-left: 0;
         font-size: 1rem;
     }
 
-    .uninet-mega-feature__cta:hover,
-    .uninet-mega-feature__cta:focus {
+    .site-header .uninet-header__navigation .primary-navigation > ul.menu > li.uninet-mega-item > .uninet-mega-feature .uninet-mega-feature__cta:hover,
+    .site-header .uninet-header__navigation .primary-navigation > ul.menu > li.uninet-mega-item > .uninet-mega-feature .uninet-mega-feature__cta:focus {
         color: var(--uninet-white);
         background: var(--uninet-green);
+        transform: translateY(-1px);
     }
 
-    .uninet-mega-feature__cta:active {
-        transform: scale(0.96);
+    .site-header .uninet-header__navigation .primary-navigation > ul.menu > li.uninet-mega-item > .uninet-mega-feature .uninet-mega-feature__cta:active {
+        transform: translateY(0) scale(0.98);
     }
 
-    .uninet-mega-feature__cta:focus-visible {
+    .site-header .uninet-header__navigation .primary-navigation > ul.menu > li.uninet-mega-item > .uninet-mega-feature .uninet-mega-feature__cta:focus-visible {
         outline: 3px solid rgba(23, 63, 143, 0.28);
         outline-offset: 2px;
     }
@@ -1649,7 +1657,7 @@ input[type="submit"]:focus,
     .site-header .uninet-header__navigation .primary-navigation > ul.menu > li.uninet-mega-item > a.uninet-mega-trigger::before,
     .site-header .uninet-header__navigation .primary-navigation > ul.menu > li.uninet-mega-item > ul.sub-menu,
     .site-header .uninet-header__navigation .primary-navigation > ul.menu > li.uninet-mega-item > .uninet-mega-feature,
-    .uninet-mega-feature__cta {
+    .site-header .uninet-header__navigation .primary-navigation > ul.menu > li.uninet-mega-item > .uninet-mega-feature .uninet-mega-feature__cta {
         transition-duration: 0.01ms;
     }
 }
