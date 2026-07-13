@@ -61,6 +61,34 @@ final class Assets
                 ],
             ]
         );
+
+        if ($this->is_product_archive()) {
+            wp_enqueue_script(
+                'uninet-archive-filters',
+                UNINET_CORE_URL . 'assets/js/archive-filters.js',
+                [],
+                $this->asset_version('assets/js/archive-filters.js'),
+                true
+            );
+        }
+    }
+
+    /**
+     * Whether the current request displays a product archive.
+     */
+    private function is_product_archive()
+    {
+        if (is_shop() || is_product_taxonomy()) {
+            return true;
+        }
+
+        if (! is_search()) {
+            return false;
+        }
+
+        $post_type = get_query_var('post_type');
+
+        return 'product' === $post_type || (is_array($post_type) && in_array('product', $post_type, true));
     }
 
     /**
