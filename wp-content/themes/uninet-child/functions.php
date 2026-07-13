@@ -358,47 +358,40 @@ add_filter('nav_menu_link_attributes', function ($atts, $item, $args, $depth) {
 }, 10, 4);
 
 /**
- * Render rich desktop navigation and keep Storefront's handheld menu isolated.
+ * Add rich panels only to Storefront's desktop primary menu.
+ */
+function uninet_child_add_mega_menu_walker($args)
+{
+    if (
+        'primary' === ($args['theme_location'] ?? '')
+        && class_exists('Uninet_Child_Mega_Menu_Walker')
+    ) {
+        $args['walker'] = new Uninet_Child_Mega_Menu_Walker();
+        $args['depth'] = 2;
+    }
+
+    return $args;
+}
+add_filter('wp_nav_menu_args', 'uninet_child_add_mega_menu_walker', 20);
+
+/**
+ * Keep Storefront's accessible handheld navigation behavior intact.
  */
 function uninet_child_render_primary_navigation()
 {
-    $shared_args = [
-        'theme_location' => 'primary',
-        'container' => false,
-        'menu_class' => 'menu nav-menu',
-        'fallback_cb' => false,
-        'depth' => 2,
-    ];
-    ?>
-    <nav id="site-navigation" class="main-navigation" role="navigation" aria-label="<?php esc_attr_e('Primary Navigation', 'uninet-child'); ?>">
-        <button id="site-navigation-menu-toggle" class="menu-toggle" aria-controls="site-navigation" aria-expanded="false">
-            <span><?php esc_html_e('Menu', 'uninet-child'); ?></span>
-        </button>
-        <div class="primary-navigation">
-            <?php
-            wp_nav_menu(
-                array_merge(
-                    $shared_args,
-                    [
-                        'menu_id' => 'uninet-primary-menu',
-                        'walker' => new Uninet_Child_Mega_Menu_Walker(),
-                    ]
-                )
-            );
-            ?>
-        </div>
-        <div class="handheld-navigation">
-            <?php
-            wp_nav_menu(
-                array_merge(
-                    $shared_args,
-                    [
-                        'menu_id' => 'uninet-handheld-menu',
-                    ]
-                )
-            );
-            ?>
-        </div>
-    </nav>
-    <?php
+    if (function_exists('storefront_primary_navigation')) {
+        storefront_primary_navigation();
+        return;
+    }
+
+    wp_nav_menu(
+        [
+            'theme_location' => 'primary',
+            'container' => 'nav',
+            'container_class' => 'main-navigation',
+            'container_aria_label' => __('Primary navigation', 'uninet-child'),
+            'fallback_cb' => false,
+            'depth' => 2,
+        ]
+    );
 }
