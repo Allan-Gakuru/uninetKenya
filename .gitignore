@@ -24,3 +24,7 @@ vendor/
 
 # Build artifacts may be committed intentionally if cPanel cannot build assets.
 # Keep this section under review once the build pipeline is finalized.
+
+# Generated mega-menu sources; production WebP derivatives are committed.
+wp-content/themes/uninet-child/assets/images/mega-menu/*.png
+wp-content/themes/uninet-child/assets/images/mega-menu/*.jpg
