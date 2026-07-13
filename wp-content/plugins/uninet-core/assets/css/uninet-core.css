@@ -1784,6 +1784,11 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     .woocommerce ul.products {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
+
+    .uninet-archive-results ul.products {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 300px));
+        justify-content: start;
+    }
 }
 
 @media (max-width: 520px) {
