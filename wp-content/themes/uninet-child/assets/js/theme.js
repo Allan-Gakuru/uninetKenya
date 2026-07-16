@@ -149,3 +149,122 @@
 
   updateMegaMenuGeometry();
 })();
+
+(function () {
+  "use strict";
+
+  var gallery = document.querySelector(".woocommerce-product-gallery");
+
+  if (!gallery || !window.jQuery) {
+    return;
+  }
+
+  var $gallery = window.jQuery(gallery);
+  var interval = null;
+  var retryCount = 0;
+  var resumeTimer = null;
+  var delay = 5000;
+
+  function getSlider() {
+    return $gallery.data("flexslider");
+  }
+
+  function hasMultipleImages() {
+    return gallery.querySelectorAll(
+      ".woocommerce-product-gallery__image"
+    ).length > 1;
+  }
+
+  function shouldPause() {
+    return (
+      document.hidden ||
+      gallery.matches(":hover") ||
+      gallery.contains(document.activeElement) ||
+      document.body.classList.contains("photoswipe--open") ||
+      document.querySelector(".pswp--open") !== null
+    );
+  }
+
+  function advanceGallery() {
+    var slider = getSlider();
+
+    if (!slider || shouldPause()) {
+      return;
+    }
+
+    $gallery.flexslider("next");
+  }
+
+  function stopCycle() {
+    if (!interval) {
+      return;
+    }
+
+    window.clearInterval(interval);
+    interval = null;
+  }
+
+  function startCycle() {
+    if (interval || !getSlider() || !hasMultipleImages()) {
+      return;
+    }
+
+    interval = window.setInterval(advanceGallery, delay);
+  }
+
+  function restartAfterInteraction() {
+    stopCycle();
+    window.clearTimeout(resumeTimer);
+    resumeTimer = window.setTimeout(startCycle, delay);
+  }
+
+  function initializeCycle() {
+    if (getSlider()) {
+      startCycle();
+      return;
+    }
+
+    if (retryCount >= 20) {
+      return;
+    }
+
+    retryCount += 1;
+    window.setTimeout(initializeCycle, 250);
+  }
+
+  gallery.addEventListener("mouseenter", stopCycle);
+  gallery.addEventListener("mouseleave", startCycle);
+  gallery.addEventListener("focusin", stopCycle);
+  gallery.addEventListener("focusout", function (event) {
+    if (!gallery.contains(event.relatedTarget)) {
+      startCycle();
+    }
+  });
+  gallery.addEventListener("pointerdown", restartAfterInteraction);
+  gallery.addEventListener("keydown", function (event) {
+    if (
+      "Enter" === event.key ||
+      " " === event.key ||
+      "ArrowLeft" === event.key ||
+      "ArrowRight" === event.key
+    ) {
+      restartAfterInteraction();
+    }
+  });
+
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+      stopCycle();
+      return;
+    }
+
+    startCycle();
+  });
+
+  window.jQuery(document).on(
+    "wc-product-gallery-after-init",
+    initializeCycle
+  );
+
+  initializeCycle();
+})();
