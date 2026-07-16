@@ -155,24 +155,23 @@
 
   var gallery = document.querySelector(".woocommerce-product-gallery");
 
-  if (!gallery || !window.jQuery) {
+  if (!gallery) {
     return;
   }
 
-  var $gallery = window.jQuery(gallery);
   var interval = null;
   var retryCount = 0;
   var resumeTimer = null;
-  var delay = 5000;
+  var delay = 2500;
 
-  function getSlider() {
-    return $gallery.data("flexslider");
+  function getThumbnails() {
+    return Array.prototype.slice.call(
+      gallery.querySelectorAll(".flex-control-thumbs img")
+    );
   }
 
   function hasMultipleImages() {
-    return gallery.querySelectorAll(
-      ".woocommerce-product-gallery__image"
-    ).length > 1;
+    return getThumbnails().length > 1;
   }
 
   function shouldPause() {
@@ -186,13 +185,19 @@
   }
 
   function advanceGallery() {
-    var slider = getSlider();
+    var thumbnails = getThumbnails();
+    var activeIndex;
+    var nextIndex;
 
-    if (!slider || shouldPause()) {
+    if (thumbnails.length < 2 || shouldPause()) {
       return;
     }
 
-    $gallery.flexslider("next");
+    activeIndex = thumbnails.findIndex(function (thumbnail) {
+      return thumbnail.classList.contains("flex-active");
+    });
+    nextIndex = activeIndex >= 0 ? (activeIndex + 1) % thumbnails.length : 0;
+    thumbnails[nextIndex].click();
   }
 
   function stopCycle() {
@@ -205,7 +210,7 @@
   }
 
   function startCycle() {
-    if (interval || !getSlider() || !hasMultipleImages()) {
+    if (interval || !hasMultipleImages()) {
       return;
     }
 
@@ -219,7 +224,7 @@
   }
 
   function initializeCycle() {
-    if (getSlider()) {
+    if (hasMultipleImages()) {
       startCycle();
       return;
     }
@@ -260,11 +265,6 @@
 
     startCycle();
   });
-
-  window.jQuery(document).on(
-    "wc-product-gallery-after-init",
-    initializeCycle
-  );
 
   initializeCycle();
 })();
