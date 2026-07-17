@@ -13,7 +13,10 @@ use Uninet\Core\CallToOrder\Form;
 use Uninet\Core\CallToOrder\Metadata;
 use Uninet\Core\CallToOrder\OrderFactory;
 use Uninet\Core\CallToOrder\Validation;
+use Uninet\Core\Contact\Form as ContactForm;
+use Uninet\Core\Contact\InquiryPostType;
 use Uninet\Core\Helpers\Assets;
+use Uninet\Core\Setup\SitePages;
 use Uninet\Core\Tracking\Events;
 use Uninet\Core\WooCommerce\CartCheckoutVisibility;
 use Uninet\Core\WooCommerce\ProductArchives;
@@ -58,6 +61,10 @@ final class Plugin
 
         $events = new Events();
         $events->register();
+
+        (new InquiryPostType())->register();
+        (new ContactForm())->register();
+        (new SitePages())->register();
 
         if (! class_exists('WooCommerce')) {
             add_action('admin_notices', [$this, 'render_woocommerce_notice']);

@@ -431,7 +431,7 @@ get_header();
         </div>
     </section>
 
-    <section class="uninet-home-procurement" aria-labelledby="uninet-procurement-title">
+    <section id="uninet-home-procurement" class="uninet-home-procurement" aria-labelledby="uninet-procurement-title">
         <div class="uninet-container uninet-home-procurement__inner">
             <div class="uninet-home-procurement__copy">
                 <h2 id="uninet-procurement-title"><?php esc_html_e('A buying flow built for business decisions.', 'uninet-child'); ?></h2>
@@ -454,7 +454,7 @@ get_header();
         </div>
     </section>
 
-    <section class="uninet-home-section uninet-home-section--faq" aria-labelledby="uninet-trust-title">
+    <section id="uninet-home-faq" class="uninet-home-section uninet-home-section--faq" aria-labelledby="uninet-trust-title">
         <div class="uninet-container">
             <div class="uninet-home-section__header">
                 <h2 id="uninet-trust-title"><?php esc_html_e('The details business buyers ask about first (Frequently Asked Questions).', 'uninet-child'); ?></h2>

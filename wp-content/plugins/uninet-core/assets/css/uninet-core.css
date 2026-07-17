@@ -47,7 +47,7 @@
     color: var(--uninet-white, #ffffff);
     background: var(--uninet-blue, #173f8f);
     font-size: 0.78rem;
-    font-weight: 800;
+    font-weight: 900;
     line-height: 1;
     text-transform: none;
 }
@@ -80,7 +80,7 @@
 
 .uninet-product-card-specs strong {
     color: var(--uninet-heading, #132033);
-    font-weight: 800;
+    font-weight: 900;
 }
 
 .uninet-product-card-specs__separator {
@@ -92,7 +92,7 @@
     margin: 0.2rem 0 0.75rem;
     color: var(--uninet-body, #42526b);
     font-size: 0.88rem;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .uninet-product-card-availability::before {
@@ -126,7 +126,7 @@
     background: var(--uninet-bg, #f5f8fb);
     font-size: 0.78rem;
     font-style: italic;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.35;
 }
 
@@ -144,7 +144,7 @@
     margin: 0 0 0.35rem;
     color: var(--uninet-heading, #132033);
     font-size: 1.05rem;
-    font-weight: 800;
+    font-weight: 900;
     line-height: 1.25;
 }
 
@@ -224,7 +224,7 @@
 .uninet-sticky-order__label {
     color: var(--uninet-heading, #132033);
     font-size: 0.84rem;
-    font-weight: 800;
+    font-weight: 900;
     line-height: 1.2;
 }
 
@@ -232,7 +232,7 @@
     overflow: hidden;
     color: var(--uninet-heading, #132033);
     font-size: 0.96rem;
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1.25;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -266,7 +266,7 @@
     margin-bottom: 0.35rem;
     color: var(--uninet-blue, #173f8f);
     font-size: clamp(1.2rem, 2vw, 1.5rem);
-    font-weight: 800;
+    font-weight: 900;
 }
 
 .woocommerce div.product div.images img {
@@ -281,6 +281,271 @@
 body.archive.woocommerce .site-content,
 body.search-results.woocommerce .site-content {
     padding-top: clamp(1rem, 2.2vw, 1.75rem);
+}
+
+/* Contact enquiry experience. */
+.uninet-contact {
+    display: grid;
+    grid-template-columns: minmax(240px, 0.72fr) minmax(0, 1.28fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+    padding-bottom: clamp(3rem, 7vw, 6rem);
+}
+
+.uninet-contact__lead {
+    max-width: 46ch;
+    margin: 0;
+    color: var(--uninet-heading);
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    font-weight: 700;
+    line-height: 1.7;
+    text-wrap: pretty;
+}
+
+.uninet-contact__direct {
+    margin-top: 2rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--uninet-border);
+}
+
+.uninet-contact__direct > div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4rem 0.8rem;
+}
+
+.uninet-contact__direct strong {
+    color: var(--uninet-heading);
+    font-size: 0.86rem;
+    font-weight: 800;
+}
+
+.uninet-contact__direct a {
+    color: var(--uninet-blue);
+    font-size: 1.1rem;
+    font-weight: 900;
+    text-decoration: none;
+}
+
+.uninet-contact__direct p {
+    max-width: 42ch;
+    margin: 0.8rem 0 0;
+    color: #4a5a70;
+    font-size: 0.78rem;
+    line-height: 1.65;
+}
+
+.uninet-contact__form-wrap,
+.uninet-contact-success {
+    padding: clamp(1.25rem, 3.5vw, 2.5rem);
+    border: 1px solid var(--uninet-border);
+    border-radius: 8px;
+    background: var(--uninet-white);
+}
+
+.uninet-contact__form-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--uninet-border);
+}
+
+.uninet-contact__form-heading h2,
+.uninet-contact-success h2 {
+    margin: 0;
+    color: var(--uninet-heading);
+    font-size: clamp(1.35rem, 3vw, 1.85rem);
+    font-weight: 900;
+    line-height: 1.2;
+}
+
+.uninet-contact__form-heading p {
+    margin: 0;
+    color: #4a5a70;
+    font-size: 0.74rem;
+    white-space: nowrap;
+}
+
+.uninet-contact-errors {
+    margin-bottom: 1.4rem;
+    padding: 1rem;
+    border: 1px solid #b73a3a;
+    border-radius: 6px;
+    color: #6f1d1d;
+    background: #fff5f5;
+    font-size: 0.84rem;
+}
+
+.uninet-contact-errors strong {
+    font-weight: 900;
+}
+
+.uninet-contact-errors ul {
+    margin: 0.5rem 0 0 1.1rem;
+}
+
+.uninet-contact-form__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.uninet-contact-field {
+    margin-bottom: 1rem;
+}
+
+.uninet-contact-field label {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: var(--uninet-heading);
+    font-size: 0.8rem;
+    font-weight: 800;
+    line-height: 1.45;
+}
+
+.uninet-contact-field label span {
+    color: #b42318;
+}
+
+.uninet-contact-field input,
+.uninet-contact-field textarea {
+    width: 100%;
+    margin: 0;
+    border: 1px solid #8493a8;
+    border-radius: 5px;
+    color: var(--uninet-heading);
+    background: var(--uninet-white);
+    box-shadow: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.55;
+}
+
+.uninet-contact-field input {
+    min-height: 3.1rem;
+    padding: 0.72rem 0.85rem;
+}
+
+.uninet-contact-field textarea {
+    min-height: 7.25rem;
+    padding: 0.8rem 0.85rem;
+    resize: vertical;
+}
+
+.uninet-contact-field input::placeholder,
+.uninet-contact-field textarea::placeholder {
+    color: #536176;
+    opacity: 1;
+}
+
+.uninet-contact-field input:focus,
+.uninet-contact-field textarea:focus {
+    border-color: var(--uninet-blue);
+    outline: 3px solid rgba(23, 63, 143, 0.16);
+    background: var(--uninet-white);
+}
+
+.uninet-contact-form__consent p {
+    max-width: 70ch;
+    margin: 0.35rem 0 1.2rem;
+    color: #4a5a70;
+    font-size: 0.72rem;
+    line-height: 1.6;
+}
+
+.uninet-contact-form__submit,
+.uninet-contact-success__button {
+    min-height: 3rem;
+    padding: 0.78rem 1.35rem;
+    border: 0;
+    border-radius: 5px;
+    color: var(--uninet-heading) !important;
+    background: var(--uninet-action) !important;
+    font-size: 0.88rem;
+    font-weight: 900;
+}
+
+.uninet-contact-form__submit:hover,
+.uninet-contact-form__submit:focus,
+.uninet-contact-success__button:hover,
+.uninet-contact-success__button:focus {
+    color: var(--uninet-white) !important;
+    background: var(--uninet-green) !important;
+}
+
+.uninet-contact-form__submit:focus-visible,
+.uninet-contact-success__button:focus-visible {
+    outline: 3px solid rgba(23, 63, 143, 0.28);
+    outline-offset: 3px;
+}
+
+.uninet-contact-form__honeypot {
+    position: absolute !important;
+    left: -10000px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+}
+
+.uninet-contact-success {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 1rem;
+    border-color: #9ccfab;
+    background: #f2fbf5;
+}
+
+.uninet-contact-success__icon {
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--uninet-white);
+    background: var(--uninet-green);
+    font-weight: 900;
+}
+
+.uninet-contact-success p {
+    max-width: 58ch;
+    margin: 0.75rem 0 1.25rem;
+    color: #35455d;
+    line-height: 1.7;
+}
+
+@media (max-width: 820px) {
+    .uninet-contact {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .uninet-contact__lead,
+    .uninet-contact__direct p {
+        max-width: 68ch;
+    }
+}
+
+@media (max-width: 560px) {
+    .uninet-contact-form__grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+    }
+
+    .uninet-contact__form-heading {
+        display: block;
+    }
+
+    .uninet-contact__form-heading p {
+        margin-top: 0.4rem;
+        white-space: normal;
+    }
+
+    .uninet-contact-success {
+        grid-template-columns: minmax(0, 1fr);
+    }
 }
 
 @media (min-width: 1024px) {
@@ -324,7 +589,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     margin: 0 0 0.22rem;
     color: var(--uninet-heading, #132033);
     font-size: clamp(1.8rem, 2.6vw, 2.35rem);
-    font-weight: 800;
+    font-weight: 900;
     line-height: 1.12;
     text-wrap: balance;
 }
@@ -338,7 +603,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     margin: 0;
     color: #536176;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.5;
     text-wrap: pretty;
 }
@@ -379,7 +644,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     margin: 0;
     color: var(--uninet-heading, #132033);
     font-size: 0.92rem;
-    font-weight: 800;
+    font-weight: 900;
 }
 
 .uninet-category-nav {
@@ -399,7 +664,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     color: var(--uninet-heading, #132033);
     background: var(--uninet-white, #ffffff);
     font-size: 0.9rem;
-    font-weight: 750;
+    font-weight: 800;
     line-height: 1.25;
     text-align: center;
     text-decoration: none;
@@ -446,7 +711,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     margin: 0;
     color: var(--uninet-heading, #132033);
     font-size: 1rem;
-    font-weight: 850;
+    font-weight: 900;
     line-height: 1.3;
 }
 
@@ -505,7 +770,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     padding: 0;
     color: var(--uninet-heading, #132033);
     font-size: 0.9rem;
-    font-weight: 850;
+    font-weight: 900;
     line-height: 1.35;
 }
 
@@ -550,7 +815,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     background: var(--uninet-bg, #f5f8fb);
     font-size: 0.76rem;
     font-variant-numeric: tabular-nums;
-    font-weight: 750;
+    font-weight: 800;
     line-height: 1.35;
     text-align: center;
 }
@@ -580,14 +845,14 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
 .uninet-price-filter__values small {
     color: #536176;
     font-size: 0.72rem;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .uninet-price-filter__values output {
     color: var(--uninet-heading, #132033);
     font-size: 0.86rem;
     font-variant-numeric: tabular-nums;
-    font-weight: 850;
+    font-weight: 900;
 }
 
 .uninet-price-slider {
@@ -678,7 +943,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     margin: 0;
     color: #536176;
     font-size: 0.76rem;
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1.3;
 }
 
@@ -727,7 +992,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     flex: 0 0 auto;
     color: var(--uninet-blue, #173f8f);
     font-size: 0.86rem;
-    font-weight: 800;
+    font-weight: 900;
 }
 
 .uninet-filter-backdrop {
@@ -769,7 +1034,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     color: var(--uninet-white, #ffffff);
     background: var(--uninet-blue, #173f8f);
     font-size: 0.88rem;
-    font-weight: 800;
+    font-weight: 900;
     line-height: 1.2;
 }
 
@@ -807,7 +1072,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     margin: 0;
     color: var(--uninet-body, #42526b);
     font-size: 0.9rem;
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1.4;
 }
 
@@ -815,7 +1080,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     flex: 0 0 auto;
     color: #536176;
     font-size: 0.84rem;
-    font-weight: 750;
+    font-weight: 800;
 }
 
 .uninet-archive-sort .woocommerce-ordering {
@@ -832,7 +1097,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     color: var(--uninet-heading, #132033);
     background-color: var(--uninet-white, #ffffff);
     font-size: 0.88rem;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .uninet-archive-sort .woocommerce-ordering select:focus {
@@ -852,7 +1117,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     margin-right: 0.1rem;
     color: #536176;
     font-size: 0.82rem;
-    font-weight: 750;
+    font-weight: 800;
 }
 
 .uninet-active-filter {
@@ -866,7 +1131,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     color: var(--uninet-heading, #132033);
     background: var(--uninet-bg, #f5f8fb);
     font-size: 0.78rem;
-    font-weight: 750;
+    font-weight: 800;
     line-height: 1.25;
     text-decoration: none;
 }
@@ -883,7 +1148,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     padding: 0.32rem 0.25rem;
     color: var(--uninet-blue, #173f8f);
     font-size: 0.8rem;
-    font-weight: 800;
+    font-weight: 900;
 }
 
 .uninet-archive-results ul.products {
@@ -954,7 +1219,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     border-radius: 4px;
     color: var(--uninet-heading, #132033);
     background: var(--uninet-white, #ffffff);
-    font-weight: 800;
+    font-weight: 900;
     line-height: 1;
 }
 
@@ -1030,7 +1295,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     padding: 0.32rem 0;
     color: var(--uninet-blue, #173f8f);
     font-size: 0.88rem;
-    font-weight: 800;
+    font-weight: 900;
 }
 
 .uninet-archive-empty__categories a:hover,
@@ -1263,7 +1528,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
 
 .uninet-product-specs dt {
     color: var(--uninet-heading, #132033);
-    font-weight: 800;
+    font-weight: 900;
 }
 
 .uninet-product-specs dd {
@@ -1344,7 +1609,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     color: var(--uninet-white, #ffffff);
     background: var(--uninet-blue, #173f8f);
     font-size: 0.85rem;
-    font-weight: 800;
+    font-weight: 900;
     line-height: 1;
 }
 
@@ -1397,7 +1662,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     padding: 0.45rem 0.8rem;
     color: var(--uninet-heading, #132033);
     font-size: 0.92rem;
-    font-weight: 800;
+    font-weight: 900;
 }
 
 .single-product .woocommerce-tabs ul.tabs li.active {
@@ -1506,7 +1771,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
 .uninet-call-form__product span {
     color: var(--uninet-body, #42526b);
     font-size: 0.78rem;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .uninet-call-form__product strong {
@@ -1558,7 +1823,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     padding: 0;
     color: var(--uninet-heading, #132033);
     font-size: 0.98rem;
-    font-weight: 800;
+    font-weight: 900;
     line-height: 1.25;
 }
 
@@ -1570,7 +1835,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     background: var(--uninet-bg, #f5f8fb);
     font-size: 0.74rem;
     font-style: normal;
-    font-weight: 800;
+    font-weight: 900;
 }
 
 .uninet-call-form__field label {
@@ -1579,7 +1844,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     justify-content: space-between;
     gap: 0.75rem;
     color: var(--uninet-heading, #132033);
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1.25;
 }
 
@@ -1630,7 +1895,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     flex: 0 0 auto;
     color: var(--uninet-blue, #173f8f);
     font-size: 0.78rem;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .uninet-call-form__optional {
@@ -1638,7 +1903,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     flex: 0 0 auto;
     color: var(--uninet-body, #42526b);
     font-size: 0.78rem;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .uninet-call-form__help {
@@ -1661,7 +1926,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
     align-items: flex-start;
     margin: 0;
     color: var(--uninet-heading, #132033);
-    font-weight: 800;
+    font-weight: 900;
     line-height: 1.3;
 }
 
@@ -1710,7 +1975,7 @@ body.search-results.woocommerce.storefront-full-width-content .woocommerce-produ
 
 .uninet-call-success__order {
     color: var(--uninet-heading, #132033);
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .uninet-call-success__phone {

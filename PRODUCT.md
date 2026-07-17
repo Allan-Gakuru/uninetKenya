@@ -44,3 +44,11 @@ SEO, product structure, and business metadata are foundational, not later cleanu
 ## Accessibility & Inclusion
 
 Aim for WCAG 2.2 AA fundamentals: strong contrast, readable type, keyboard-friendly controls, visible focus states, clear form labels and errors, reduced-motion support, and mobile layouts that do not hide required information. Forms should be understandable for Kenyan business buyers, including county, town, delivery or pickup location, business name, conditional email requirement, and optional KRA PIN fields.
+
+## Phase 4 Sitewide Experience
+
+- Poppins is the default typeface. Normal copy begins at weight 500, with interface and heading weights moved up one supported Poppins weight step.
+- The footer provides product-category navigation, buying help, warranty, delivery, invoicing, contact, WhatsApp, privacy, and social links.
+- Contact-page submissions are stored privately as Contact Messages in the WordPress dashboard.
+- The contact form asks for the buyer's biggest challenge, what they have already tried, and why now is the right time to address it.
+- After a successful dashboard submission, the customer can review and send a prefilled WhatsApp message to +254770313200.

@@ -13,6 +13,13 @@ define('UNINET_CHILD_URL', get_stylesheet_directory_uri());
 
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style(
+        'uninet-poppins',
+        'https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap',
+        [],
+        null
+    );
+
+    wp_enqueue_style(
         'storefront-style',
         get_template_directory_uri() . '/style.css',
         [],
@@ -22,7 +29,7 @@ add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style(
         'uninet-child-style',
         get_stylesheet_uri(),
-        ['storefront-style'],
+        ['storefront-style', 'uninet-poppins'],
         UNINET_CHILD_VERSION
     );
 
@@ -67,10 +74,36 @@ add_action('after_setup_theme', 'uninet_child_prepare_header', 20);
  */
 function uninet_child_prepare_footer()
 {
+    remove_action('storefront_footer', 'storefront_footer_widgets', 10);
     remove_action('storefront_footer', 'storefront_credit', 20);
-    add_action('storefront_footer', 'uninet_child_render_footer_credit', 20);
+    add_action('storefront_footer', 'uninet_child_render_footer', 10);
 }
 add_action('after_setup_theme', 'uninet_child_prepare_footer', 20);
+
+/**
+ * Give the managed information pages a focused full-width layout.
+ */
+function uninet_child_prepare_information_pages()
+{
+    if (! is_page(['contact-us', 'privacy-policy'])) {
+        return;
+    }
+
+    remove_action('storefront_sidebar', 'storefront_get_sidebar', 10);
+}
+add_action('wp', 'uninet_child_prepare_information_pages');
+
+add_filter('body_class', function ($classes) {
+    if (is_page('contact-us')) {
+        $classes[] = 'uninet-contact-page';
+    }
+
+    if (is_page('privacy-policy')) {
+        $classes[] = 'uninet-policy-page';
+    }
+
+    return $classes;
+});
 
 /**
  * Render the client-facing footer credit.
@@ -80,6 +113,119 @@ function uninet_child_render_footer_credit()
     ?>
     <div class="site-info">
         &copy; <?php echo esc_html(wp_date('Y')); ?> <?php esc_html_e('Uninet Technologies. All rights reserved.', 'uninet-child'); ?>
+    </div>
+    <?php
+}
+
+/**
+ * Return a product category URL with a stable shop fallback.
+ */
+function uninet_child_get_product_category_url($slug)
+{
+    $term = get_term_by('slug', $slug, 'product_cat');
+
+    if ($term instanceof WP_Term) {
+        $url = get_term_link($term);
+
+        if (! is_wp_error($url)) {
+            return $url;
+        }
+    }
+
+    return function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : home_url('/shop/');
+}
+
+/**
+ * Render the complete site footer.
+ */
+function uninet_child_render_footer()
+{
+    $shop_links = [
+        __('Laptops', 'uninet-child') => uninet_child_get_product_category_url('laptops'),
+        __('Desktops', 'uninet-child') => uninet_child_get_product_category_url('desktops'),
+        __('Monitors', 'uninet-child') => uninet_child_get_product_category_url('monitors'),
+        __('Printers & Office', 'uninet-child') => uninet_child_get_product_category_url('printers'),
+        __('CCTV & Security', 'uninet-child') => uninet_child_get_product_category_url('security-products'),
+        __('Accessories & Cables', 'uninet-child') => uninet_child_get_product_category_url('accessories-and-cables'),
+    ];
+    $privacy_url = get_privacy_policy_url();
+
+    if (! $privacy_url) {
+        $privacy_url = home_url('/privacy-policy/');
+    }
+    ?>
+    <div class="uninet-footer">
+        <section class="uninet-footer__assurances" aria-label="<?php esc_attr_e('Buyer assurances', 'uninet-child'); ?>">
+            <div class="uninet-footer__inner uninet-footer__assurance-list">
+                <div>
+                    <strong><?php esc_html_e('Six-month warranty', 'uninet-child'); ?></strong>
+                    <span><?php esc_html_e('Component failure cover; physical and water damage excluded.', 'uninet-child'); ?></span>
+                </div>
+                <div>
+                    <strong><?php esc_html_e('Business-ready invoicing', 'uninet-child'); ?></strong>
+                    <span><?php esc_html_e('Tax and final invoice totals are confirmed before payment.', 'uninet-child'); ?></span>
+                </div>
+                <div>
+                    <strong><?php esc_html_e('Delivery across Kenya', 'uninet-child'); ?></strong>
+                    <span><?php esc_html_e('Timing, courier service, and transport charges are confirmed with you.', 'uninet-child'); ?></span>
+                </div>
+            </div>
+        </section>
+
+        <div class="uninet-footer__main">
+            <div class="uninet-footer__inner uninet-footer__grid">
+                <section class="uninet-footer__brand" aria-labelledby="uninet-footer-brand">
+                    <a id="uninet-footer-brand" class="uninet-footer__wordmark" href="<?php echo esc_url(home_url('/')); ?>">
+                        <?php esc_html_e('Uninet Technologies', 'uninet-child'); ?>
+                    </a>
+                    <p><?php esc_html_e('Business technology procurement, practical product guidance, and staff-confirmed ordering for organisations across Kenya.', 'uninet-child'); ?></p>
+                    <a class="uninet-footer__phone" href="tel:+254770313200">0770 313 200</a>
+                    <span class="uninet-footer__availability"><?php esc_html_e('Sales and order confirmation', 'uninet-child'); ?></span>
+                </section>
+
+                <nav class="uninet-footer__nav" aria-labelledby="uninet-footer-shop">
+                    <h2 id="uninet-footer-shop"><?php esc_html_e('Shop technology', 'uninet-child'); ?></h2>
+                    <ul>
+                        <?php foreach ($shop_links as $label => $url) : ?>
+                            <li><a href="<?php echo esc_url($url); ?>"><?php echo esc_html($label); ?></a></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </nav>
+
+                <nav class="uninet-footer__nav" aria-labelledby="uninet-footer-help">
+                    <h2 id="uninet-footer-help"><?php esc_html_e('Buying help', 'uninet-child'); ?></h2>
+                    <ul>
+                        <li><a href="<?php echo esc_url(uninet_child_get_contact_url()); ?>"><?php esc_html_e('Contact us', 'uninet-child'); ?></a></li>
+                        <li><a href="<?php echo esc_url(home_url('/#uninet-home-procurement')); ?>"><?php esc_html_e('How ordering works', 'uninet-child'); ?></a></li>
+                        <li><a href="<?php echo esc_url(home_url('/#uninet-home-faq')); ?>"><?php esc_html_e('Frequently asked questions', 'uninet-child'); ?></a></li>
+                        <li><a href="<?php echo esc_url($privacy_url); ?>"><?php esc_html_e('Privacy policy', 'uninet-child'); ?></a></li>
+                    </ul>
+                </nav>
+
+                <section class="uninet-footer__connect" aria-labelledby="uninet-footer-connect">
+                    <h2 id="uninet-footer-connect"><?php esc_html_e('Talk to our team', 'uninet-child'); ?></h2>
+                    <p><?php esc_html_e('Share the requirement and our team will confirm fit, availability, tax, delivery, and invoicing before payment.', 'uninet-child'); ?></p>
+                    <a class="uninet-footer__whatsapp" href="https://wa.me/254770313200" target="_blank" rel="noopener noreferrer">
+                        <?php esc_html_e('Message us on WhatsApp', 'uninet-child'); ?>
+                    </a>
+                    <nav class="uninet-footer__socials" aria-label="<?php esc_attr_e('Uninet social media', 'uninet-child'); ?>">
+                        <?php foreach (uninet_child_get_header_social_links() as $network => $social_link) : ?>
+                            <?php if (empty($social_link['url'])) : continue; endif; ?>
+                            <a href="<?php echo esc_url($social_link['url']); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr($social_link['label']); ?>" title="<?php echo esc_attr($social_link['label']); ?>">
+                                <?php echo uninet_child_get_social_icon($network); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                            </a>
+                        <?php endforeach; ?>
+                    </nav>
+                </section>
+            </div>
+        </div>
+
+        <div class="uninet-footer__bottom">
+            <div class="uninet-footer__inner uninet-footer__bottom-inner">
+                <?php uninet_child_render_footer_credit(); ?>
+                <p><?php esc_html_e('Prices displayed on product pages are pre-tax unless stated otherwise.', 'uninet-child'); ?></p>
+            </div>
+        </div>
     </div>
     <?php
 }

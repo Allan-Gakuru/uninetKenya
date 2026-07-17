@@ -5,6 +5,26 @@
 body {
     color: var(--uninet-body);
     background: var(--uninet-white);
+    font-family: var(--uninet-font);
+    font-weight: 500;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: var(--uninet-font);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong,
+b {
+    font-weight: 800;
 }
 
 h1,
@@ -36,7 +56,7 @@ input[type="submit"],
 .woocommerce a.button,
 .woocommerce button.button {
     border-radius: 6px;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .button,
@@ -106,7 +126,7 @@ body.home.page.page-template-template-uninet-home .site-header {
 }
 
 .uninet-header__trust-copy {
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .uninet-header__trust-list {
@@ -147,7 +167,7 @@ body.home.page.page-template-template-uninet-home .site-header {
     align-items: center;
     gap: 0.38rem;
     color: var(--uninet-white);
-    font-weight: 800;
+    font-weight: 900;
     text-decoration: none;
 }
 
@@ -263,7 +283,7 @@ body.home.page.page-template-template-uninet-home .site-header {
     color: var(--uninet-white);
     background: var(--uninet-blue);
     font-size: 0.88rem;
-    font-weight: 800;
+    font-weight: 900;
     line-height: 1.2;
     text-decoration: none;
     white-space: nowrap;
@@ -459,7 +479,7 @@ body.home.page.page-template-template-uninet-home .site-header {
     padding: 0.95rem clamp(0.7rem, 1.4vw, 1rem);
     color: var(--uninet-white);
     font-size: 0.9rem;
-    font-weight: 800;
+    font-weight: 900;
     line-height: 1.2;
 }
 
@@ -490,7 +510,7 @@ body.home.page.page-template-template-uninet-home .site-header {
     padding: 0.75rem 1rem;
     color: var(--uninet-heading);
     font-size: 0.88rem;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .uninet-header__navigation .main-navigation ul ul a:hover,
@@ -531,12 +551,12 @@ body.home.page.page-template-template-uninet-home .site-header {
 
 .woocommerce ul.products li.product .woocommerce-loop-product__title {
     color: var(--uninet-heading);
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .woocommerce ul.products li.product .price {
     color: var(--uninet-blue);
-    font-weight: 800;
+    font-weight: 900;
 }
 
 .uninet-soft-section {
@@ -604,7 +624,7 @@ body.home.page.page-template-template-uninet-home .site-header {
     margin-bottom: 0.65rem;
     color: #9ee4ac;
     font-size: 0.98rem;
-    font-weight: 800;
+    font-weight: 900;
 }
 
 .uninet-home-hero h1 {
@@ -641,7 +661,7 @@ body.home.page.page-template-template-uninet-home .site-header {
     border: 1px solid rgba(255, 255, 255, 0.42);
     border-radius: 6px;
     color: var(--uninet-white);
-    font-weight: 800;
+    font-weight: 900;
     text-decoration: none;
 }
 
@@ -865,7 +885,7 @@ body.home.page.page-template-template-uninet-home .site-header {
     color: var(--uninet-body);
     background: var(--uninet-bg);
     font-size: 0.86rem;
-    font-weight: 800;
+    font-weight: 900;
     line-height: 1.2;
     text-decoration: none;
 }
@@ -1284,7 +1304,7 @@ body.home.page.page-template-template-uninet-home .site-header {
         color: var(--uninet-white);
         background: transparent;
         font-size: 0.9rem;
-        font-weight: 800;
+        font-weight: 900;
         text-align: left;
         float: none;
     }
@@ -1589,7 +1609,7 @@ body.home.page.page-template-template-uninet-home .site-header {
         color: var(--uninet-heading);
         background: transparent;
         font-size: 0.93rem;
-        font-weight: 750;
+        font-weight: 800;
         line-height: 1.35;
         transition-property: color, background-color;
         transition-duration: 150ms;
@@ -1673,7 +1693,7 @@ body.home.page.page-template-template-uninet-home .site-header {
         padding-left: 1.55rem;
         color: var(--uninet-heading);
         font-size: 0.88rem;
-        font-weight: 650;
+        font-weight: 700;
         line-height: 1.35;
     }
 
@@ -1709,7 +1729,7 @@ body.home.page.page-template-template-uninet-home .site-header {
         background: var(--uninet-action);
         box-shadow: 0 2px 4px rgba(19, 32, 51, 0.18);
         font-size: 0.9rem;
-        font-weight: 850;
+        font-weight: 900;
         line-height: 1.25;
         text-align: center;
         text-decoration: none;
@@ -1795,5 +1815,319 @@ body.home.page.page-template-template-uninet-home .site-header {
     .site-header .uninet-header__navigation .primary-navigation > ul.menu > li.uninet-mega-item > .uninet-mega-feature,
     .site-header .uninet-header__navigation .primary-navigation > ul.menu > li.uninet-mega-item > .uninet-mega-feature .uninet-mega-feature__cta {
         transition-duration: 0.01ms;
+    }
+}
+
+/* Phase 4: sitewide footer and information pages. */
+.site-footer {
+    padding: 0;
+    color: rgba(255, 255, 255, 0.88);
+    background: var(--uninet-heading);
+}
+
+.site-footer > .col-full {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+}
+
+.uninet-footer__inner {
+    width: min(1180px, calc(100% - 2rem));
+    margin-inline: auto;
+}
+
+.uninet-footer__assurances {
+    color: var(--uninet-heading);
+    background: #eef5ff;
+    border-top: 1px solid #cfdced;
+}
+
+.uninet-footer__assurance-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.uninet-footer__assurance-list > div {
+    padding: 1.35rem clamp(1rem, 2.5vw, 2rem);
+    border-right: 1px solid #cfdced;
+}
+
+.uninet-footer__assurance-list > div:first-child {
+    padding-left: 0;
+}
+
+.uninet-footer__assurance-list > div:last-child {
+    padding-right: 0;
+    border-right: 0;
+}
+
+.uninet-footer__assurance-list strong,
+.uninet-footer__assurance-list span {
+    display: block;
+}
+
+.uninet-footer__assurance-list strong {
+    margin-bottom: 0.25rem;
+    color: var(--uninet-blue);
+    font-size: 0.92rem;
+    font-weight: 800;
+}
+
+.uninet-footer__assurance-list span {
+    color: #35455d;
+    font-size: 0.78rem;
+    line-height: 1.55;
+}
+
+.uninet-footer__main {
+    padding-block: clamp(3rem, 6vw, 5.25rem);
+    background: var(--uninet-heading);
+}
+
+.uninet-footer__grid {
+    display: grid;
+    grid-template-columns: minmax(250px, 1.35fr) minmax(150px, 0.7fr) minmax(170px, 0.8fr) minmax(230px, 1fr);
+    gap: clamp(2rem, 4vw, 4.25rem);
+    align-items: start;
+}
+
+.uninet-footer h2 {
+    margin: 0 0 1rem;
+    color: var(--uninet-white);
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1.35;
+}
+
+.uninet-footer a {
+    color: rgba(255, 255, 255, 0.88);
+    text-decoration: none;
+}
+
+.uninet-footer a:hover,
+.uninet-footer a:focus {
+    color: var(--uninet-action);
+}
+
+.uninet-footer a:focus-visible {
+    border-radius: 3px;
+    outline: 2px solid var(--uninet-action);
+    outline-offset: 3px;
+}
+
+.uninet-footer__wordmark {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: var(--uninet-white) !important;
+    font-size: clamp(1.45rem, 2.6vw, 2rem);
+    font-weight: 900;
+    line-height: 1.15;
+}
+
+.uninet-footer__wordmark::after {
+    content: "";
+    display: block;
+    width: 3.5rem;
+    height: 3px;
+    margin-top: 0.65rem;
+    background: var(--uninet-action);
+}
+
+.uninet-footer__brand > p,
+.uninet-footer__connect > p {
+    max-width: 40ch;
+    margin: 0 0 1.1rem;
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 0.84rem;
+    line-height: 1.7;
+}
+
+.uninet-footer__phone {
+    display: block;
+    width: fit-content;
+    color: var(--uninet-white) !important;
+    font-size: 1.12rem;
+    font-weight: 900;
+}
+
+.uninet-footer__availability {
+    display: block;
+    margin-top: 0.25rem;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.74rem;
+}
+
+.uninet-footer__nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.uninet-footer__nav li {
+    margin: 0 0 0.62rem;
+    padding: 0;
+}
+
+.uninet-footer__nav a {
+    font-size: 0.82rem;
+    line-height: 1.45;
+}
+
+.uninet-footer__whatsapp {
+    display: inline-flex;
+    min-height: 2.8rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.72rem 1rem;
+    border-radius: 5px;
+    color: var(--uninet-heading) !important;
+    background: var(--uninet-action);
+    font-size: 0.8rem;
+    font-weight: 900;
+}
+
+.uninet-footer__whatsapp:hover,
+.uninet-footer__whatsapp:focus {
+    color: var(--uninet-white) !important;
+    background: var(--uninet-green);
+}
+
+.uninet-footer__socials {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.2rem;
+}
+
+.uninet-footer__socials a {
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 5px;
+}
+
+.uninet-footer__socials a:hover,
+.uninet-footer__socials a:focus {
+    border-color: var(--uninet-action);
+    color: var(--uninet-heading);
+    background: var(--uninet-action);
+}
+
+.uninet-footer__socials svg {
+    width: 1rem;
+    height: 1rem;
+    fill: currentColor;
+}
+
+.uninet-footer__socials a[aria-label="Instagram"] svg {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+}
+
+.uninet-footer__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    background: #0b1728;
+}
+
+.uninet-footer__bottom-inner {
+    display: flex;
+    min-height: 4rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding-block: 1rem;
+}
+
+.uninet-footer__bottom .site-info,
+.uninet-footer__bottom p {
+    margin: 0;
+    padding: 0;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.72rem;
+    line-height: 1.5;
+}
+
+.uninet-contact-page .site-content,
+.uninet-policy-page .site-content {
+    padding-top: 0;
+}
+
+.uninet-contact-page .content-area,
+.uninet-policy-page .content-area {
+    width: 100%;
+    margin-right: 0;
+}
+
+.uninet-contact-page .entry-header,
+.uninet-policy-page .entry-header {
+    margin: 0 calc(50% - 50vw) clamp(2rem, 4vw, 3.5rem);
+    padding: clamp(2.25rem, 5vw, 4.5rem) max(1rem, calc((100vw - 1180px) / 2));
+    color: var(--uninet-white);
+    background: var(--uninet-blue);
+}
+
+.uninet-contact-page .entry-title,
+.uninet-policy-page .entry-title {
+    max-width: 1180px;
+    margin: 0 auto;
+    color: var(--uninet-white);
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    font-weight: 900;
+    line-height: 1.08;
+    text-wrap: balance;
+}
+
+.uninet-policy-page .entry-content {
+    max-width: 76ch;
+    margin-inline: auto;
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.uninet-policy-page .entry-content h2 {
+    margin: 2.2rem 0 0.65rem;
+    color: var(--uninet-heading);
+    font-size: clamp(1.25rem, 2.5vw, 1.65rem);
+    font-weight: 900;
+}
+
+.uninet-policy-page .entry-content p {
+    color: #35455d;
+    line-height: 1.8;
+}
+
+@media (max-width: 900px) {
+    .uninet-footer__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 680px) {
+    .uninet-footer__assurance-list,
+    .uninet-footer__grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .uninet-footer__assurance-list > div,
+    .uninet-footer__assurance-list > div:first-child,
+    .uninet-footer__assurance-list > div:last-child {
+        padding: 1rem 0;
+        border-right: 0;
+        border-bottom: 1px solid #cfdced;
+    }
+
+    .uninet-footer__assurance-list > div:last-child {
+        border-bottom: 0;
+    }
+
+    .uninet-footer__bottom-inner {
+        display: block;
+    }
+
+    .uninet-footer__bottom p {
+        margin-top: 0.4rem;
     }
 }
