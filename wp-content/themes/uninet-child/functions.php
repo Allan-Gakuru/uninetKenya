@@ -152,7 +152,7 @@ function uninet_child_get_header_social_links()
     return [
         'facebook' => [
             'label' => __('Facebook', 'uninet-child'),
-            'url' => get_theme_mod('uninet_header_facebook_url', 'https://www.facebook.com/UninetKenya/'),
+            'url' => get_theme_mod('uninet_header_facebook_url', 'https://www.facebook.com/UniNietTechnologies'),
         ],
         'instagram' => [
             'label' => __('Instagram', 'uninet-child'),
@@ -224,7 +224,7 @@ function uninet_child_customize_header($wp_customize)
     $social_settings = [
         'facebook' => [
             'label' => __('Facebook profile URL', 'uninet-child'),
-            'default' => 'https://www.facebook.com/UninetKenya/',
+            'default' => 'https://www.facebook.com/UniNietTechnologies',
         ],
         'instagram' => [
             'label' => __('Instagram profile URL', 'uninet-child'),

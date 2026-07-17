@@ -18,6 +18,11 @@ Success means the site feels credible from day one, works cleanly on mobile and 
 
 Professional, practical, and high-trust. The tone should feel like an experienced IT solutions provider helping a business make the right procurement decision, not a flashy gadget shop pushing impulse buys.
 
+## Contact Details
+
+- Sales phone: 0770 313 200
+- Facebook: https://www.facebook.com/UniNietTechnologies
+
 ## Anti-references
 
 Do not make an exact clone of shidirect.com. Use it only as structural and stock-UX inspiration.
