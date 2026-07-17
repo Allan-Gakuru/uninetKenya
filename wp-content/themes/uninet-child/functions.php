@@ -99,7 +99,7 @@ add_action('after_setup_theme', 'uninet_child_prepare_footer', 20);
  */
 function uninet_child_prepare_information_pages()
 {
-    if (! is_page(['contact-us', 'privacy-policy'])) {
+    if (! is_page(['contact-us', 'privacy-policy', 'build-a-quote'])) {
         return;
     }
 
@@ -217,6 +217,7 @@ function uninet_child_render_footer()
                 <nav class="uninet-footer__nav" aria-labelledby="uninet-footer-help">
                     <h2 id="uninet-footer-help"><?php esc_html_e('Buying help', 'uninet-child'); ?></h2>
                     <ul>
+                        <li><a href="<?php echo esc_url(uninet_child_get_quote_url()); ?>"><?php esc_html_e('Build a Quote', 'uninet-child'); ?></a></li>
                         <li><a href="<?php echo esc_url(uninet_child_get_contact_url()); ?>"><?php esc_html_e('Contact us', 'uninet-child'); ?></a></li>
                         <li><a href="<?php echo esc_url(home_url('/#uninet-home-procurement')); ?>"><?php esc_html_e('How ordering works', 'uninet-child'); ?></a></li>
                         <li><a href="<?php echo esc_url(home_url('/#uninet-home-faq')); ?>"><?php esc_html_e('Frequently asked questions', 'uninet-child'); ?></a></li>
@@ -313,6 +314,20 @@ function uninet_child_get_contact_url()
 }
 
 /**
+ * Return the Build a Quote page URL, with a stable fallback while it is created.
+ */
+function uninet_child_get_quote_url()
+{
+    $quote_page = get_page_by_path('build-a-quote');
+
+    if ($quote_page instanceof WP_Post) {
+        return get_permalink($quote_page);
+    }
+
+    return home_url('/build-a-quote/');
+}
+
+/**
  * Return editable social profile URLs for the header.
  */
 function uninet_child_get_header_social_links()
@@ -380,6 +395,9 @@ function uninet_child_render_header_actions()
     $social_links = uninet_child_get_header_social_links();
     ?>
     <div class="uninet-header__actions">
+        <a class="uninet-header__quote" href="<?php echo esc_url(uninet_child_get_quote_url()); ?>">
+            <?php esc_html_e('Build a Quote', 'uninet-child'); ?>
+        </a>
         <a class="uninet-header__contact" href="<?php echo esc_url(uninet_child_get_contact_url()); ?>">
             <?php esc_html_e('Contact us', 'uninet-child'); ?>
         </a>

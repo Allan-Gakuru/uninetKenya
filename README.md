@@ -37,6 +37,7 @@ includes/Admin/
 includes/CallToOrder/
 includes/Contact/
 includes/Helpers/
+includes/Quote/
 includes/Setup/
 includes/Tracking/
 includes/WooCommerce/
@@ -85,6 +86,18 @@ The Phase 4 sitewide experience now:
 - creates missing Contact and Privacy Policy pages on the first administrator request after deployment
 - preserves existing Contact page copy and only updates the original generated privacy wording when it can identify that exact legacy version
 
+The Build a Quote procurement workflow now:
+
+- creates a managed `/build-a-quote/` page and adds entry points in the header and footer
+- searches current published WooCommerce products by product name, model, SKU, or top-level category, so future catalogue products appear without code changes
+- supports multiple catalogue products, quantities, and per-line procurement notes
+- shows indicative pre-tax prices and totals while clearly separating products that require staff pricing
+- recalculates every price from WooCommerce on the server before storing the request
+- stores each submission privately under `Quote Requests` with buyer, KRA, delivery, product, price, and internal workflow-status details
+- never creates a WooCommerce order, reserves stock, or reduces inventory
+- offers a bounded WhatsApp handoff only after the dashboard record is saved
+- protects submissions with a nonce, honeypot, field and line limits, catalogue validation, and a one-minute duplicate throttle
+
 ## Theme Architecture
 
 `uninet-child` extends Storefront and provides:
@@ -102,7 +115,17 @@ The Phase 4 sitewide experience now:
 4. Review the Privacy Policy before launch, especially after enabling or changing Site Kit, analytics, cookie, backup, search, security, email, or marketing services.
 5. Submit one clearly labelled test contact message. Confirm it appears under `Contact Messages`, verify the WhatsApp summary, then delete the test record.
 6. Test the footer, contact form, Poppins loading, focus states, and navigation at mobile and desktop widths.
-7. Clear any page, object, CDN, or browser cache if the theme version shown is older than `0.6.1` or the plugin version is older than `0.3.1`.
+7. Clear any page, object, CDN, or browser cache if the theme version shown is older than `0.6.6` or the plugin version is older than `0.4.0`.
+
+## Build a Quote Post-Deployment Checklist
+
+1. Visit `wp-admin` once as an administrator so WordPress creates the managed Build a Quote page.
+2. Open `/build-a-quote/` and confirm the header/footer links, product search, category shortcuts, quantities, notes, and mobile review bar.
+3. Submit one clearly labelled synthetic request containing a priced and, when available, an unpriced product.
+4. Confirm the record appears under `Quote Requests`, the stored pre-tax totals match current WooCommerce prices, and the status can be changed.
+5. Confirm the submission did not create a WooCommerce order or change product stock.
+6. Review the generated WhatsApp summary, then delete the synthetic dashboard record.
+7. Clear page, object, CDN, and browser caches if the new page or assets do not appear after deployment.
 
 ## Contact Data Operations
 
@@ -111,3 +134,4 @@ The Phase 4 sitewide experience now:
 - Review and delete contact messages that are no longer needed. Set a formal retention period before launch once accounting, warranty, support, and legal requirements are confirmed.
 - WhatsApp is optional and customer-initiated. A website submission is stored before the WhatsApp link is offered, and WhatsApp never sends automatically.
 - Poppins is currently delivered by Google Fonts. Google Site Kit and any enabled analytics/search integrations must be reflected accurately in the live privacy and cookie configuration.
+- Quote requests contain procurement and business identity details. Staff should apply the same approved retention and access rules used for contact and order records.

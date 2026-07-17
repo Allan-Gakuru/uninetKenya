@@ -269,6 +269,7 @@ body.home.page.page-template-template-uninet-home .site-header {
     min-width: 0;
     align-items: center;
     justify-content: flex-end;
+    flex-wrap: nowrap;
     gap: 0.7rem;
 }
 
@@ -296,6 +297,31 @@ body.home.page.page-template-template-uninet-home .site-header {
     background: var(--uninet-heading);
 }
 
+.uninet-header__quote {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.62rem 1rem;
+    border: 1px solid var(--uninet-action);
+    border-radius: 5px;
+    color: var(--uninet-heading);
+    background: var(--uninet-action);
+    font-size: 0.88rem;
+    font-weight: 900;
+    line-height: 1.2;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.uninet-header__quote:hover,
+.uninet-header__quote:focus {
+    border-color: var(--uninet-green);
+    color: var(--uninet-white);
+    background: var(--uninet-green);
+}
+
+.uninet-header__quote:focus-visible,
 .uninet-header__contact:focus-visible,
 .uninet-header__social:focus-visible {
     outline: 3px solid rgba(67, 196, 99, 0.45);
@@ -1287,6 +1313,17 @@ body.home.page.page-template-template-uninet-home .site-header {
     .uninet-header__actions {
         width: 100%;
         justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .uninet-header__quote,
+    .uninet-header__contact {
+        flex: 1 1 calc(50% - 0.4rem);
+    }
+
+    .uninet-header__socials {
+        width: 100%;
+        justify-content: flex-end;
     }
 
     .uninet-header__navigation-inner,

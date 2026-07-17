@@ -13,7 +13,7 @@ if (! defined('ABSPATH')) {
 
 final class SitePages
 {
-    const SETUP_VERSION = '2';
+    const SETUP_VERSION = '3';
 
     /**
      * Register the one-time admin setup.
@@ -40,6 +40,12 @@ final class SitePages
             'contact-us',
             __('Contact Us', 'uninet-core'),
             '[uninet_contact_form]'
+        );
+
+        $this->ensure_page(
+            'build-a-quote',
+            __('Build a Quote', 'uninet-core'),
+            '[uninet_quote_builder]'
         );
 
         $privacy_content = $this->privacy_content();
@@ -99,9 +105,12 @@ final class SitePages
         }
 
         $current = trim((string) get_post_field('post_content', $page_id));
-        $legacy = trim($this->legacy_privacy_content());
+        $generated_versions = [
+            trim($this->legacy_privacy_content()),
+            trim($this->previous_privacy_content()),
+        ];
 
-        if ($current !== $legacy) {
+        if (! in_array($current, $generated_versions, true)) {
             return;
         }
 
@@ -135,9 +144,9 @@ final class SitePages
     }
 
     /**
-     * Return the starter privacy notice for the current site behavior.
+     * Return the second generated policy so it can receive this safe update.
      */
-    private function privacy_content()
+    private function previous_privacy_content()
     {
         return '<h2>Information we collect</h2>'
             . '<p>Uninet Technologies collects the information you provide through contact and order-request forms, including your name, phone number, email address, business and invoicing details, location, product requirements, and messages.</p>'
@@ -149,6 +158,27 @@ final class SitePages
             . '<p>The site may connect to third-party services used for typography, analytics, search, backups, and security. Poppins may be delivered through Google Fonts, and Google Site Kit may connect measurement or search services configured by Uninet Technologies. These providers may receive technical information such as your IP address, browser details, device information, cookies, and the page requested, according to their own terms and the site configuration.</p>'
             . '<h2>Sharing and retention</h2>'
             . '<p>We only share information where needed to fulfil your request, operate the website, comply with the law, or protect the business and its customers. Enquiries and order records are retained only for as long as reasonably necessary for follow-up, accounting, warranty, security, and legal obligations.</p>'
+            . '<h2>Your choices</h2>'
+            . '<p>You may ask to access, correct, or delete personal information that we hold, subject to applicable legal and business record requirements.</p>'
+            . '<h2>Contact us about privacy</h2>'
+            . '<p>Call <a href="tel:+254770313200">0770 313 200</a> or use the <a href="' . esc_url(home_url('/contact-us/')) . '">contact page</a> for privacy questions or requests.</p>';
+    }
+
+    /**
+     * Return the starter privacy notice for the current site behavior.
+     */
+    private function privacy_content()
+    {
+        return '<h2>Information we collect</h2>'
+            . '<p>Uninet Technologies collects the information you provide through contact, quote-request, and order-request forms, including your name, phone number, email address, business and invoicing details, location, product requirements, and messages.</p>'
+            . '<h2>How we use your information</h2>'
+            . '<p>We use this information to respond to enquiries, confirm product availability, prepare quotations and invoices, arrange delivery, provide support, prevent misuse, and improve our website and services.</p>'
+            . '<h2>WhatsApp</h2>'
+            . '<p>When you choose to continue an enquiry through WhatsApp, you leave this website and share a prepared summary with WhatsApp. You can review the message before sending it. WhatsApp and Meta then process that information under their own privacy terms.</p>'
+            . '<h2>Fonts, analytics, search, and security services</h2>'
+            . '<p>The site may connect to third-party services used for typography, analytics, search, backups, and security. Poppins may be delivered through Google Fonts, and Google Site Kit may connect measurement or search services configured by Uninet Technologies. These providers may receive technical information such as your IP address, browser details, device information, cookies, and the page requested, according to their own terms and the site configuration.</p>'
+            . '<h2>Sharing and retention</h2>'
+            . '<p>We only share information where needed to fulfil your request, operate the website, comply with the law, or protect the business and its customers. Enquiries, quote requests, and order records are retained only for as long as reasonably necessary for follow-up, accounting, warranty, security, and legal obligations.</p>'
             . '<h2>Your choices</h2>'
             . '<p>You may ask to access, correct, or delete personal information that we hold, subject to applicable legal and business record requirements.</p>'
             . '<h2>Contact us about privacy</h2>'

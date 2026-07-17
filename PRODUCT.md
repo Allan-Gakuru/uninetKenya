@@ -10,9 +10,9 @@ Business owners, procurement leads, office administrators, and technical decisio
 
 ## Product Purpose
 
-Uninet Kenya is a WooCommerce-powered B2B technology retail webstore for laptops, desktops, monitors, CCTV and security, networking equipment, printers and office equipment, accessories, and selected product bundles. The site exists to present products professionally, support SEO-friendly product pages, and convert product interest into staff-followed pending WooCommerce orders through a Call to Order flow.
+Uninet Kenya is a WooCommerce-powered B2B technology retail webstore for laptops, desktops, monitors, CCTV and security, networking equipment, printers and office equipment, accessories, and selected product bundles. The site exists to present products professionally, support SEO-friendly product pages, and convert product interest through structured quote requests or staff-followed pending WooCommerce orders.
 
-Success means the site feels credible from day one, works cleanly on mobile and desktop, avoids cart-first consumer patterns, and gives staff clear order metadata for follow-up.
+Success means the site feels credible from day one, works cleanly on mobile and desktop, avoids cart-first consumer patterns, and gives staff clear quote and order metadata for follow-up.
 
 ## Brand Personality
 
@@ -55,6 +55,17 @@ Aim for WCAG 2.2 AA fundamentals: strong contrast, readable type, keyboard-frien
 - Contact submissions use nonce validation, a honeypot, maximum field lengths, and a one-minute browser/IP fingerprint throttle to limit accidental duplicates and basic spam without storing the raw IP address.
 - Poppins is delivered through Google Fonts in phase one. The privacy notice must remain aligned with Google Site Kit and any later analytics, security, search, backup, cookie, email, or marketing integrations.
 
+## Build a Quote Experience
+
+- The quote page is a procurement workspace, not a marketing landing page or consumer cart.
+- Buyers can find any current published catalogue product by product name, model, SKU, or category. Future WooCommerce products participate automatically.
+- A request may contain multiple products, quantities, and line-specific requirements.
+- Buyers see indicative pre-tax product prices, line totals, and subtotal. Products without a published price remain selectable and are excluded from the displayed subtotal until staff prices them.
+- Organisation name and type, contact person, phone, business email, KRA PIN, business address, county, town, and delivery or pickup choice are required. Required-by date, fulfilment details, and procurement notes are optional.
+- A review step explains that submitting does not reserve stock, create an order, or confirm final pricing.
+- Successful requests are stored privately in `Quote Requests` and can move through New, Reviewing, Quote prepared, and Closed statuses.
+- WhatsApp remains an optional customer-initiated continuation after the dashboard record is saved.
+
 ## Operational Guardrails
 
 - The coded footer is the source of truth; adding Storefront footer widgets will not make them visible unless the footer implementation is deliberately changed.
@@ -63,3 +74,9 @@ Aim for WCAG 2.2 AA fundamentals: strong contrast, readable type, keyboard-frien
 - Contact records require a deliberate retention policy before public launch. Until that policy is approved, staff should periodically remove enquiries that no longer have an operational, accounting, warranty, support, security, or legal purpose.
 - The Privacy Policy is a technical starter notice, not a substitute for legal review. Recheck it whenever data collection or third-party services change.
 - Staff must test with clearly synthetic contact details and delete test records afterward.
+- Quote request prices are snapshots used for follow-up, not invoices. Staff must reconfirm availability, tax, delivery charges, and final totals before payment.
+- Browser-submitted prices and product details are never trusted; the server rebuilds quote lines from current published WooCommerce products.
+- Quote submissions must never reduce stock, reserve inventory, or create WooCommerce orders.
+- Only product lines are saved temporarily in browser session storage. Personal, organisation, location, and KRA details are not stored in the browser by the quote builder.
+- Quote records need an approved retention and access policy before public launch.
+- If catalogue visibility or pricing rules change, retest search results and pre-tax calculations before launch.

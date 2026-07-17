@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Uninet Core
  * Description: Custom WooCommerce functionality for Uninet Kenya.
- * Version: 0.3.1
+ * Version: 0.4.0
  * Author: Uninet Kenya
  * Text Domain: uninet-core
  */
@@ -11,7 +11,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-define('UNINET_CORE_VERSION', '0.3.1');
+define('UNINET_CORE_VERSION', '0.4.0');
 define('UNINET_CORE_FILE', __FILE__);
 define('UNINET_CORE_PATH', plugin_dir_path(__FILE__));
 define('UNINET_CORE_URL', plugin_dir_url(__FILE__));
@@ -23,6 +23,8 @@ $uninet_core_files = [
     'includes/Contact/InquiryPostType.php',
     'includes/Contact/Form.php',
     'includes/Setup/SitePages.php',
+    'includes/Quote/RequestPostType.php',
+    'includes/Quote/Builder.php',
     'includes/CallToOrder/Form.php',
     'includes/CallToOrder/Validation.php',
     'includes/CallToOrder/Metadata.php',

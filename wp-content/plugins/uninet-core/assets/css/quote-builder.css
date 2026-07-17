@@ -1,0 +1,1464 @@
+/* Uninet Build a Quote procurement workspace. */
+
+.uninet-quote-page .site-content {
+    padding-top: 0;
+}
+
+.uninet-quote-page .site-content > .col-full {
+    width: min(1440px, calc(100% - 2rem));
+    max-width: none;
+    margin-inline: auto;
+}
+
+.uninet-quote-page .content-area {
+    width: 100%;
+    margin: 0;
+    float: none;
+}
+
+.uninet-quote-page .hentry,
+.uninet-quote-page .entry-content {
+    margin: 0;
+}
+
+.uninet-quote-page .entry-header {
+    display: none;
+}
+
+.uninet-quote-page .entry-content {
+    max-width: none;
+}
+
+.uninet-quote [hidden] {
+    display: none !important;
+}
+
+.uninet-quote .screen-reader-text {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.uninet-quote {
+    --quote-space-1: 0.5rem;
+    --quote-space-2: 0.75rem;
+    --quote-space-3: 1rem;
+    --quote-space-4: 1.5rem;
+    --quote-space-5: 2rem;
+    --quote-control: 3rem;
+    margin: 0 auto clamp(3rem, 7vw, 6rem);
+    color: var(--uninet-body, #42526b);
+    font-family: var(--uninet-font, "Poppins", Arial, sans-serif);
+    font-weight: 500;
+}
+
+.uninet-quote *,
+.uninet-quote *::before,
+.uninet-quote *::after {
+    box-sizing: border-box;
+}
+
+.uninet-quote button,
+.uninet-quote input,
+.uninet-quote select,
+.uninet-quote textarea {
+    font: inherit;
+}
+
+.uninet-quote__header {
+    display: flex;
+    min-height: 7.5rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--quote-space-5);
+    padding: clamp(1.5rem, 3.5vw, 2.5rem);
+    color: #fff;
+    background: #173f8f;
+}
+
+.uninet-quote__header h1 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 1.06;
+    text-wrap: balance;
+}
+
+.uninet-quote__header p {
+    max-width: 68ch;
+    margin: 0.65rem 0 0;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 1rem;
+    line-height: 1.65;
+    text-wrap: pretty;
+}
+
+.uninet-quote__assurances {
+    display: flex;
+    max-width: 38rem;
+    flex: 0 1 auto;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.5rem 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.uninet-quote__assurances li {
+    position: relative;
+    margin: 0;
+    padding: 0 0 0 1rem;
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.uninet-quote__assurances li::before {
+    content: "";
+    position: absolute;
+    top: 0.42em;
+    left: 0;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: #43c463;
+}
+
+.uninet-quote__form {
+    position: relative;
+    margin: 0;
+}
+
+.uninet-quote__workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 350px);
+    align-items: stretch;
+    border: 1px solid #c6d0de;
+    border-top: 0;
+    background: #fff;
+}
+
+.uninet-quote__main {
+    min-width: 0;
+}
+
+.uninet-quote-finder,
+.uninet-quote-lines,
+.uninet-quote-details,
+.uninet-quote-consent {
+    padding: clamp(1.5rem, 3.5vw, 2.5rem);
+    border-bottom: 1px solid #d8dee8;
+}
+
+.uninet-quote-consent {
+    border-bottom: 0;
+}
+
+.uninet-quote-section-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--quote-space-3);
+    margin-bottom: var(--quote-space-4);
+}
+
+.uninet-quote-section-heading h2 {
+    margin: 0;
+    color: #132033;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1.25;
+}
+
+.uninet-quote-section-heading p {
+    max-width: 68ch;
+    margin: 0.35rem 0 0;
+    color: #42526b;
+    font-size: 0.88rem;
+    line-height: 1.6;
+}
+
+.uninet-quote-section-heading > span,
+.uninet-quote-lines__count {
+    flex: 0 0 auto;
+    color: #536176;
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.uninet-quote-search {
+    position: relative;
+}
+
+.uninet-quote-search > label,
+.uninet-quote-field > label,
+.uninet-quote-line__note > label {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: #132033;
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.45;
+}
+
+.uninet-quote-search > label {
+    font-size: 0.9rem;
+    font-weight: 800;
+}
+
+.uninet-quote-search__control {
+    position: relative;
+}
+
+.uninet-quote-search__icon {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #173f8f;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translateY(-58%);
+}
+
+.uninet-quote-search__icon::after {
+    content: "";
+    position: absolute;
+    right: -0.42rem;
+    bottom: -0.25rem;
+    width: 0.55rem;
+    height: 2px;
+    background: #173f8f;
+    transform: rotate(45deg);
+    transform-origin: left center;
+}
+
+.uninet-quote-search input[type="search"] {
+    width: 100%;
+    min-height: 3.5rem;
+    margin: 0;
+    padding: 0.8rem 3.25rem 0.8rem 3.1rem;
+    border: 2px solid #173f8f;
+    border-radius: 5px;
+    color: #132033;
+    background: #fff;
+    box-shadow: none;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.uninet-quote-search input[type="search"]::placeholder,
+.uninet-quote-field input::placeholder,
+.uninet-quote-field textarea::placeholder {
+    color: #536176;
+    opacity: 1;
+}
+
+.uninet-quote-search__clear {
+    position: absolute;
+    top: 50%;
+    right: 0.45rem;
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 4px;
+    color: #173f8f;
+    background: transparent;
+    font-size: 1.5rem;
+    line-height: 1;
+    transform: translateY(-50%);
+}
+
+.uninet-quote-search__clear:hover,
+.uninet-quote-search__clear:focus {
+    color: #132033;
+    background: #eef5ff;
+}
+
+.uninet-quote-search__categories {
+    display: flex;
+    max-width: 100%;
+    gap: 0.45rem;
+    margin-top: 0.8rem;
+    padding-bottom: 0.25rem;
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+
+.uninet-quote-search__categories button {
+    min-height: 2.5rem;
+    flex: 0 0 auto;
+    margin: 0;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid #aebacd;
+    border-radius: 5px;
+    color: #173f8f;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.uninet-quote-search__categories button:hover,
+.uninet-quote-search__categories button:focus,
+.uninet-quote-search__categories button.is-active {
+    border-color: #173f8f;
+    color: #fff;
+    background: #173f8f;
+}
+
+.uninet-quote-search__results {
+    position: absolute;
+    z-index: 30;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    left: 0;
+    max-height: min(32rem, 65vh);
+    overflow-y: auto;
+    border: 1px solid #8493a8;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0 6px 8px rgba(19, 32, 51, 0.14);
+}
+
+.uninet-quote-search__status {
+    min-height: 2.5rem;
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid #d8dee8;
+    color: #42526b;
+    background: #f5f8fb;
+    font-size: 0.78rem;
+    line-height: 1.5;
+}
+
+.uninet-quote-result {
+    display: grid;
+    grid-template-columns: 4rem minmax(0, 1fr) minmax(145px, auto) auto;
+    gap: 0.85rem;
+    align-items: center;
+    min-height: 5.5rem;
+    margin: 0;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #d8dee8;
+}
+
+.uninet-quote-result:last-child {
+    border-bottom: 0;
+}
+
+.uninet-quote-result:hover {
+    background: #f5f8fb;
+}
+
+.uninet-quote-result img {
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    object-fit: contain;
+    background: #fff;
+}
+
+.uninet-quote-result__details {
+    display: grid;
+    min-width: 0;
+    gap: 0.15rem;
+}
+
+.uninet-quote-result__details strong {
+    overflow: hidden;
+    color: #132033;
+    font-size: 0.88rem;
+    font-weight: 800;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.uninet-quote-result__details span {
+    color: #536176;
+    font-size: 0.72rem;
+    line-height: 1.45;
+}
+
+.uninet-quote-result__details .uninet-quote-result__availability {
+    color: #286f3c;
+    font-weight: 600;
+}
+
+.uninet-quote-result__price {
+    color: #132033;
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.45;
+    text-align: right;
+}
+
+.uninet-quote-result .button {
+    min-height: 2.75rem;
+    margin: 0;
+    padding: 0.65rem 0.9rem;
+    border: 0;
+    border-radius: 5px;
+    color: #132033;
+    background: #43c463;
+    font-size: 0.78rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.uninet-quote-result .button:hover,
+.uninet-quote-result .button:focus {
+    color: #132033;
+    background: #35af54;
+}
+
+.uninet-quote-result .button:disabled {
+    color: #536176;
+    background: #e4e9f0;
+    cursor: default;
+    opacity: 1;
+}
+
+.uninet-quote-lines__empty {
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border: 1px dashed #aebacd;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.uninet-quote-lines__empty strong {
+    display: block;
+    color: #132033;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.uninet-quote-lines__empty p {
+    max-width: 55ch;
+    margin: 0.4rem auto 0;
+    color: #536176;
+    font-size: 0.86rem;
+    line-height: 1.6;
+}
+
+.uninet-quote-lines__table {
+    border-top: 1px solid #aebacd;
+}
+
+.uninet-quote-lines__header,
+.uninet-quote-line__row {
+    display: grid;
+    grid-template-columns: minmax(260px, 1.6fr) minmax(130px, 0.7fr) minmax(125px, 0.65fr) minmax(125px, 0.65fr) minmax(130px, 0.55fr);
+    gap: 1rem;
+    align-items: center;
+}
+
+.uninet-quote-lines__header {
+    min-height: 2.8rem;
+    padding: 0.65rem 0.75rem;
+    border-bottom: 1px solid #aebacd;
+    color: #35455d;
+    background: #f5f8fb;
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+.uninet-quote-line {
+    border-bottom: 1px solid #d8dee8;
+}
+
+.uninet-quote-line__row {
+    min-height: 6.5rem;
+    padding: 0.8rem 0.75rem;
+}
+
+.uninet-quote-line__product {
+    display: grid;
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    gap: 0.8rem;
+    align-items: center;
+    min-width: 0;
+}
+
+.uninet-quote-line__product img {
+    display: block;
+    width: 4.5rem;
+    height: 4.5rem;
+    object-fit: contain;
+}
+
+.uninet-quote-line__product > div {
+    display: grid;
+    min-width: 0;
+    gap: 0.15rem;
+}
+
+.uninet-quote-line__name {
+    overflow-wrap: anywhere;
+    color: #132033;
+    font-size: 0.86rem;
+    font-weight: 800;
+    line-height: 1.4;
+    text-decoration: none;
+}
+
+.uninet-quote-line__name:hover,
+.uninet-quote-line__name:focus {
+    color: #173f8f;
+    text-decoration: underline;
+}
+
+.uninet-quote-line__sku,
+.uninet-quote-line__availability {
+    color: #536176;
+    font-size: 0.7rem;
+    line-height: 1.45;
+}
+
+.uninet-quote-line__availability {
+    color: #286f3c;
+    font-weight: 600;
+}
+
+.uninet-quote-quantity {
+    display: grid;
+    width: 7.25rem;
+    grid-template-columns: 2.5rem 2.25rem 2.5rem;
+}
+
+.uninet-quote-quantity button,
+.uninet-quote-quantity input {
+    width: 100%;
+    min-width: 0;
+    height: 2.75rem;
+    margin: 0;
+    border: 1px solid #8493a8;
+    border-radius: 0;
+    color: #132033;
+    background: #fff;
+    box-shadow: none;
+    text-align: center;
+}
+
+.uninet-quote-quantity button {
+    padding: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.uninet-quote-quantity button:first-child {
+    border-radius: 5px 0 0 5px;
+}
+
+.uninet-quote-quantity button:last-child {
+    border-radius: 0 5px 5px 0;
+}
+
+.uninet-quote-quantity input {
+    padding: 0;
+    border-right: 0;
+    border-left: 0;
+    font-size: 0.86rem;
+    font-variant-numeric: tabular-nums;
+    appearance: textfield;
+}
+
+.uninet-quote-quantity input::-webkit-inner-spin-button,
+.uninet-quote-quantity input::-webkit-outer-spin-button {
+    margin: 0;
+    appearance: none;
+}
+
+.uninet-quote-quantity button:hover,
+.uninet-quote-quantity button:focus {
+    color: #173f8f;
+    background: #eef5ff;
+}
+
+.uninet-quote-quantity button:disabled {
+    color: #8493a8;
+    background: #f5f8fb;
+    cursor: default;
+}
+
+.uninet-quote-line__price,
+.uninet-quote-line__total {
+    color: #132033;
+    font-size: 0.78rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.45;
+}
+
+.uninet-quote-line__actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.4rem;
+}
+
+.uninet-quote-line__note-button,
+.uninet-quote-line__remove {
+    min-height: 2.75rem;
+    margin: 0;
+    padding: 0.55rem 0.65rem;
+    border: 1px solid #aebacd;
+    border-radius: 5px;
+    color: #173f8f;
+    background: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.uninet-quote-line__remove {
+    display: grid;
+    width: 2.75rem;
+    padding: 0;
+    place-items: center;
+    color: #8a2930;
+    font-size: 1.25rem;
+}
+
+.uninet-quote-line__note-button:hover,
+.uninet-quote-line__note-button:focus,
+.uninet-quote-line__remove:hover,
+.uninet-quote-line__remove:focus {
+    border-color: #173f8f;
+    color: #132033;
+    background: #eef5ff;
+}
+
+.uninet-quote-line__note {
+    padding: 0 0.75rem 1rem 5.95rem;
+}
+
+.uninet-quote-line__note textarea {
+    width: 100%;
+    min-height: 5rem;
+    margin: 0;
+    padding: 0.7rem 0.8rem;
+    border: 1px solid #8493a8;
+    border-radius: 5px;
+    color: #132033;
+    background: #fff;
+    box-shadow: none;
+    font-size: 0.86rem;
+    line-height: 1.55;
+    resize: vertical;
+}
+
+.uninet-quote-lines__price-note {
+    margin: 0.75rem 0 0;
+    color: #536176;
+    font-size: 0.72rem;
+    font-style: italic;
+    line-height: 1.55;
+}
+
+.uninet-quote-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 1.25rem;
+}
+
+.uninet-quote-field {
+    min-width: 0;
+}
+
+.uninet-quote-field--wide {
+    grid-column: 1 / -1;
+}
+
+.uninet-quote-field input,
+.uninet-quote-field select,
+.uninet-quote-field textarea {
+    width: 100%;
+    margin: 0;
+    border: 1px solid #8493a8;
+    border-radius: 5px;
+    color: #132033;
+    background: #fff;
+    box-shadow: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+}
+
+.uninet-quote-field input,
+.uninet-quote-field select {
+    min-height: var(--quote-control);
+    padding: 0.68rem 0.8rem;
+}
+
+.uninet-quote-field textarea {
+    min-height: 6rem;
+    padding: 0.75rem 0.8rem;
+    line-height: 1.55;
+    resize: vertical;
+}
+
+.uninet-quote-field > span {
+    display: block;
+    margin-top: 0.3rem;
+    color: #536176;
+    font-size: 0.7rem;
+    line-height: 1.45;
+}
+
+.uninet-quote-field input:focus,
+.uninet-quote-field select:focus,
+.uninet-quote-field textarea:focus,
+.uninet-quote-line__note textarea:focus,
+.uninet-quote-search input[type="search"]:focus {
+    border-color: #173f8f;
+    outline: 3px solid rgba(23, 63, 143, 0.18);
+    outline-offset: 1px;
+}
+
+.uninet-quote-consent label {
+    display: flex;
+    max-width: 75ch;
+    align-items: flex-start;
+    gap: 0.65rem;
+    color: #35455d;
+    font-size: 0.82rem;
+    line-height: 1.55;
+}
+
+.uninet-quote-consent input[type="checkbox"] {
+    width: 1.2rem;
+    height: 1.2rem;
+    flex: 0 0 1.2rem;
+    margin: 0.1rem 0 0;
+    accent-color: #173f8f;
+}
+
+.uninet-quote-consent > a {
+    display: inline-block;
+    margin: 0.65rem 0 0 1.85rem;
+    color: #173f8f;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.uninet-quote-errors {
+    margin: 0 clamp(1.5rem, 3.5vw, 2.5rem) 2rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid #c8555d;
+    border-radius: 5px;
+    color: #742027;
+    background: #fff4f4;
+    font-size: 0.86rem;
+    font-weight: 600;
+    line-height: 1.55;
+}
+
+.uninet-quote-summary {
+    min-width: 0;
+    border-left: 1px solid #c6d0de;
+    background: #f5f8fb;
+}
+
+.uninet-quote-summary__sticky {
+    position: sticky;
+    top: 1rem;
+    padding: clamp(1.5rem, 3vw, 2rem);
+}
+
+.uninet-quote-summary h2 {
+    margin: 0;
+    color: #132033;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1.25;
+}
+
+.uninet-quote-summary__count {
+    margin: 0.55rem 0 1.25rem;
+    color: #42526b;
+    font-size: 0.86rem;
+    font-weight: 600;
+}
+
+.uninet-quote-summary__total {
+    padding: 1.2rem 0;
+    border-top: 1px solid #aebacd;
+    border-bottom: 1px solid #aebacd;
+}
+
+.uninet-quote-summary__total span,
+.uninet-quote-summary__total strong {
+    display: block;
+}
+
+.uninet-quote-summary__total span {
+    color: #42526b;
+    font-size: 0.8rem;
+    line-height: 1.45;
+}
+
+.uninet-quote-summary__total strong {
+    margin-top: 0.35rem;
+    color: #173f8f;
+    font-size: clamp(1.8rem, 3vw, 2.35rem);
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.15;
+}
+
+.uninet-quote-summary__unpriced {
+    margin: 1rem 0 0;
+    padding: 0.75rem;
+    border-radius: 5px;
+    color: #553f0c;
+    background: #fff7dc;
+    font-size: 0.76rem;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.uninet-quote-summary__notes {
+    display: grid;
+    gap: 0.7rem;
+    margin: 1.25rem 0;
+    padding: 0;
+    list-style: none;
+}
+
+.uninet-quote-summary__notes li {
+    position: relative;
+    margin: 0;
+    padding-left: 1.5rem;
+    color: #35455d;
+    font-size: 0.78rem;
+    line-height: 1.55;
+}
+
+.uninet-quote-summary__notes li::before {
+    content: "\2713";
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #2b8f48;
+    font-weight: 900;
+}
+
+.uninet-quote-summary__review,
+.uninet-quote-mobile-bar .button,
+.uninet-quote-review__submit,
+.uninet-quote-success__actions > .button:first-child {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0.75rem 1rem;
+    border: 0;
+    border-radius: 5px;
+    color: #132033 !important;
+    background: #43c463 !important;
+    font-size: 0.84rem;
+    font-weight: 900;
+    line-height: 1.3;
+    text-decoration: none;
+}
+
+.uninet-quote-summary__review {
+    width: 100%;
+}
+
+.uninet-quote-summary__review:hover,
+.uninet-quote-summary__review:focus,
+.uninet-quote-mobile-bar .button:hover,
+.uninet-quote-mobile-bar .button:focus,
+.uninet-quote-review__submit:hover,
+.uninet-quote-review__submit:focus,
+.uninet-quote-success__actions > .button:first-child:hover,
+.uninet-quote-success__actions > .button:first-child:focus {
+    color: #132033 !important;
+    background: #35af54 !important;
+}
+
+.uninet-quote-summary__review:disabled,
+.uninet-quote-review__submit:disabled {
+    color: #536176 !important;
+    background: #d8dee8 !important;
+    cursor: default;
+    opacity: 1;
+}
+
+.uninet-quote-summary__support {
+    margin: 1rem 0 0;
+    color: #536176;
+    font-size: 0.76rem;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.uninet-quote-summary__support a {
+    color: #173f8f;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.uninet-quote__honeypot {
+    position: absolute !important;
+    left: -10000px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+}
+
+.uninet-quote-mobile-bar {
+    display: none;
+}
+
+.uninet-quote-review {
+    width: min(760px, calc(100% - 2rem));
+    max-width: 760px;
+    max-height: min(48rem, calc(100dvh - 2rem));
+    margin: auto;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: 8px;
+    color: #42526b;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(19, 32, 51, 0.28);
+}
+
+.uninet-quote-review::backdrop {
+    background: rgba(11, 23, 40, 0.72);
+}
+
+.uninet-quote-dialog-open {
+    overflow: hidden;
+}
+
+.uninet-quote-review__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    color: #fff;
+    background: #173f8f;
+}
+
+.uninet-quote-review__header span {
+    display: block;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+.uninet-quote-review__header h2 {
+    margin: 0.2rem 0 0;
+    color: #fff;
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1.25;
+}
+
+.uninet-quote-review__close {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    flex: 0 0 2.75rem;
+    place-items: center;
+    margin: 0;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    color: #fff;
+    background: transparent;
+    font-size: 1.5rem;
+}
+
+.uninet-quote-review__close:hover,
+.uninet-quote-review__close:focus {
+    color: #132033;
+    background: #43c463;
+}
+
+.uninet-quote-review__body {
+    max-height: calc(100dvh - 15rem);
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+.uninet-quote-review__body h3 {
+    margin: 0 0 0.75rem;
+    color: #132033;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.uninet-quote-review__lines {
+    border-top: 1px solid #aebacd;
+}
+
+.uninet-quote-review__line,
+.uninet-quote-review__total {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #d8dee8;
+}
+
+.uninet-quote-review__line span,
+.uninet-quote-review__line strong,
+.uninet-quote-review__total span {
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
+.uninet-quote-review__line strong,
+.uninet-quote-review__total strong {
+    flex: 0 0 auto;
+    color: #132033;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+}
+
+.uninet-quote-review__total {
+    padding-block: 1rem;
+    border-bottom-color: #aebacd;
+}
+
+.uninet-quote-review__total strong {
+    color: #173f8f;
+    font-size: 1.15rem;
+}
+
+.uninet-quote-review__unpriced,
+.uninet-quote-review__body > p {
+    margin: 0.9rem 0 0;
+    color: #536176;
+    font-size: 0.76rem;
+    line-height: 1.55;
+}
+
+.uninet-quote-review__buyer {
+    display: grid;
+    grid-template-columns: 8rem minmax(0, 1fr);
+    gap: 0.45rem 1rem;
+    margin: 1.25rem 0 0;
+    padding-top: 1.15rem;
+    border-top: 1px solid #aebacd;
+}
+
+.uninet-quote-review__buyer dt,
+.uninet-quote-review__buyer dd {
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+.uninet-quote-review__buyer dt {
+    color: #536176;
+    font-weight: 600;
+}
+
+.uninet-quote-review__buyer dd {
+    color: #132033;
+    font-weight: 700;
+}
+
+.uninet-quote-review__actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #d8dee8;
+    background: #f5f8fb;
+}
+
+.uninet-quote-review__edit {
+    min-height: 3rem;
+    margin: 0;
+    padding: 0.72rem 1rem;
+    border: 1px solid #173f8f;
+    border-radius: 5px;
+    color: #173f8f;
+    background: #fff;
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.uninet-quote-review__edit:hover,
+.uninet-quote-review__edit:focus {
+    color: #fff;
+    background: #173f8f;
+}
+
+.uninet-quote-review__status {
+    min-height: 0;
+    padding: 0 1.5rem 1rem;
+    color: #742027;
+    background: #f5f8fb;
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.uninet-quote-review__status:empty {
+    display: none;
+}
+
+.uninet-quote-success {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 1.25rem;
+    margin-top: 2rem;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    border: 1px solid #8bc49a;
+    border-radius: 8px;
+    background: #f2fbf5;
+}
+
+.uninet-quote-success__mark {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border-radius: 50%;
+    color: #fff;
+    background: #2fa84f;
+    font-size: 1.3rem;
+    font-weight: 900;
+}
+
+.uninet-quote-success h2 {
+    margin: 0;
+    color: #132033;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 1.2;
+}
+
+.uninet-quote-success p {
+    max-width: 68ch;
+    margin: 0.7rem 0 0;
+    color: #35455d;
+    font-size: 0.88rem;
+    line-height: 1.65;
+}
+
+.uninet-quote-success__reference {
+    color: #173f8f !important;
+    font-size: 1rem !important;
+    font-weight: 900;
+}
+
+.uninet-quote-success__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+.uninet-quote-success__call {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0.75rem 1rem;
+    border: 1px solid #173f8f;
+    border-radius: 5px;
+    color: #173f8f !important;
+    background: #fff !important;
+    font-size: 0.84rem;
+    font-weight: 900;
+    text-decoration: none;
+}
+
+.uninet-quote-success__call:hover,
+.uninet-quote-success__call:focus {
+    color: #fff !important;
+    background: #173f8f !important;
+}
+
+.uninet-quote-noscript {
+    margin: 1rem 0;
+    padding: 1rem;
+    border: 1px solid #c8555d;
+    color: #742027;
+    background: #fff4f4;
+}
+
+.uninet-quote button:focus-visible,
+.uninet-quote a:focus-visible,
+.uninet-quote input:focus-visible,
+.uninet-quote select:focus-visible,
+.uninet-quote textarea:focus-visible {
+    outline: 3px solid rgba(67, 196, 99, 0.52);
+    outline-offset: 2px;
+}
+
+@media (max-width: 1120px) {
+    .uninet-quote__workspace {
+        grid-template-columns: minmax(0, 1fr) minmax(280px, 310px);
+    }
+
+    .uninet-quote-lines__header,
+    .uninet-quote-line__row {
+        grid-template-columns: minmax(230px, 1.5fr) 120px 110px 110px 120px;
+        gap: 0.75rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .uninet-quote-page .site-content > .col-full {
+        width: min(100% - 1rem, 760px);
+    }
+
+    .uninet-quote__header {
+        display: block;
+    }
+
+    .uninet-quote__assurances {
+        justify-content: flex-start;
+        margin-top: 1rem;
+    }
+
+    .uninet-quote__workspace {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .uninet-quote-summary {
+        display: none;
+    }
+
+    .uninet-quote-mobile-bar:not([hidden]) {
+        position: fixed;
+        z-index: 40;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        min-height: calc(4.5rem + env(safe-area-inset-bottom));
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.65rem max(1rem, env(safe-area-inset-right)) max(0.65rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+        border-top: 1px solid #aebacd;
+        background: #fff;
+        box-shadow: 0 -4px 8px rgba(19, 32, 51, 0.12);
+    }
+
+    .uninet-quote-mobile-bar > div {
+        display: grid;
+        gap: 0.1rem;
+    }
+
+    .uninet-quote-mobile-bar strong {
+        color: #132033;
+        font-size: 0.86rem;
+        font-weight: 800;
+    }
+
+    .uninet-quote-mobile-bar span {
+        color: #42526b;
+        font-size: 0.72rem;
+        font-variant-numeric: tabular-nums;
+    }
+}
+
+@media (max-width: 760px) {
+    .uninet-quote-lines__header {
+        display: none;
+    }
+
+    .uninet-quote-line__row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.8rem 1rem;
+        padding: 1rem 0;
+    }
+
+    .uninet-quote-line__product {
+        grid-column: 1 / -1;
+    }
+
+    .uninet-quote-line__quantity,
+    .uninet-quote-line__price,
+    .uninet-quote-line__total,
+    .uninet-quote-line__actions {
+        min-width: 0;
+    }
+
+    .uninet-quote-line__quantity::before,
+    .uninet-quote-line__price::before,
+    .uninet-quote-line__total::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.35rem;
+        color: #536176;
+        font-size: 0.68rem;
+        font-weight: 600;
+        line-height: 1.4;
+    }
+
+    .uninet-quote-line__actions {
+        align-self: end;
+    }
+
+    .uninet-quote-line__note {
+        padding: 0 0 1rem;
+    }
+}
+
+@media (max-width: 620px) {
+    .uninet-quote-page .site-content > .col-full {
+        width: 100%;
+    }
+
+    .uninet-quote {
+        margin-bottom: 4.5rem;
+    }
+
+    .uninet-quote__header,
+    .uninet-quote-finder,
+    .uninet-quote-lines,
+    .uninet-quote-details,
+    .uninet-quote-consent {
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+
+    .uninet-quote__header h1 {
+        font-size: 2rem;
+    }
+
+    .uninet-quote__header p {
+        font-size: 0.88rem;
+    }
+
+    .uninet-quote__assurances {
+        display: grid;
+        gap: 0.45rem;
+    }
+
+    .uninet-quote-section-heading {
+        display: block;
+    }
+
+    .uninet-quote-section-heading > span,
+    .uninet-quote-lines__count {
+        display: block;
+        margin-top: 0.45rem;
+    }
+
+    .uninet-quote-fields {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .uninet-quote-result {
+        grid-template-columns: 3.5rem minmax(0, 1fr) auto;
+        gap: 0.65rem;
+        padding: 0.75rem;
+    }
+
+    .uninet-quote-result img {
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+
+    .uninet-quote-result__price {
+        grid-column: 2;
+        text-align: left;
+    }
+
+    .uninet-quote-result .button {
+        grid-column: 3;
+        grid-row: 1 / span 2;
+        align-self: center;
+    }
+
+    .uninet-quote-line__row {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .uninet-quote-line__product {
+        grid-column: auto;
+    }
+
+    .uninet-quote-line__actions {
+        justify-content: flex-start;
+    }
+
+    .uninet-quote-review {
+        width: 100%;
+        max-width: none;
+        max-height: calc(100dvh - 1rem);
+        margin: auto 0 0;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .uninet-quote-review__body {
+        max-height: calc(100dvh - 15rem);
+        padding: 1rem;
+    }
+
+    .uninet-quote-review__actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+
+    .uninet-quote-review__edit,
+    .uninet-quote-review__submit {
+        width: 100%;
+    }
+
+    .uninet-quote-review__buyer {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.15rem;
+    }
+
+    .uninet-quote-review__buyer dd {
+        margin-bottom: 0.55rem;
+    }
+
+    .uninet-quote-success {
+        grid-template-columns: minmax(0, 1fr);
+        margin: 1rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .uninet-quote *,
+    .uninet-quote *::before,
+    .uninet-quote *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}

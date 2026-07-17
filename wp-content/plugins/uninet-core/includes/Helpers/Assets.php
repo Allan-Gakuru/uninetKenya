@@ -8,6 +8,7 @@
 namespace Uninet\Core\Helpers;
 
 use Uninet\Core\Admin\Settings;
+use Uninet\Core\Quote\Builder;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -71,6 +72,42 @@ final class Assets
                 true
             );
         }
+
+        if ($this->is_quote_builder_page()) {
+            wp_enqueue_style(
+                'uninet-quote-builder',
+                UNINET_CORE_URL . 'assets/css/quote-builder.css',
+                ['uninet-core'],
+                $this->asset_version('assets/css/quote-builder.css')
+            );
+
+            wp_enqueue_script(
+                'uninet-quote-builder',
+                UNINET_CORE_URL . 'assets/js/quote-builder.js',
+                [],
+                $this->asset_version('assets/js/quote-builder.js'),
+                true
+            );
+
+            wp_localize_script(
+                'uninet-quote-builder',
+                'uninetQuote',
+                [
+                    'ajaxUrl' => admin_url('admin-ajax.php'),
+                    'nonce' => wp_create_nonce(Builder::NONCE_ACTION),
+                    'searchAction' => Builder::SEARCH_ACTION,
+                    'submitAction' => Builder::SUBMIT_ACTION,
+                    'currency' => 'KES',
+                    'locale' => 'en-KE',
+                    'maxItems' => Builder::MAX_ITEMS,
+                    'events' => [
+                        'quoteSearch' => 'uninet_quote_search',
+                        'quoteAddProduct' => 'uninet_quote_add_product',
+                        'quoteSubmit' => 'uninet_quote_submit',
+                    ],
+                ]
+            );
+        }
     }
 
     /**
@@ -89,6 +126,24 @@ final class Assets
         $post_type = get_query_var('post_type');
 
         return 'product' === $post_type || (is_array($post_type) && in_array('product', $post_type, true));
+    }
+
+    /**
+     * Whether the current request contains the quote workspace.
+     */
+    private function is_quote_builder_page()
+    {
+        if (is_page('build-a-quote')) {
+            return true;
+        }
+
+        global $post;
+
+        if (! $post instanceof \WP_Post) {
+            return false;
+        }
+
+        return has_shortcode((string) $post->post_content, 'uninet_quote_builder');
     }
 
     /**

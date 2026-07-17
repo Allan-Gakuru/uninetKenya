@@ -16,6 +16,8 @@ use Uninet\Core\CallToOrder\Validation;
 use Uninet\Core\Contact\Form as ContactForm;
 use Uninet\Core\Contact\InquiryPostType;
 use Uninet\Core\Helpers\Assets;
+use Uninet\Core\Quote\Builder as QuoteBuilder;
+use Uninet\Core\Quote\RequestPostType as QuoteRequestPostType;
 use Uninet\Core\Setup\SitePages;
 use Uninet\Core\Tracking\Events;
 use Uninet\Core\WooCommerce\CartCheckoutVisibility;
@@ -70,6 +72,9 @@ final class Plugin
             add_action('admin_notices', [$this, 'render_woocommerce_notice']);
             return;
         }
+
+        (new QuoteRequestPostType())->register();
+        (new QuoteBuilder())->register();
 
         $metadata = new Metadata();
         $validation = new Validation();
