@@ -1971,8 +1971,14 @@ body.home.page.page-template-template-uninet-home .site-header {
 }
 
 .uninet-footer__nav a {
+    color: var(--uninet-white) !important;
     font-size: 0.82rem;
     line-height: 1.45;
+}
+
+.uninet-footer__nav a:hover,
+.uninet-footer__nav a:focus {
+    color: var(--uninet-action) !important;
 }
 
 .uninet-footer__whatsapp {
