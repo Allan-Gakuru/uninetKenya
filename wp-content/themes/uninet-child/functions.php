@@ -190,7 +190,15 @@ function uninet_child_render_footer()
             <div class="uninet-footer__inner uninet-footer__grid">
                 <section class="uninet-footer__brand" aria-labelledby="uninet-footer-brand">
                     <a id="uninet-footer-brand" class="uninet-footer__wordmark" href="<?php echo esc_url(home_url('/')); ?>">
-                        <?php esc_html_e('Uninet Technologies', 'uninet-child'); ?>
+                        <img
+                            class="uninet-footer__logo"
+                            src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/images/uninet-logo-white.png'); ?>"
+                            width="596"
+                            height="394"
+                            loading="lazy"
+                            decoding="async"
+                            alt="<?php esc_attr_e('Uninet Technologies', 'uninet-child'); ?>"
+                        >
                     </a>
                     <p><?php esc_html_e('Business technology procurement, practical product guidance, and staff-confirmed ordering for organisations across Kenya.', 'uninet-child'); ?></p>
                     <a class="uninet-footer__phone" href="tel:+254770313200">0770 313 200</a>

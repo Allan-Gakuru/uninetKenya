@@ -1918,21 +1918,18 @@ body.home.page.page-template-template-uninet-home .site-header {
 }
 
 .uninet-footer__wordmark {
-    display: inline-block;
+    display: block;
+    width: 11.5rem;
+    max-width: 100%;
     margin-bottom: 1rem;
     color: var(--uninet-white) !important;
-    font-size: clamp(1.45rem, 2.6vw, 2rem);
-    font-weight: 900;
-    line-height: 1.15;
+    line-height: 0;
 }
 
-.uninet-footer__wordmark::after {
-    content: "";
+.uninet-footer__logo {
     display: block;
-    width: 3.5rem;
-    height: 3px;
-    margin-top: 0.65rem;
-    background: var(--uninet-action);
+    width: 100%;
+    height: auto;
 }
 
 .uninet-footer__brand > p,
