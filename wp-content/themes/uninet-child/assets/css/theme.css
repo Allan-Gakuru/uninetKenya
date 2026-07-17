@@ -1996,7 +1996,7 @@ body.home.page.page-template-template-uninet-home .site-header {
 
 .uninet-footer__whatsapp:hover,
 .uninet-footer__whatsapp:focus {
-    color: var(--uninet-white) !important;
+    color: var(--uninet-heading) !important;
     background: var(--uninet-green);
 }
 
