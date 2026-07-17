@@ -1970,14 +1970,17 @@ body.home.page.page-template-template-uninet-home .site-header {
     padding: 0;
 }
 
-.uninet-footer__nav a {
+.site-footer .uninet-footer__nav a,
+.site-footer .uninet-footer__nav a:link,
+.site-footer .uninet-footer__nav a:visited {
     color: var(--uninet-white) !important;
-    font-size: 0.82rem;
-    line-height: 1.45;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.5;
 }
 
-.uninet-footer__nav a:hover,
-.uninet-footer__nav a:focus {
+.site-footer .uninet-footer__nav a:hover,
+.site-footer .uninet-footer__nav a:focus {
     color: var(--uninet-action) !important;
 }
 
@@ -2006,19 +2009,22 @@ body.home.page.page-template-template-uninet-home .site-header {
     margin-top: 1.2rem;
 }
 
-.uninet-footer__socials a {
+.site-footer .uninet-footer__socials a,
+.site-footer .uninet-footer__socials a:link,
+.site-footer .uninet-footer__socials a:visited {
     display: grid;
     width: 2.5rem;
     height: 2.5rem;
     place-items: center;
-    border: 1px solid rgba(255, 255, 255, 0.24);
+    border: 1px solid rgba(255, 255, 255, 0.45);
     border-radius: 5px;
+    color: var(--uninet-white) !important;
 }
 
-.uninet-footer__socials a:hover,
-.uninet-footer__socials a:focus {
+.site-footer .uninet-footer__socials a:hover,
+.site-footer .uninet-footer__socials a:focus {
     border-color: var(--uninet-action);
-    color: var(--uninet-heading);
+    color: var(--uninet-heading) !important;
     background: var(--uninet-action);
 }
 
