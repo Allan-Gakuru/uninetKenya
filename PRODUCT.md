@@ -51,4 +51,15 @@ Aim for WCAG 2.2 AA fundamentals: strong contrast, readable type, keyboard-frien
 - The footer provides product-category navigation, buying help, warranty, delivery, invoicing, contact, WhatsApp, privacy, and social links.
 - Contact-page submissions are stored privately as Contact Messages in the WordPress dashboard.
 - The contact form asks for the buyer's biggest challenge, what they have already tried, and why now is the right time to address it.
-- After a successful dashboard submission, the customer can review and send a prefilled WhatsApp message to +254770313200.
+- After a successful dashboard submission, the customer can review and send a bounded WhatsApp summary to +254770313200. WhatsApp never sends automatically, and complete answers remain in WordPress.
+- Contact submissions use nonce validation, a honeypot, maximum field lengths, and a one-minute browser/IP fingerprint throttle to limit accidental duplicates and basic spam without storing the raw IP address.
+- Poppins is delivered through Google Fonts in phase one. The privacy notice must remain aligned with Google Site Kit and any later analytics, security, search, backup, cookie, email, or marketing integrations.
+
+## Operational Guardrails
+
+- The coded footer is the source of truth; adding Storefront footer widgets will not make them visible unless the footer implementation is deliberately changed.
+- Existing Contact page copy is preserved, and the contact form is appended when its shortcode is absent.
+- Managed page creation runs on an administrator request after deployment. Deploying files alone does not guarantee that missing database pages have been created.
+- Contact records require a deliberate retention policy before public launch. Until that policy is approved, staff should periodically remove enquiries that no longer have an operational, accounting, warranty, support, security, or legal purpose.
+- The Privacy Policy is a technical starter notice, not a substitute for legal review. Recheck it whenever data collection or third-party services change.
+- Staff must test with clearly synthetic contact details and delete test records afterward.

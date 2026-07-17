@@ -81,7 +81,7 @@ final class Form
                     <div class="uninet-contact-success__icon" aria-hidden="true">&#10003;</div>
                     <div>
                         <h2 id="uninet-contact-heading"><?php esc_html_e('Your message has been saved.', 'uninet-core'); ?></h2>
-                        <p><?php esc_html_e('Continue to WhatsApp to send the prepared message directly to our sales team. WhatsApp will let you review it before sending.', 'uninet-core'); ?></p>
+                        <p><?php esc_html_e('Continue to WhatsApp to send a concise summary directly to our sales team. Your complete answers remain available to staff in the dashboard, and WhatsApp will let you review the summary before sending.', 'uninet-core'); ?></p>
                         <a class="button uninet-contact-success__button" href="<?php echo esc_url($state['whatsapp_url']); ?>" target="_blank" rel="noopener noreferrer">
                             <?php esc_html_e('Continue on WhatsApp', 'uninet-core'); ?>
                         </a>
@@ -169,6 +169,10 @@ final class Form
         $values = $this->sanitize_submission(wp_unslash($_POST));
         $errors = $this->validate($values);
 
+        if (! $errors && $this->is_rate_limited()) {
+            $errors[] = __('Your previous message was received. Please wait one minute before submitting another.', 'uninet-core');
+        }
+
         if ($errors) {
             $this->redirect_with_state($return_url, ['errors' => $errors, 'values' => $values]);
         }
@@ -198,6 +202,7 @@ final class Form
 
         update_post_meta($post_id, '_uninet_contact_source', 'contact-page');
         update_post_meta($post_id, '_uninet_contact_whatsapp_offered', 'yes');
+        $this->set_rate_limit();
 
         $this->redirect_with_state(
             $return_url,
@@ -343,14 +348,53 @@ final class Form
             'why_now' => 'Why now',
             'message' => 'Additional context',
         ];
+        $limits = [
+            'full_name' => 100,
+            'phone' => 30,
+            'email' => 120,
+            'business_name' => 120,
+            'subject' => 160,
+            'challenge' => 260,
+            'already_tried' => 260,
+            'why_now' => 260,
+            'message' => 180,
+        ];
 
         foreach ($labels as $key => $label) {
             if (! empty($values[$key])) {
-                $lines[] = $label . ': ' . $this->limit($values[$key], 400);
+                $lines[] = $label . ': ' . $this->limit($values[$key], $limits[$key]);
             }
         }
 
         return 'https://wa.me/254770313200?text=' . rawurlencode(implode("\n\n", $lines));
+    }
+
+    /**
+     * Whether this browser recently created an enquiry.
+     */
+    private function is_rate_limited()
+    {
+        return (bool) get_transient($this->rate_limit_key());
+    }
+
+    /**
+     * Prevent accidental repeats and simple automated submission bursts.
+     */
+    private function set_rate_limit()
+    {
+        set_transient($this->rate_limit_key(), '1', MINUTE_IN_SECONDS);
+    }
+
+    /**
+     * Build a privacy-preserving request fingerprint without storing the IP.
+     */
+    private function rate_limit_key()
+    {
+        $ip = sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
+        $agent = sanitize_text_field(wp_unslash($_SERVER['HTTP_USER_AGENT'] ?? 'unknown'));
+        $fingerprint = hash_hmac('sha256', $ip . '|' . $agent, wp_salt('nonce'));
+
+        return 'uninet_contact_rate_' . substr($fingerprint, 0, 32);
     }
 
     /**

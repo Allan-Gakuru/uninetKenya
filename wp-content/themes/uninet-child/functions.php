@@ -49,6 +49,20 @@ add_action('wp_enqueue_scripts', function () {
     );
 }, 20);
 
+add_filter('wp_resource_hints', function ($urls, $relation_type) {
+    if ('preconnect' !== $relation_type) {
+        return $urls;
+    }
+
+    $urls[] = 'https://fonts.googleapis.com';
+    $urls[] = [
+        'href' => 'https://fonts.gstatic.com',
+        'crossorigin' => 'anonymous',
+    ];
+
+    return $urls;
+}, 10, 2);
+
 /**
  * Replace Storefront's default commerce header with Uninet's procurement header.
  */
@@ -310,6 +324,31 @@ function uninet_child_get_header_social_links()
         ],
     ];
 }
+
+/**
+ * Move an untouched legacy Facebook setting to the canonical profile.
+ */
+function uninet_child_migrate_social_urls()
+{
+    if (! current_user_can('manage_options')) {
+        return;
+    }
+
+    if ('1' === get_option('uninet_child_social_urls_version')) {
+        return;
+    }
+
+    $current = (string) get_theme_mod('uninet_header_facebook_url', '');
+    $normalized = strtolower(rtrim($current, '/'));
+    $legacy = 'https://www.facebook.com/uninetkenya';
+
+    if ('' === $normalized || $legacy === $normalized) {
+        set_theme_mod('uninet_header_facebook_url', 'https://www.facebook.com/UniNietTechnologies');
+    }
+
+    update_option('uninet_child_social_urls_version', '1', false);
+}
+add_action('admin_init', 'uninet_child_migrate_social_urls');
 
 /**
  * Return the inline icon for a supported social network.

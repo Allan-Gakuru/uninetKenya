@@ -35,7 +35,9 @@ into the live WordPress install.
 ```text
 includes/Admin/
 includes/CallToOrder/
+includes/Contact/
 includes/Helpers/
+includes/Setup/
 includes/Tracking/
 includes/WooCommerce/
 ```
@@ -73,6 +75,16 @@ The homepage foundation now:
 - organizes the homepage around business use cases, featured products, category entry points, procurement process, and trust details
 - uses real WooCommerce products/categories where available, with safe fallbacks to the shop page
 
+The Phase 4 sitewide experience now:
+
+- loads Poppins from Google Fonts with preconnect hints and heavier approved type weights
+- replaces Storefront's generic footer with code-owned category, trust, privacy, contact, WhatsApp, and social navigation
+- stores public contact submissions as private `Contact Messages` in the WordPress dashboard
+- uses nonce validation, a honeypot, field limits, and a one-minute browser/IP fingerprint throttle to reduce spam and duplicate submissions
+- preserves complete enquiry answers in WordPress while sending only a bounded summary to WhatsApp
+- creates missing Contact and Privacy Policy pages on the first administrator request after deployment
+- preserves existing Contact page copy and only updates the original generated privacy wording when it can identify that exact legacy version
+
 ## Theme Architecture
 
 `uninet-child` extends Storefront and provides:
@@ -81,3 +93,21 @@ The homepage foundation now:
 - theme CSS foundation
 - theme JS entrypoint
 - WooCommerce override folders for later phases
+
+## Phase 4 Post-Deployment Checklist
+
+1. In cPanel, run **Update from Remote** and **Deploy HEAD Commit**.
+2. Visit `wp-admin` once as an administrator. This runs the managed-page and legacy social-URL migrations.
+3. Confirm that `/contact-us/` and `/privacy-policy/` load and that the footer links reach the intended pages and category archives.
+4. Review the Privacy Policy before launch, especially after enabling or changing Site Kit, analytics, cookie, backup, search, security, email, or marketing services.
+5. Submit one clearly labelled test contact message. Confirm it appears under `Contact Messages`, verify the WhatsApp summary, then delete the test record.
+6. Test the footer, contact form, Poppins loading, focus states, and navigation at mobile and desktop widths.
+7. Clear any page, object, CDN, or browser cache if the theme version shown is older than `0.6.1` or the plugin version is older than `0.3.1`.
+
+## Contact Data Operations
+
+- Contact messages are private WordPress records, but administrators and other roles with the relevant post capabilities may be able to view them.
+- Do not place passwords, payment credentials, identity documents, medical information, or other unnecessary sensitive data in test submissions.
+- Review and delete contact messages that are no longer needed. Set a formal retention period before launch once accounting, warranty, support, and legal requirements are confirmed.
+- WhatsApp is optional and customer-initiated. A website submission is stored before the WhatsApp link is offered, and WhatsApp never sends automatically.
+- Poppins is currently delivered by Google Fonts. Google Site Kit and any enabled analytics/search integrations must be reflected accurately in the live privacy and cookie configuration.
