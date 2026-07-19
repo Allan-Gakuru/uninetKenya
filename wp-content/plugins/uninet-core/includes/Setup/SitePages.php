@@ -21,6 +21,31 @@ final class SitePages
     public function register()
     {
         add_action('admin_init', [$this, 'maybe_create_pages']);
+        add_filter('the_content', [$this, 'remove_privacy_tutorial_label'], 20);
+    }
+
+    /**
+     * Remove WordPress editor guidance from the public Privacy Policy.
+     */
+    public function remove_privacy_tutorial_label($content)
+    {
+        if (
+            is_admin()
+            || ! is_main_query()
+            || ! in_the_loop()
+            || (! is_privacy_policy() && ! is_page('privacy-policy'))
+        ) {
+            return $content;
+        }
+
+        $labels = array_unique([
+            'Suggested text:',
+            'Suggested text',
+            __('Suggested text:'),
+            __('Suggested text'),
+        ]);
+
+        return str_ireplace($labels, '', $content);
     }
 
     /**
