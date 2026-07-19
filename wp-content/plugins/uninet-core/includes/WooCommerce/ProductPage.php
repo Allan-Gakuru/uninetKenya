@@ -7,6 +7,8 @@
 
 namespace Uninet\Core\WooCommerce;
 
+use Uninet\Core\Quote\Builder as QuoteBuilder;
+
 if (! defined('ABSPATH')) {
     exit;
 }
@@ -67,6 +69,11 @@ final class ProductPage
             return;
         }
 
+        $quote_url = QuoteBuilder::page_url([
+            'quote_product' => $product->get_id(),
+            'quote_source' => 'product',
+        ]);
+
         echo '<section class="uninet-product-callout" aria-label="' . esc_attr__('Make an Order', 'uninet-core') . '">';
         echo '<div class="uninet-product-callout__body">';
         echo '<h2 class="uninet-product-callout__title">' . esc_html__('Make an Order', 'uninet-core') . '</h2>';
@@ -79,6 +86,9 @@ final class ProductPage
         echo $this->call_icon_svg(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo '<span>' . esc_html__('Call to Order', 'uninet-core') . '</span>';
         echo '</button>';
+        echo '<a class="uninet-product-callout__quote" href="' . esc_url($quote_url) . '" data-uninet-track="uninet_quote_entry_click" data-uninet-track-location="product">';
+        echo esc_html__('Add to multi-product quote', 'uninet-core');
+        echo '</a>';
         echo '</div>';
         echo '</section>';
     }

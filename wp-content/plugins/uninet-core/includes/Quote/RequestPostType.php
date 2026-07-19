@@ -15,6 +15,8 @@ final class RequestPostType
 {
     const POST_TYPE = 'uninet_quote';
     const STATUS_META = '_uninet_quote_status';
+    const STATUS_UPDATED_META = '_uninet_quote_status_updated_at';
+    const INTERNAL_NOTE_META = '_uninet_quote_internal_note';
 
     /**
      * Register dashboard hooks.
@@ -26,6 +28,8 @@ final class RequestPostType
         add_action('save_post_' . self::POST_TYPE, [$this, 'save_status']);
         add_filter('manage_' . self::POST_TYPE . '_posts_columns', [$this, 'columns']);
         add_action('manage_' . self::POST_TYPE . '_posts_custom_column', [$this, 'render_column'], 10, 2);
+        add_action('restrict_manage_posts', [$this, 'render_status_filter']);
+        add_action('pre_get_posts', [$this, 'filter_admin_query']);
     }
 
     /**
@@ -198,6 +202,8 @@ final class RequestPostType
     {
         $current = (string) get_post_meta($post->ID, self::STATUS_META, true);
         $current = $current ?: 'new';
+        $internal_note = (string) get_post_meta($post->ID, self::INTERNAL_NOTE_META, true);
+        $updated_at = (string) get_post_meta($post->ID, self::STATUS_UPDATED_META, true);
 
         wp_nonce_field('uninet_quote_status_' . $post->ID, 'uninet_quote_status_nonce');
 
@@ -210,6 +216,20 @@ final class RequestPostType
 
         echo '</select>';
         echo '<p class="description">' . esc_html__('Use this status for internal follow-up. It is not shown publicly.', 'uninet-core') . '</p>';
+        echo '<hr>';
+        echo '<label for="uninet-quote-internal-note"><strong>' . esc_html__('Internal follow-up note', 'uninet-core') . '</strong></label>';
+        echo '<textarea id="uninet-quote-internal-note" name="uninet_quote_internal_note" rows="6" maxlength="2000" style="width:100%;margin-top:6px;">';
+        echo esc_textarea($internal_note);
+        echo '</textarea>';
+        echo '<p class="description">' . esc_html__('Record the next action, availability check, or quotation follow-up. Customers cannot see this note.', 'uninet-core') . '</p>';
+
+        if ($updated_at) {
+            echo '<p class="description"><strong>' . esc_html__('Last workflow update:', 'uninet-core') . '</strong><br>';
+            echo esc_html(mysql2date(get_option('date_format') . ' ' . get_option('time_format'), $updated_at));
+            echo '</p>';
+        }
+
+        echo '<p class="description">' . esc_html__('Delete synthetic tests after validation. Move completed requests to Closed and review retained records periodically.', 'uninet-core') . '</p>';
     }
 
     /**
@@ -233,10 +253,80 @@ final class RequestPostType
         }
 
         $status = sanitize_key(wp_unslash($_POST['uninet_quote_status'] ?? ''));
+        $internal_note = sanitize_textarea_field(wp_unslash($_POST['uninet_quote_internal_note'] ?? ''));
+        $internal_note = $this->limit($internal_note, 2000);
+        $changed = false;
 
-        if (isset(self::statuses()[$status])) {
+        if (
+            isset(self::statuses()[$status])
+            && $status !== (string) get_post_meta($post_id, self::STATUS_META, true)
+        ) {
             update_post_meta($post_id, self::STATUS_META, $status);
+            $changed = true;
         }
+
+        if ($internal_note !== (string) get_post_meta($post_id, self::INTERNAL_NOTE_META, true)) {
+            update_post_meta($post_id, self::INTERNAL_NOTE_META, $internal_note);
+            $changed = true;
+        }
+
+        if ($changed) {
+            update_post_meta($post_id, self::STATUS_UPDATED_META, current_time('mysql'));
+        }
+    }
+
+    /**
+     * Add an internal workflow status filter above the quote request table.
+     *
+     * @param string $post_type Current admin post type.
+     */
+    public function render_status_filter($post_type)
+    {
+        if (self::POST_TYPE !== $post_type) {
+            return;
+        }
+
+        $selected_status = sanitize_key(wp_unslash($_GET['uninet_quote_status'] ?? ''));
+
+        echo '<label class="screen-reader-text" for="uninet-quote-status-filter">' . esc_html__('Filter quote requests by status', 'uninet-core') . '</label>';
+        echo '<select id="uninet-quote-status-filter" name="uninet_quote_status">';
+        echo '<option value="">' . esc_html__('All workflow statuses', 'uninet-core') . '</option>';
+
+        foreach (self::statuses() as $value => $label) {
+            echo '<option value="' . esc_attr($value) . '" ' . selected($selected_status, $value, false) . '>' . esc_html($label) . '</option>';
+        }
+
+        echo '</select>';
+    }
+
+    /**
+     * Apply the selected workflow status to the quote request admin query.
+     *
+     * @param \WP_Query $query Current admin query.
+     */
+    public function filter_admin_query($query)
+    {
+        if (
+            ! is_admin()
+            || ! $query->is_main_query()
+            || self::POST_TYPE !== $query->get('post_type')
+        ) {
+            return;
+        }
+
+        $status = sanitize_key(wp_unslash($_GET['uninet_quote_status'] ?? ''));
+
+        if (! isset(self::statuses()[$status])) {
+            return;
+        }
+
+        $meta_query = (array) $query->get('meta_query');
+        $meta_query[] = [
+            'key' => self::STATUS_META,
+            'value' => $status,
+            'compare' => '=',
+        ];
+        $query->set('meta_query', $meta_query);
     }
 
     /**
@@ -306,6 +396,13 @@ final class RequestPostType
         if ('uninet_quote_status' === $column) {
             $status = (string) get_post_meta($post_id, self::STATUS_META, true);
             echo esc_html(self::statuses()[$status] ?? self::statuses()['new']);
+
+            $updated_at = (string) get_post_meta($post_id, self::STATUS_UPDATED_META, true);
+            if ($updated_at) {
+                echo '<br><span style="color:#646970;">';
+                echo esc_html(mysql2date(get_option('date_format'), $updated_at));
+                echo '</span>';
+            }
         }
     }
 
@@ -344,5 +441,17 @@ final class RequestPostType
         }
 
         return wp_kses_post(wc_price((float) $amount, ['currency' => 'KES']));
+    }
+
+    /**
+     * Limit a sanitized internal value without breaking multibyte text.
+     */
+    private function limit($value, $length)
+    {
+        if (function_exists('mb_substr')) {
+            return mb_substr($value, 0, $length);
+        }
+
+        return substr($value, 0, $length);
     }
 }

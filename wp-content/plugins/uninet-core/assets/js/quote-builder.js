@@ -8,6 +8,8 @@
   }
 
   var config = window.uninetQuote;
+  var entrySource = builder.getAttribute("data-uninet-quote-source") || "direct";
+  var initialProduct = parseInitialProduct(builder.getAttribute("data-uninet-quote-initial-product"));
   var form = builder.querySelector("[data-uninet-quote-form]");
   var searchInput = builder.querySelector("[data-uninet-quote-search]");
   var searchWrap = builder.querySelector("[data-uninet-quote-search-wrap]");
@@ -64,6 +66,24 @@
     }
 
     return node;
+  }
+
+  function parseInitialProduct(value) {
+    if (!value) {
+      return null;
+    }
+
+    try {
+      var product = JSON.parse(value);
+
+      if (!product || Number(product.id) <= 0 || !product.name) {
+        return null;
+      }
+
+      return product;
+    } catch (error) {
+      return null;
+    }
   }
 
   function formatPrice(amount) {
@@ -375,17 +395,22 @@
     renderLines();
   }
 
-  function addProduct(product) {
+  function addProduct(product, options) {
+    options = options || {};
     var existing = findItem(product.id);
 
     if (existing) {
+      if (options.prefill) {
+        return false;
+      }
+
       setQuantity(existing.id, existing.quantity + 1);
-      return;
+      return true;
     }
 
     if (items.length >= Number(config.maxItems || 40)) {
       showError("This quote request has reached the maximum number of product lines.", "items");
-      return;
+      return false;
     }
 
     items.push({
@@ -403,12 +428,17 @@
 
     clearError();
     renderLines();
-    track(config.events && config.events.quoteAddProduct, { product_id: product.id });
+    track(config.events && config.events[options.prefill ? "quotePrefill" : "quoteAddProduct"], {
+      product_id: product.id,
+      source: entrySource
+    });
 
     var selected = linesList.querySelector('[data-product-id="' + product.id + '"]');
-    if (selected) {
+    if (selected && options.scroll !== false) {
       selected.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
+
+    return true;
   }
 
   function removeItem(productId) {
@@ -528,7 +558,8 @@
         track(config.events && config.events.quoteSearch, {
           search_term: query,
           product_category: activeCategory,
-          result_count: products.length
+          result_count: products.length,
+          source: entrySource
         });
       })
       .catch(function (error) {
@@ -542,6 +573,10 @@
           ? error.data.message
           : "We could not search the catalogue. Check your connection and try again.";
         resultsPanel.hidden = false;
+        track(config.events && config.events.quoteSearchError, {
+          product_category: activeCategory,
+          source: entrySource
+        });
       });
   }
 
@@ -649,6 +684,8 @@
 
   function submitQuote() {
     var data;
+    var submissionItemCount;
+    var submissionTotals;
 
     if (submitting) {
       return;
@@ -656,6 +693,8 @@
 
     itemsInput.value = JSON.stringify(requestItems());
     data = new FormData(form);
+    submissionItemCount = items.length;
+    submissionTotals = totals();
     setSubmitting(true);
     submitStatus.textContent = "Saving the request securely...";
 
@@ -682,13 +721,19 @@
         successMessage.textContent = payload.message || "We saved your quote request for staff review.";
         referenceOutput.textContent = payload.reference ? "Quote reference: " + payload.reference : "";
         whatsappLink.href = payload.whatsappUrl || "https://wa.me/254770313200";
-        items = [];
-        saveItems();
         success.focus();
         track(config.events && config.events.quoteSubmit, {
           quote_id: payload.quoteId || "",
-          quote_reference: payload.reference || ""
+          quote_reference: payload.reference || "",
+          item_count: submissionItemCount,
+          quantity: submissionTotals.units,
+          value: submissionTotals.subtotal,
+          currency: config.currency || "KES",
+          unpriced_count: submissionTotals.unpriced,
+          source: entrySource
         });
+        items = [];
+        saveItems();
       })
       .catch(function (error) {
         var payload = error && error.data ? error.data : {};
@@ -700,6 +745,11 @@
           closeReview();
           showError(message, payload.field);
         }
+
+        track(config.events && config.events.quoteSubmitError, {
+          error_field: payload.field || "request",
+          source: entrySource
+        });
       })
       .finally(function () {
         setSubmitting(false);
@@ -764,5 +814,17 @@
     }
   });
 
-  renderLines();
+  if (initialProduct && !findItem(initialProduct.id)) {
+    addProduct(initialProduct, { prefill: true, scroll: false });
+  } else {
+    renderLines();
+
+    if (initialProduct) {
+      track(config.events && config.events.quotePrefill, {
+        product_id: initialProduct.id,
+        source: entrySource,
+        already_present: true
+      });
+    }
+  }
 })();

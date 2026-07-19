@@ -33,6 +33,23 @@ final class Builder
     }
 
     /**
+     * Return the published quote page URL with optional workflow context.
+     *
+     * @param array $query_args Optional query parameters.
+     */
+    public static function page_url($query_args = [])
+    {
+        $page = get_page_by_path('build-a-quote', OBJECT, 'page');
+        $url = home_url('/build-a-quote/');
+
+        if ($page instanceof \WP_Post && 'publish' === $page->post_status) {
+            $url = get_permalink($page);
+        }
+
+        return $query_args ? add_query_arg($query_args, $url) : $url;
+    }
+
+    /**
      * Ensure the managed quote page always renders the builder shortcode.
      *
      * @param string $content Page content.
@@ -75,10 +92,19 @@ final class Builder
         }
 
         $categories = $this->categories();
+        $source = $this->request_source();
+        $initial_product = $this->initial_product();
+        $initial_product_json = $initial_product ? wp_json_encode($initial_product) : '';
 
         ob_start();
         ?>
-        <section class="uninet-quote" data-uninet-quote-builder aria-labelledby="uninet-quote-title">
+        <section
+            class="uninet-quote"
+            data-uninet-quote-builder
+            data-uninet-quote-source="<?php echo esc_attr($source); ?>"
+            data-uninet-quote-initial-product="<?php echo esc_attr($initial_product_json); ?>"
+            aria-labelledby="uninet-quote-title"
+        >
             <header class="uninet-quote__header">
                 <div>
                     <h1 id="uninet-quote-title"><?php esc_html_e('Build a Quote', 'uninet-core'); ?></h1>
@@ -95,6 +121,7 @@ final class Builder
                 <input type="hidden" name="action" value="<?php echo esc_attr(self::SUBMIT_ACTION); ?>">
                 <input type="hidden" name="nonce" value="<?php echo esc_attr(wp_create_nonce(self::NONCE_ACTION)); ?>">
                 <input type="hidden" name="items" value="[]" data-uninet-quote-items>
+                <input type="hidden" name="quote_source" value="<?php echo esc_attr($source); ?>">
 
                 <div class="uninet-quote__honeypot" aria-hidden="true">
                     <label for="uninet-quote-website"><?php esc_html_e('Website', 'uninet-core'); ?></label>
@@ -107,7 +134,7 @@ final class Builder
                             <div class="uninet-quote-section-heading">
                                 <div>
                                     <h2 id="uninet-quote-finder-title"><?php esc_html_e('Find catalogue products', 'uninet-core'); ?></h2>
-                                    <p><?php esc_html_e('Search by product name, model, or SKU. Newly published WooCommerce products appear automatically.', 'uninet-core'); ?></p>
+                                    <p><?php esc_html_e('Search by product name, model, or SKU. Newly published catalogue products appear automatically.', 'uninet-core'); ?></p>
                                 </div>
                             </div>
 
@@ -476,8 +503,9 @@ final class Builder
         update_post_meta($post_id, '_uninet_quote_unpriced_count', $unpriced_count);
         update_post_meta($post_id, '_uninet_quote_currency', 'KES');
         update_post_meta($post_id, '_uninet_quote_price_context', 'pre-tax-indicative');
-        update_post_meta($post_id, '_uninet_quote_source', 'build-a-quote-page');
+        update_post_meta($post_id, '_uninet_quote_source', 'build-a-quote-' . $values['source']);
         update_post_meta($post_id, RequestPostType::STATUS_META, 'new');
+        update_post_meta($post_id, RequestPostType::STATUS_UPDATED_META, current_time('mysql'));
 
         wp_update_post([
             'ID' => $post_id,
@@ -669,8 +697,54 @@ final class Builder
             'delivery_details' => $this->limit(sanitize_textarea_field($source['delivery_details'] ?? ''), 1200),
             'notes' => $this->limit(sanitize_textarea_field($source['notes'] ?? ''), 2000),
             'consent' => sanitize_key($source['consent'] ?? ''),
+            'source' => $this->normalize_source($source['quote_source'] ?? ''),
             'items' => (string) ($source['items'] ?? ''),
         ];
+    }
+
+    /**
+     * Return the current quote entry source.
+     */
+    private function request_source()
+    {
+        return $this->normalize_source(wp_unslash($_GET['quote_source'] ?? ''));
+    }
+
+    /**
+     * Normalize analytics context to a short allow-list.
+     *
+     * @param string $source Raw source.
+     */
+    private function normalize_source($source)
+    {
+        $source = sanitize_key($source);
+        $allowed = ['archive', 'direct', 'footer', 'header', 'product'];
+
+        return in_array($source, $allowed, true) ? $source : 'direct';
+    }
+
+    /**
+     * Return a trusted catalogue product requested by a product-page entry point.
+     */
+    private function initial_product()
+    {
+        $product_id = absint(wp_unslash($_GET['quote_product'] ?? 0));
+
+        if (! $product_id) {
+            return null;
+        }
+
+        $product = wc_get_product($product_id);
+
+        if (
+            ! $product instanceof \WC_Product
+            || 'publish' !== get_post_status($product_id)
+            || ! $product->is_visible()
+        ) {
+            return null;
+        }
+
+        return $this->product_payload($product);
     }
 
     /**

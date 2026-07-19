@@ -7,6 +7,8 @@
 
 namespace Uninet\Core\WooCommerce;
 
+use Uninet\Core\Quote\Builder as QuoteBuilder;
+
 if (! defined('ABSPATH')) {
     exit;
 }
@@ -52,6 +54,7 @@ final class ProductArchives
 
         add_action('woocommerce_archive_description', [$this, 'render_category_buying_note'], 20);
         add_action('woocommerce_archive_description', [$this, 'render_category_navigation'], 30);
+        add_action('woocommerce_archive_description', [$this, 'render_quote_entry_point'], 40);
         add_action('woocommerce_before_shop_loop', [$this, 'render_archive_layout_open'], 8);
         add_action('woocommerce_before_shop_loop', [$this, 'render_archive_controls'], 15);
         add_action('woocommerce_after_shop_loop', [$this, 'render_archive_layout_close'], 35);
@@ -245,6 +248,29 @@ final class ProductArchives
 
         echo '</nav>';
         echo '</div>';
+    }
+
+    /**
+     * Offer a multi-product procurement path without interrupting browsing.
+     */
+    public function render_quote_entry_point()
+    {
+        if (! $this->is_supported_archive()) {
+            return;
+        }
+
+        $quote_url = QuoteBuilder::page_url(['quote_source' => 'archive']);
+
+        echo '<section class="uninet-archive-quote" aria-labelledby="uninet-archive-quote-title">';
+        echo '<div class="uninet-archive-quote__copy">';
+        echo '<p class="uninet-archive-quote__eyebrow">' . esc_html__('Multi-product procurement', 'uninet-core') . '</p>';
+        echo '<h2 id="uninet-archive-quote-title">' . esc_html__('Planning a team rollout or office setup?', 'uninet-core') . '</h2>';
+        echo '<p>' . esc_html__('Build one request with products, quantities, and requirements. Staff will confirm availability, tax, delivery, and the final quotation.', 'uninet-core') . '</p>';
+        echo '</div>';
+        echo '<a class="button uninet-archive-quote__action" href="' . esc_url($quote_url) . '" data-uninet-track="uninet_quote_entry_click" data-uninet-track-location="archive">';
+        echo esc_html__('Build a Quote', 'uninet-core');
+        echo '</a>';
+        echo '</section>';
     }
 
     /**

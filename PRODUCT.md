@@ -55,22 +55,24 @@ Aim for WCAG 2.2 AA fundamentals: strong contrast, readable type, keyboard-frien
 - Contact submissions use nonce validation, a honeypot, maximum field lengths, and a one-minute browser/IP fingerprint throttle to limit accidental duplicates and basic spam without storing the raw IP address.
 - Poppins is delivered through Google Fonts in phase one. The privacy notice must remain aligned with Google Site Kit and any later analytics, security, search, backup, cookie, email, or marketing integrations.
 
-## Build a Quote Experience
+## Phase 5 Conversion and Procurement Experience
 
 - The quote page is a procurement workspace, not a marketing landing page or consumer cart.
+- Header, footer, product-page, and product-archive entry points bring buyers into one consistent quote workflow. Product-page entry preloads the selected catalogue item.
 - Buyers can find any current published catalogue product by product name, model, SKU, or category. Future WooCommerce products participate automatically.
 - A request may contain multiple products, quantities, and line-specific requirements.
 - Buyers see indicative pre-tax product prices, line totals, and subtotal. Products without a published price remain selectable and are excluded from the displayed subtotal until staff prices them.
 - Organisation name and type, contact person, phone, business email, KRA PIN, business address, county, town, and delivery or pickup choice are required. Required-by date, fulfilment details, and procurement notes are optional.
 - A review step explains that submitting does not reserve stock, create an order, or confirm final pricing.
-- Successful requests are stored privately in `Quote Requests` and can move through New, Reviewing, Quote prepared, and Closed statuses.
+- Successful requests are stored privately in `Quote Requests` and can move through New, Reviewing, Quote prepared, and Closed statuses. Staff can filter the queue by status, save a private follow-up note, and see when the workflow was last updated.
 - WhatsApp remains an optional customer-initiated continuation after the dashboard record is saved.
+- Analytics events cover quote entry, product prefill, catalogue search, product addition, successful submission, and bounded errors. Call to Order errors and successful Contact submissions are also covered. Event parameters must not contain buyer answers or contact details.
 
 ## Operational Guardrails
 
 - The coded footer is the source of truth; adding Storefront footer widgets will not make them visible unless the footer implementation is deliberately changed.
 - Existing Contact page copy is preserved, and the contact form is appended when its shortcode is absent.
-- Managed page creation runs on an administrator request after deployment. Deploying files alone does not guarantee that missing database pages have been created.
+- Managed page reconciliation runs on administrator requests after deployment. A missing or trashed Contact, Build a Quote, or Privacy page is recreated or restored without overwriting ordinary staff-authored page copy.
 - Contact records require a deliberate retention policy before public launch. Until that policy is approved, staff should periodically remove enquiries that no longer have an operational, accounting, warranty, support, security, or legal purpose.
 - The Privacy Policy is a technical starter notice, not a substitute for legal review. Recheck it whenever data collection or third-party services change.
 - Staff must test with clearly synthetic contact details and delete test records afterward.
@@ -78,5 +80,6 @@ Aim for WCAG 2.2 AA fundamentals: strong contrast, readable type, keyboard-frien
 - Browser-submitted prices and product details are never trusted; the server rebuilds quote lines from current published WooCommerce products.
 - Quote submissions must never reduce stock, reserve inventory, or create WooCommerce orders.
 - Only product lines are saved temporarily in browser session storage. Personal, organisation, location, and KRA details are not stored in the browser by the quote builder.
-- Quote records need an approved retention and access policy before public launch.
+- Staff should review private Contact Messages and Quote Requests at least quarterly, then delete or anonymize records that are no longer reasonably required for their original purpose.
+- Do not use automatic deletion for lead records. Anything that becomes an order, invoice, contract, warranty, dispute, or tax record must first enter the relevant accounting or legal retention process. Kenyan tax records are generally retained for five years; the final schedule requires accountant or legal confirmation.
 - If catalogue visibility or pricing rules change, retest search results and pre-tax calculations before launch.

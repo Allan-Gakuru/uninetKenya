@@ -217,7 +217,7 @@ function uninet_child_render_footer()
                 <nav class="uninet-footer__nav" aria-labelledby="uninet-footer-help">
                     <h2 id="uninet-footer-help"><?php esc_html_e('Buying help', 'uninet-child'); ?></h2>
                     <ul>
-                        <li><a href="<?php echo esc_url(uninet_child_get_quote_url()); ?>"><?php esc_html_e('Build a Quote', 'uninet-child'); ?></a></li>
+                        <li><a href="<?php echo esc_url(add_query_arg('quote_source', 'footer', uninet_child_get_quote_url())); ?>" data-uninet-track="uninet_quote_entry_click" data-uninet-track-location="footer"><?php esc_html_e('Build a Quote', 'uninet-child'); ?></a></li>
                         <li><a href="<?php echo esc_url(uninet_child_get_contact_url()); ?>"><?php esc_html_e('Contact us', 'uninet-child'); ?></a></li>
                         <li><a href="<?php echo esc_url(home_url('/#uninet-home-procurement')); ?>"><?php esc_html_e('How ordering works', 'uninet-child'); ?></a></li>
                         <li><a href="<?php echo esc_url(home_url('/#uninet-home-faq')); ?>"><?php esc_html_e('Frequently asked questions', 'uninet-child'); ?></a></li>
@@ -395,7 +395,7 @@ function uninet_child_render_header_actions()
     $social_links = uninet_child_get_header_social_links();
     ?>
     <div class="uninet-header__actions">
-        <a class="uninet-header__quote" href="<?php echo esc_url(uninet_child_get_quote_url()); ?>">
+        <a class="uninet-header__quote" href="<?php echo esc_url(add_query_arg('quote_source', 'header', uninet_child_get_quote_url())); ?>" data-uninet-track="uninet_quote_entry_click" data-uninet-track-location="header">
             <?php esc_html_e('Build a Quote', 'uninet-child'); ?>
         </a>
         <a class="uninet-header__contact" href="<?php echo esc_url(uninet_child_get_contact_url()); ?>">

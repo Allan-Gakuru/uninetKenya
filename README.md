@@ -43,7 +43,7 @@ includes/Tracking/
 includes/WooCommerce/
 ```
 
-The plugin currently provides the Phase 2 foundation:
+The plugin foundation includes:
 
 - settings page shell under `Settings -> Uninet Core`
 - frontend asset loading
@@ -86,17 +86,24 @@ The Phase 4 sitewide experience now:
 - creates missing Contact and Privacy Policy pages on the first administrator request after deployment
 - preserves existing Contact page copy and only updates the original generated privacy wording when it can identify that exact legacy version
 
+## Phase 5 Conversion and Procurement System
+
 The Build a Quote procurement workflow now:
 
-- creates a managed `/build-a-quote/` page and adds entry points in the header and footer
+- creates and restores the managed `/build-a-quote/` page and adds tracked entry points in the header, footer, product pages, and product archives
+- carries a selected product from its product page into the quote automatically without duplicating an existing saved line
 - searches current published WooCommerce products by product name, model, SKU, or top-level category, so future catalogue products appear without code changes
 - supports multiple catalogue products, quantities, and per-line procurement notes
 - shows indicative pre-tax prices and totals while clearly separating products that require staff pricing
 - recalculates every price from WooCommerce on the server before storing the request
-- stores each submission privately under `Quote Requests` with buyer, KRA, delivery, product, price, and internal workflow-status details
+- stores each submission privately under `Quote Requests` with buyer, KRA, delivery, product, price, source, and workflow details
+- gives staff a filterable status queue, private follow-up note, and workflow-update timestamp
 - never creates a WooCommerce order, reserves stock, or reduces inventory
 - offers a bounded WhatsApp handoff only after the dashboard record is saved
 - protects submissions with a nonce, honeypot, field and line limits, catalogue validation, and a one-minute duplicate throttle
+- tracks quote entry, prefill, catalogue search, product addition, successful submission, and bounded failure events without sending form answers to analytics
+
+The wider Phase 5 conversion layer also tracks Call to Order failures and successful Contact form views. These events use the defensive `window.uninetTrack` bridge and remain harmless when Google Analytics is unavailable.
 
 ## Theme Architecture
 
@@ -115,23 +122,29 @@ The Build a Quote procurement workflow now:
 4. Review the Privacy Policy before launch, especially after enabling or changing Site Kit, analytics, cookie, backup, search, security, email, or marketing services.
 5. Submit one clearly labelled test contact message. Confirm it appears under `Contact Messages`, verify the WhatsApp summary, then delete the test record.
 6. Test the footer, contact form, Poppins loading, focus states, and navigation at mobile and desktop widths.
-7. Clear any page, object, CDN, or browser cache if the theme version shown is older than `0.6.6` or the plugin version is older than `0.4.0`.
+7. Clear any page, object, CDN, or browser cache if the theme version shown is older than `0.6.6` or the plugin version is older than `0.5.0`.
 
-## Build a Quote Post-Deployment Checklist
+## Phase 5 Post-Deployment Checklist
 
-1. Visit `wp-admin` once as an administrator so WordPress creates the managed Build a Quote page.
-2. Open `/build-a-quote/` and confirm the header/footer links, product search, category shortcuts, quantities, notes, and mobile review bar.
-3. Submit one clearly labelled synthetic request containing a priced and, when available, an unpriced product.
-4. Confirm the record appears under `Quote Requests`, the stored pre-tax totals match current WooCommerce prices, and the status can be changed.
-5. Confirm the submission did not create a WooCommerce order or change product stock.
-6. Review the generated WhatsApp summary, then delete the synthetic dashboard record.
-7. Clear page, object, CDN, and browser caches if the new page or assets do not appear after deployment.
+1. In cPanel, run **Update from Remote** and **Deploy HEAD Commit**, then visit `wp-admin` once as an administrator so WordPress creates or restores the managed pages.
+2. Open a product page and use **Add to multi-product quote**. Confirm `/build-a-quote/` opens with that product already present once.
+3. Open a product archive and confirm the multi-product procurement entry point reaches the quote builder. Test the header and footer links as well.
+4. Search by product name, model, SKU, and category. Confirm newly published WooCommerce products appear without code changes.
+5. Submit one clearly labelled synthetic request containing a priced and, when available, an unpriced product. Check the desktop review dialog and mobile review bar.
+6. Confirm the record appears under `Quote Requests`, the pre-tax totals match current WooCommerce prices, and staff can filter by status, change status, and save an internal note.
+7. Confirm the submission did not create a WooCommerce order, reserve inventory, or change product stock.
+8. Review the generated WhatsApp summary and test Call to Order and Contact once with synthetic data.
+9. In Site Kit/Analytics debug tools, verify the quote entry, prefill, search, product-add, submission, Contact submission, and Call to Order events. Do not expect form answers in event parameters.
+10. Delete all synthetic records and clear page, object, CDN, and browser caches if the new page or assets do not appear after deployment.
 
 ## Contact Data Operations
 
 - Contact messages are private WordPress records, but administrators and other roles with the relevant post capabilities may be able to view them.
 - Do not place passwords, payment credentials, identity documents, medical information, or other unnecessary sensitive data in test submissions.
-- Review and delete contact messages that are no longer needed. Set a formal retention period before launch once accounting, warranty, support, and legal requirements are confirmed.
+- Review Contact Messages and Quote Requests at least quarterly. Delete or anonymize records when the enquiry is closed and the details are no longer reasonably needed for follow-up, support, warranty, security, dispute, or legal purposes.
+- Do not automatically delete records in code. A quote or enquiry that becomes an order, invoice, contract, or tax record must move into the applicable accounting and legal retention process before the original lead record is removed.
+- Kenyan data-protection rules require a retention schedule, periodic review, and deletion, erasure, anonymization, or pseudonymization after the purpose ends. KRA tax records are generally retained for five years; confirm the final business schedule with the organisation's accountant or legal adviser.
+- Reference material: [ODPC Data Protection (General) Regulations, 2021](https://www.odpc.go.ke/wp-content/uploads/2024/03/THE-DATA-PROTECTION-GENERAL-REGULATIONS-2021-1.pdf) and [KRA Tax Procedures Act](https://kra.go.ke/images/publications/TPA-2015-Revised-2021-1.pdf).
 - WhatsApp is optional and customer-initiated. A website submission is stored before the WhatsApp link is offered, and WhatsApp never sends automatically.
 - Poppins is currently delivered by Google Fonts. Google Site Kit and any enabled analytics/search integrations must be reflected accurately in the live privacy and cookie configuration.
 - Quote requests contain procurement and business identity details. Staff should apply the same approved retention and access rules used for contact and order records.

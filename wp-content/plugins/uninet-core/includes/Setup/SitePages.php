@@ -13,7 +13,7 @@ if (! defined('ABSPATH')) {
 
 final class SitePages
 {
-    const SETUP_VERSION = '3';
+    const SETUP_VERSION = '4';
 
     /**
      * Register the one-time admin setup.
@@ -57,9 +57,7 @@ final class SitePages
             return;
         }
 
-        if (self::SETUP_VERSION === get_option('uninet_core_site_pages_version')) {
-            return;
-        }
+        $needs_migration = self::SETUP_VERSION !== get_option('uninet_core_site_pages_version');
 
         $this->ensure_page(
             'contact-us',
@@ -80,13 +78,17 @@ final class SitePages
             $privacy_content
         );
 
-        $this->update_legacy_privacy_content($privacy_id, $privacy_content);
+        if ($needs_migration) {
+            $this->update_legacy_privacy_content($privacy_id, $privacy_content);
+        }
 
         if ($privacy_id && ! (int) get_option('wp_page_for_privacy_policy')) {
             update_option('wp_page_for_privacy_policy', $privacy_id);
         }
 
-        update_option('uninet_core_site_pages_version', self::SETUP_VERSION, false);
+        if ($needs_migration) {
+            update_option('uninet_core_site_pages_version', self::SETUP_VERSION, false);
+        }
     }
 
     /**
@@ -97,6 +99,20 @@ final class SitePages
         $existing = get_page_by_path($slug);
 
         if ($existing instanceof \WP_Post) {
+            $managed_slug = (string) get_post_meta($existing->ID, '_uninet_core_managed_page', true);
+
+            if ($slug === $managed_slug && 'publish' !== $existing->post_status) {
+                if ('trash' === $existing->post_status) {
+                    wp_untrash_post($existing->ID);
+                }
+
+                wp_update_post([
+                    'ID' => $existing->ID,
+                    'post_status' => 'publish',
+                    'post_name' => $slug,
+                ]);
+            }
+
             return (int) $existing->ID;
         }
 

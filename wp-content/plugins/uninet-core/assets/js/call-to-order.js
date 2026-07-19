@@ -275,6 +275,13 @@
 
         setStatus(message, "error");
         focusInvalidField(data.field || "");
+
+        if (window.uninetCore.events) {
+          track(window.uninetCore.events.callOrderError, {
+            product_id: productIdInput ? productIdInput.value : "",
+            error_field: data.field || "request"
+          });
+        }
       })
       .finally(function () {
         setSubmitting(false);

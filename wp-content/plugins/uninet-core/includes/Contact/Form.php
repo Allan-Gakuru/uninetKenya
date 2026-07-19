@@ -77,7 +77,7 @@ final class Form
             </div>
 
             <?php if (! empty($state['success'])) : ?>
-                <div class="uninet-contact-success" role="status" tabindex="-1" data-uninet-contact-success>
+                <div class="uninet-contact-success" role="status" tabindex="-1" data-uninet-contact-success data-uninet-track-view="uninet_contact_submit" data-uninet-track-location="contact">
                     <div class="uninet-contact-success__icon" aria-hidden="true">&#10003;</div>
                     <div>
                         <h2 id="uninet-contact-heading"><?php esc_html_e('Your message has been saved.', 'uninet-core'); ?></h2>

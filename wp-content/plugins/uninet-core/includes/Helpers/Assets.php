@@ -55,6 +55,7 @@ final class Assets
                 'events' => [
                     'callOrderOpen' => 'uninet_call_order_open',
                     'callOrderSubmit' => 'uninet_call_order_submit',
+                    'callOrderError' => 'uninet_call_order_error',
                     'phoneClick' => 'uninet_phone_click',
                     'whatsappClick' => 'uninet_whatsapp_click',
                     'productView' => 'uninet_product_view',
@@ -102,8 +103,11 @@ final class Assets
                     'maxItems' => Builder::MAX_ITEMS,
                     'events' => [
                         'quoteSearch' => 'uninet_quote_search',
+                        'quoteSearchError' => 'uninet_quote_search_error',
                         'quoteAddProduct' => 'uninet_quote_add_product',
+                        'quotePrefill' => 'uninet_quote_prefill',
                         'quoteSubmit' => 'uninet_quote_submit',
+                        'quoteSubmitError' => 'uninet_quote_submit_error',
                     ],
                 ]
             );
