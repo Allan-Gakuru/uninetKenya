@@ -103,6 +103,8 @@ The Build a Quote procurement workflow now:
 - protects submissions with a nonce, honeypot, field and line limits, catalogue validation, and a one-minute duplicate throttle
 - tracks quote entry, prefill, catalogue search, product addition, successful submission, and bounded failure events without sending form answers to analytics
 - replaces Storefront's handheld footer on the mobile quote workspace and keeps the review and final submission controls visible above scrollable content
+- requires only organisation name, contact person, phone number, and business email from the buyer; procurement and delivery details remain optional
+- keeps the quote summary in view while desktop buyers scroll through the procurement form
 
 The wider Phase 5 conversion layer also tracks Call to Order failures and successful Contact form views. These events use the defensive `window.uninetTrack` bridge and remain harmless when Google Analytics is unavailable.
 

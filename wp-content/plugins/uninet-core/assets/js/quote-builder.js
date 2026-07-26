@@ -591,6 +591,7 @@
     var contact = form.querySelector('[name="full_name"]').value;
     var county = form.querySelector('[name="county"]').value;
     var town = form.querySelector('[name="town"]').value;
+    var location = [town, county].filter(Boolean).join(", ");
     var heading = create("h3", "", "Products (" + items.length + ")");
     var list = create("div", "uninet-quote-review__lines");
     var total = create("div", "uninet-quote-review__total");
@@ -622,8 +623,12 @@
     [
       ["Organisation", organisation],
       ["Contact", contact],
-      ["Location", town + ", " + county]
+      ["Location", location]
     ].forEach(function (entry) {
+      if (!entry[1]) {
+        return;
+      }
+
       var term = create("dt", "", entry[0]);
       var description = create("dd", "", entry[1]);
       buyer.appendChild(term);

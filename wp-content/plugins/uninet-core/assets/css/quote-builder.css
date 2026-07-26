@@ -734,27 +734,17 @@
     outline-offset: 1px;
 }
 
-.uninet-quote-consent label {
-    display: flex;
+.uninet-quote-consent p {
     max-width: 75ch;
-    align-items: flex-start;
-    gap: 0.65rem;
+    margin: 0;
     color: #35455d;
     font-size: 0.82rem;
     line-height: 1.55;
 }
 
-.uninet-quote-consent input[type="checkbox"] {
-    width: 1.2rem;
-    height: 1.2rem;
-    flex: 0 0 1.2rem;
-    margin: 0.1rem 0 0;
-    accent-color: #173f8f;
-}
-
 .uninet-quote-consent > a {
     display: inline-block;
-    margin: 0.65rem 0 0 1.85rem;
+    margin-top: 0.65rem;
     color: #173f8f;
     font-size: 0.78rem;
     font-weight: 700;
@@ -779,8 +769,6 @@
 }
 
 .uninet-quote-summary__sticky {
-    position: sticky;
-    top: 1rem;
     padding: clamp(1.5rem, 3vw, 2rem);
 }
 
@@ -1237,6 +1225,18 @@
     .uninet-quote-line__row {
         grid-template-columns: minmax(230px, 1.5fr) 120px 110px 110px 120px;
         gap: 0.75rem;
+    }
+}
+
+@media (min-width: 901px) {
+    .uninet-quote-summary {
+        position: sticky;
+        top: 1rem;
+        align-self: start;
+        max-height: calc(100vh - 2rem);
+        max-height: calc(100dvh - 2rem);
+        overflow-y: auto;
+        overscroll-behavior: contain;
     }
 }
 

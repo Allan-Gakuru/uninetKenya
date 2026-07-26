@@ -219,8 +219,8 @@ final class Builder
                                 <?php $this->text_field('phone', __('Phone number', 'uninet-core'), __('e.g. 0770 313 200', 'uninet-core'), true, 'tel', 'tel'); ?>
                                 <?php $this->text_field('email', __('Business email', 'uninet-core'), __('name@organisation.co.ke', 'uninet-core'), true, 'email', 'email'); ?>
                                 <?php $this->kra_pin_field(); ?>
-                                <?php $this->select_field('organisation_type', __('Organisation type', 'uninet-core'), $this->organisation_types(), true); ?>
-                                <?php $this->text_field('business_address', __('Business address', 'uninet-core'), __('Building, road, or postal address', 'uninet-core'), true, 'text', 'street-address', 'uninet-quote-field--wide'); ?>
+                                <?php $this->select_field('organisation_type', __('Organisation type', 'uninet-core'), $this->organisation_types(), false); ?>
+                                <?php $this->text_field('business_address', __('Business address', 'uninet-core'), __('Building, road, or postal address', 'uninet-core'), false, 'text', 'street-address', 'uninet-quote-field--wide'); ?>
                             </div>
                         </section>
 
@@ -233,9 +233,9 @@ final class Builder
                             </div>
 
                             <div class="uninet-quote-fields">
-                                <?php $this->select_field('county', __('County', 'uninet-core'), array_combine($this->counties(), $this->counties()), true); ?>
-                                <?php $this->text_field('town', __('Town', 'uninet-core'), __('e.g. Nairobi, Thika, Kisumu', 'uninet-core'), true, 'text', 'address-level2'); ?>
-                                <?php $this->select_field('fulfilment', __('How should we fulfil the quote?', 'uninet-core'), ['delivery' => __('Delivery', 'uninet-core'), 'pickup' => __('Pickup', 'uninet-core')], true); ?>
+                                <?php $this->select_field('county', __('County', 'uninet-core'), array_combine($this->counties(), $this->counties()), false); ?>
+                                <?php $this->text_field('town', __('Town', 'uninet-core'), __('e.g. Nairobi, Thika, Kisumu', 'uninet-core'), false, 'text', 'address-level2'); ?>
+                                <?php $this->select_field('fulfilment', __('How should we fulfil the quote?', 'uninet-core'), ['delivery' => __('Delivery', 'uninet-core'), 'pickup' => __('Pickup', 'uninet-core')], false); ?>
                                 <?php $this->text_field('required_by', __('Required by', 'uninet-core'), '', false, 'date', '', '', current_time('Y-m-d')); ?>
                                 <?php $this->textarea_field('delivery_details', __('Delivery or pickup details', 'uninet-core'), __('Optional: building, floor, landmark, pickup contact, or access instructions.', 'uninet-core')); ?>
                                 <?php $this->textarea_field('notes', __('Procurement notes', 'uninet-core'), __('Optional: preferred brands, compatibility requirements, approval deadline, or other context.', 'uninet-core')); ?>
@@ -243,10 +243,7 @@ final class Builder
                         </section>
 
                         <div class="uninet-quote-consent">
-                            <label>
-                                <input type="checkbox" name="consent" value="yes" required>
-                                <span><?php esc_html_e('I agree that Uninet Technologies may use these details to prepare and follow up this quote request. This request is not a confirmed order.', 'uninet-core'); ?> *</span>
-                            </label>
+                            <p><?php esc_html_e('By submitting, you agree that Uninet Technologies may use these details to prepare and follow up this quote request. This request is not a confirmed order.', 'uninet-core'); ?></p>
                             <a href="<?php echo esc_url(get_privacy_policy_url() ?: home_url('/privacy-policy/')); ?>"><?php esc_html_e('Read our privacy policy', 'uninet-core'); ?></a>
                         </div>
 
@@ -756,15 +753,9 @@ final class Builder
     {
         $required = [
             'organisation_name' => __('Enter the organisation name.', 'uninet-core'),
-            'organisation_type' => __('Select the organisation type.', 'uninet-core'),
             'full_name' => __("Enter the contact person's full name.", 'uninet-core'),
             'phone' => __('Enter a phone number.', 'uninet-core'),
             'email' => __('Enter a business email address.', 'uninet-core'),
-            'kra_pin' => __('Enter the organisation KRA PIN.', 'uninet-core'),
-            'business_address' => __('Enter the business address.', 'uninet-core'),
-            'county' => __('Select a county.', 'uninet-core'),
-            'town' => __('Enter the town.', 'uninet-core'),
-            'fulfilment' => __('Choose delivery or pickup.', 'uninet-core'),
         ];
 
         foreach ($required as $field => $message) {
@@ -782,19 +773,19 @@ final class Builder
             return ['message' => __('Enter a valid phone number with 9 to 15 digits.', 'uninet-core'), 'field' => 'phone'];
         }
 
-        if (! preg_match('/^[AP][0-9]{9}[A-Z]$/', $values['kra_pin'])) {
+        if ($values['kra_pin'] && ! preg_match('/^[AP][0-9]{9}[A-Z]$/', $values['kra_pin'])) {
             return ['message' => __('KRA PIN must be 11 characters, such as P123456789Z.', 'uninet-core'), 'field' => 'kra_pin'];
         }
 
-        if (! isset($this->organisation_types()[$values['organisation_type']])) {
+        if ($values['organisation_type'] && ! isset($this->organisation_types()[$values['organisation_type']])) {
             return ['message' => __('Select a valid organisation type.', 'uninet-core'), 'field' => 'organisation_type'];
         }
 
-        if (! in_array($values['county'], $this->counties(), true)) {
+        if ($values['county'] && ! in_array($values['county'], $this->counties(), true)) {
             return ['message' => __('Select a valid Kenyan county.', 'uninet-core'), 'field' => 'county'];
         }
 
-        if (! in_array($values['fulfilment'], ['delivery', 'pickup'], true)) {
+        if ($values['fulfilment'] && ! in_array($values['fulfilment'], ['delivery', 'pickup'], true)) {
             return ['message' => __('Choose delivery or pickup.', 'uninet-core'), 'field' => 'fulfilment'];
         }
 
@@ -807,10 +798,6 @@ final class Builder
             if ($values['required_by'] < current_time('Y-m-d')) {
                 return ['message' => __('The required-by date cannot be in the past.', 'uninet-core'), 'field' => 'required_by'];
             }
-        }
-
-        if ('yes' !== $values['consent']) {
-            return ['message' => __('Confirm that Uninet may use these details to prepare and follow up the quote.', 'uninet-core'), 'field' => 'consent'];
         }
 
         return [];
@@ -841,13 +828,13 @@ final class Builder
     }
 
     /**
-     * Render the required KRA PIN field with visible format guidance.
+     * Render the optional KRA PIN field with visible format guidance.
      */
     private function kra_pin_field()
     {
         ?>
         <div class="uninet-quote-field">
-            <label for="uninet-quote-kra-pin"><?php esc_html_e('Organisation KRA PIN', 'uninet-core'); ?> <span aria-hidden="true">*</span></label>
+            <label for="uninet-quote-kra-pin"><?php esc_html_e('Organisation KRA PIN', 'uninet-core'); ?></label>
             <input
                 id="uninet-quote-kra-pin"
                 type="text"
@@ -857,7 +844,6 @@ final class Builder
                 pattern="[APap][0-9]{9}[A-Za-z]"
                 autocomplete="off"
                 aria-describedby="uninet-quote-kra-help"
-                required
             >
             <span id="uninet-quote-kra-help"><?php esc_html_e('11 characters: A or P, nine digits, then a letter.', 'uninet-core'); ?></span>
         </div>
