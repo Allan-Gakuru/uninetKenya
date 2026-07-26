@@ -947,6 +947,11 @@
     box-shadow: 0 8px 24px rgba(19, 32, 51, 0.28);
 }
 
+.uninet-quote-review[open] {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto auto;
+}
+
 .uninet-quote-review::backdrop {
     background: rgba(11, 23, 40, 0.72);
 }
@@ -1003,7 +1008,8 @@
 }
 
 .uninet-quote-review__body {
-    max-height: calc(100dvh - 15rem);
+    min-height: 0;
+    max-height: none;
     padding: 1.5rem;
     overflow-y: auto;
 }
@@ -1235,6 +1241,10 @@
 }
 
 @media (max-width: 900px) {
+    body.uninet-quote-page .storefront-handheld-footer-bar {
+        display: none;
+    }
+
     .uninet-quote-page .site-content > .col-full {
         width: min(100% - 1rem, 760px);
     }
@@ -1258,7 +1268,7 @@
 
     .uninet-quote-mobile-bar:not([hidden]) {
         position: fixed;
-        z-index: 40;
+        z-index: 60;
         right: 0;
         bottom: 0;
         left: 0;
@@ -1271,6 +1281,10 @@
         border-top: 1px solid #aebacd;
         background: #fff;
         box-shadow: 0 -4px 8px rgba(19, 32, 51, 0.12);
+    }
+
+    .uninet-quote-dialog-open .uninet-quote-mobile-bar:not([hidden]) {
+        display: none;
     }
 
     .uninet-quote-mobile-bar > div {
@@ -1415,21 +1429,21 @@
 
     .uninet-quote-review {
         width: 100%;
+        height: calc(100dvh - 0.5rem);
         max-width: none;
-        max-height: calc(100dvh - 1rem);
+        max-height: calc(100dvh - 0.5rem);
         margin: auto 0 0;
         border-radius: 8px 8px 0 0;
     }
 
     .uninet-quote-review__body {
-        max-height: calc(100dvh - 15rem);
         padding: 1rem;
     }
 
     .uninet-quote-review__actions {
         display: grid;
         grid-template-columns: 1fr;
-        padding: 1rem;
+        padding: 1rem 1rem max(1rem, env(safe-area-inset-bottom));
     }
 
     .uninet-quote-review__edit,

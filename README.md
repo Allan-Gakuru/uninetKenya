@@ -102,6 +102,7 @@ The Build a Quote procurement workflow now:
 - offers a bounded WhatsApp handoff only after the dashboard record is saved
 - protects submissions with a nonce, honeypot, field and line limits, catalogue validation, and a one-minute duplicate throttle
 - tracks quote entry, prefill, catalogue search, product addition, successful submission, and bounded failure events without sending form answers to analytics
+- replaces Storefront's handheld footer on the mobile quote workspace and keeps the review and final submission controls visible above scrollable content
 
 The wider Phase 5 conversion layer also tracks Call to Order failures and successful Contact form views. These events use the defensive `window.uninetTrack` bridge and remain harmless when Google Analytics is unavailable.
 

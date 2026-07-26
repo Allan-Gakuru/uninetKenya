@@ -283,7 +283,7 @@ final class Builder
                         <strong data-uninet-quote-mobile-count><?php esc_html_e('0 products', 'uninet-core'); ?></strong>
                         <span data-uninet-quote-mobile-total><?php esc_html_e('KSh 0 pre-tax', 'uninet-core'); ?></span>
                     </div>
-                    <button type="button" class="button" data-uninet-quote-review><?php esc_html_e('Review', 'uninet-core'); ?></button>
+                    <button type="button" class="button" data-uninet-quote-review><?php esc_html_e('Review & Submit', 'uninet-core'); ?></button>
                 </div>
 
                 <dialog class="uninet-quote-review" data-uninet-quote-dialog aria-labelledby="uninet-quote-review-title">
