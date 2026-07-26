@@ -4,6 +4,12 @@
     padding-top: 0;
 }
 
+body.uninet-quote-page,
+body.uninet-quote-page #page {
+    overflow: visible;
+    overflow-x: clip;
+}
+
 .uninet-quote-page .site-content > .col-full {
     width: min(1440px, calc(100% - 2rem));
     max-width: none;
