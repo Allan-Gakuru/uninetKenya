@@ -15,6 +15,7 @@ use Uninet\Core\CallToOrder\OrderFactory;
 use Uninet\Core\CallToOrder\Validation;
 use Uninet\Core\Contact\Form as ContactForm;
 use Uninet\Core\Contact\InquiryPostType;
+use Uninet\Core\Conversion\WhatsAppButton;
 use Uninet\Core\Helpers\Assets;
 use Uninet\Core\Quote\Builder as QuoteBuilder;
 use Uninet\Core\Quote\RequestPostType as QuoteRequestPostType;
@@ -63,6 +64,8 @@ final class Plugin
 
         $events = new Events();
         $events->register();
+
+        (new WhatsAppButton())->register();
 
         (new InquiryPostType())->register();
         (new ContactForm())->register();

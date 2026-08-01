@@ -326,7 +326,7 @@
 
     if (whatsappLink && window.uninetCore && window.uninetCore.events) {
       track(window.uninetCore.events.whatsappClick, {
-        href: whatsappLink.getAttribute("href")
+        location: whatsappLink.getAttribute("data-uninet-track-location") || "site"
       });
     }
   });

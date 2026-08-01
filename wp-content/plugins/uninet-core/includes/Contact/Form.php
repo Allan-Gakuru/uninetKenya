@@ -82,7 +82,7 @@ final class Form
                     <div>
                         <h2 id="uninet-contact-heading"><?php esc_html_e('Your message has been saved.', 'uninet-core'); ?></h2>
                         <p><?php esc_html_e('Continue to WhatsApp to send a concise summary directly to our sales team. Your complete answers remain available to staff in the dashboard, and WhatsApp will let you review the summary before sending.', 'uninet-core'); ?></p>
-                        <a class="button uninet-contact-success__button" href="<?php echo esc_url($state['whatsapp_url']); ?>" target="_blank" rel="noopener noreferrer">
+                        <a class="button uninet-contact-success__button" href="<?php echo esc_url($state['whatsapp_url']); ?>" target="_blank" rel="noopener noreferrer" data-uninet-track-location="contact-success">
                             <?php esc_html_e('Continue on WhatsApp', 'uninet-core'); ?>
                         </a>
                     </div>

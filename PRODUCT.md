@@ -21,6 +21,7 @@ Professional, practical, and high-trust. The tone should feel like an experience
 ## Contact Details
 
 - Sales phone: 0770 313 200
+- WhatsApp: +254 770 313 200
 - Facebook: https://www.facebook.com/UniNietTechnologies
 
 ## Anti-references
@@ -62,10 +63,11 @@ Aim for WCAG 2.2 AA fundamentals: strong contrast, readable type, keyboard-frien
 - Buyers can find any current published catalogue product by product name, model, SKU, or category. Future WooCommerce products participate automatically.
 - A request may contain multiple products, quantities, and line-specific requirements.
 - Buyers see indicative pre-tax product prices, line totals, and subtotal. Products without a published price remain selectable and are excluded from the displayed subtotal until staff prices them.
-- Organisation name and type, contact person, phone, business email, KRA PIN, business address, county, town, and delivery or pickup choice are required. Required-by date, fulfilment details, and procurement notes are optional.
+- Organisation name, contact person, phone, and business email are required. Organisation type, KRA PIN, business address, county, town, delivery or pickup choice, required-by date, fulfilment details, and procurement notes are optional.
 - A review step explains that submitting does not reserve stock, create an order, or confirm final pricing.
 - Successful requests are stored privately in `Quote Requests` and can move through New, Reviewing, Quote prepared, and Closed statuses. Staff can filter the queue by status, save a private follow-up note, and see when the workflow was last updated.
 - WhatsApp remains an optional customer-initiated continuation after the dashboard record is saved.
+- A site-wide floating WhatsApp control opens a reviewable draft to +254770313200. Product pages include the product name and canonical product link; other pages use a concise business procurement message.
 - Analytics events cover quote entry, product prefill, catalogue search, product addition, successful submission, and bounded errors. Call to Order errors and successful Contact submissions are also covered. Event parameters must not contain buyer answers or contact details.
 
 ## Operational Guardrails

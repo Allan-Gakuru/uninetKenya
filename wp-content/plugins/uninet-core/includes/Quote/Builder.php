@@ -313,7 +313,7 @@ final class Builder
                     <p data-uninet-quote-success-message></p>
                     <p class="uninet-quote-success__reference" data-uninet-quote-reference></p>
                     <div class="uninet-quote-success__actions">
-                        <a class="button" data-uninet-quote-whatsapp target="_blank" rel="noopener noreferrer"><?php esc_html_e('Continue on WhatsApp', 'uninet-core'); ?></a>
+                        <a class="button" data-uninet-quote-whatsapp data-uninet-track-location="quote-success" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Continue on WhatsApp', 'uninet-core'); ?></a>
                         <a class="button uninet-quote-success__call" href="tel:+254770313200"><?php esc_html_e('Call 0770 313 200', 'uninet-core'); ?></a>
                     </div>
                     <p><?php esc_html_e('Staff will confirm product availability, tax, delivery, and the final quotation before any payment.', 'uninet-core'); ?></p>

@@ -3,8 +3,106 @@
  */
 
 :root {
+    --uninet-z-floating-action: 65;
     --uninet-z-filter-backdrop: 70;
     --uninet-z-filter-drawer: 80;
+}
+
+.uninet-whatsapp-float {
+    position: fixed;
+    z-index: var(--uninet-z-floating-action);
+    right: max(1.25rem, env(safe-area-inset-right));
+    bottom: max(1.25rem, env(safe-area-inset-bottom));
+    display: inline-flex;
+    min-height: 3.25rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0.75rem 1rem;
+    border: 0;
+    border-radius: 6px;
+    color: #fff !important;
+    background: #147a3d;
+    box-shadow: 0 4px 8px rgba(19, 32, 51, 0.24);
+    font-family: var(--uninet-font, "Poppins", Arial, sans-serif);
+    font-size: 0.88rem;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none !important;
+    transition: background-color 150ms ease-out, transform 150ms ease-out;
+}
+
+.uninet-whatsapp-float:hover,
+.uninet-whatsapp-float:focus {
+    color: #fff !important;
+    background: #0f6331;
+    transform: translateY(-2px);
+}
+
+.uninet-whatsapp-float:focus-visible {
+    outline: 3px solid rgba(23, 63, 143, 0.48);
+    outline-offset: 3px;
+}
+
+.uninet-whatsapp-float__icon {
+    width: 1.35rem;
+    height: 1.35rem;
+    flex: 0 0 1.35rem;
+    fill: currentColor;
+}
+
+.uninet-modal-open .uninet-whatsapp-float,
+.uninet-quote-dialog-open .uninet-whatsapp-float,
+.uninet-filter-drawer-open .uninet-whatsapp-float,
+body:has(.main-navigation.toggled) .uninet-whatsapp-float,
+body:has(.uninet-contact-success) .uninet-whatsapp-float,
+body:has(.uninet-quote-success:not([hidden])) .uninet-whatsapp-float {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+@media (max-width: 900px) {
+    body.uninet-quote-page .uninet-whatsapp-float {
+        bottom: max(1.25rem, env(safe-area-inset-bottom));
+    }
+
+    body.uninet-quote-page:has(.uninet-quote-mobile-bar:not([hidden])) .uninet-whatsapp-float {
+        bottom: calc(5.25rem + env(safe-area-inset-bottom));
+    }
+}
+
+@media (max-width: 767px) {
+    .uninet-whatsapp-float {
+        right: max(1rem, env(safe-area-inset-right));
+        bottom: calc(4.75rem + env(safe-area-inset-bottom));
+        width: 3.25rem;
+        min-height: 3.25rem;
+        padding: 0;
+        border-radius: 50%;
+    }
+
+    .uninet-whatsapp-float span {
+        display: none;
+    }
+}
+
+@media print {
+    .uninet-whatsapp-float {
+        display: none !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .uninet-whatsapp-float {
+        transition: none;
+    }
+
+    .uninet-whatsapp-float:hover,
+    .uninet-whatsapp-float:focus {
+        transform: none;
+    }
 }
 
 .storefront-sticky-add-to-cart {

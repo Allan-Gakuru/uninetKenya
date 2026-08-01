@@ -228,7 +228,7 @@ function uninet_child_render_footer()
                 <section class="uninet-footer__connect" aria-labelledby="uninet-footer-connect">
                     <h2 id="uninet-footer-connect"><?php esc_html_e('Talk to our team', 'uninet-child'); ?></h2>
                     <p><?php esc_html_e('Share the requirement and our team will confirm fit, availability, tax, delivery, and invoicing before payment.', 'uninet-child'); ?></p>
-                    <a class="uninet-footer__whatsapp" href="https://wa.me/254770313200" target="_blank" rel="noopener noreferrer">
+                    <a class="uninet-footer__whatsapp" href="https://wa.me/254770313200" target="_blank" rel="noopener noreferrer" data-uninet-track-location="footer">
                         <?php esc_html_e('Message us on WhatsApp', 'uninet-child'); ?>
                     </a>
                     <nav class="uninet-footer__socials" aria-label="<?php esc_attr_e('Uninet social media', 'uninet-child'); ?>">

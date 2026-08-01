@@ -36,6 +36,7 @@ into the live WordPress install.
 includes/Admin/
 includes/CallToOrder/
 includes/Contact/
+includes/Conversion/
 includes/Helpers/
 includes/Quote/
 includes/Setup/
@@ -107,6 +108,14 @@ The Build a Quote procurement workflow now:
 - keeps the quote summary in view while desktop buyers scroll through the procurement form, including within Storefront's horizontally clipped page shell
 
 The wider Phase 5 conversion layer also tracks Call to Order failures and successful Contact form views. These events use the defensive `window.uninetTrack` bridge and remain harmless when Google Analytics is unavailable.
+
+The site-wide floating WhatsApp control:
+
+- opens a customer-reviewable draft to `+254770313200` and never sends automatically
+- includes the product name and canonical product-page link when opened from a WooCommerce product page
+- uses a concise business-procurement enquiry on all other public pages
+- avoids quote, order, and filter overlays and clears mobile fixed navigation and quote controls
+- participates in the existing WhatsApp click tracking without adding a new script or sending prefilled message text to analytics
 
 ## Theme Architecture
 
