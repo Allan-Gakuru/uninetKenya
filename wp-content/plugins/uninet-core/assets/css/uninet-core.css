@@ -405,9 +405,16 @@ body:has(.uninet-quote-success:not([hidden])) .uninet-whatsapp-float {
     background: var(--uninet-bg, #f5f8fb);
 }
 
+body.archive.woocommerce .storefront-breadcrumb,
+body.search-results.woocommerce .storefront-breadcrumb,
+body.single-product .storefront-breadcrumb {
+    margin-bottom: 0;
+}
+
 body.archive.woocommerce .site-content,
-body.search-results.woocommerce .site-content {
-    padding-top: clamp(1rem, 2.2vw, 1.75rem);
+body.search-results.woocommerce .site-content,
+body.single-product .site-content {
+    padding-top: clamp(1rem, 1.5vw, 1.5rem);
 }
 
 /* Contact enquiry experience. */

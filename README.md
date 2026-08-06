@@ -69,6 +69,7 @@ The product/category UX foundation now:
 - adds product archive search with FiboSearch support when available
 - adds top-level product category navigation on shop/category pages
 - adds category-specific buying guidance for core Uninet categories
+- keeps archive and product-page breadcrumbs close to their titles with one compact responsive content gap
 - adds product-page business buyer sections for specifications, warranty, delivery, invoice, payment, and availability notes
 
 The homepage foundation now:
