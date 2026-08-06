@@ -405,9 +405,8 @@ body:has(.uninet-quote-success:not([hidden])) .uninet-whatsapp-float {
     background: var(--uninet-bg, #f5f8fb);
 }
 
-body.archive.woocommerce .storefront-breadcrumb,
-body.search-results.woocommerce .storefront-breadcrumb,
-body.single-product .storefront-breadcrumb {
+/* Each Uninet template owns its title spacing; remove Storefront's extra block. */
+body .storefront-breadcrumb {
     margin-bottom: 0;
 }
 
