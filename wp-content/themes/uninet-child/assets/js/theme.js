@@ -11,6 +11,9 @@
     document.querySelectorAll(".primary-navigation .uninet-mega-item")
   );
   var geometryFrame = null;
+  var megaMenuHoverDelay = 800;
+  var hoverOpenTimer = null;
+  var hoverOpenItem = null;
 
   function updateMegaMenuGeometry() {
     geometryFrame = null;
@@ -36,6 +39,36 @@
     geometryFrame = window.requestAnimationFrame(updateMegaMenuGeometry);
   }
 
+  function cancelPendingMegaMenuOpen(item) {
+    if (item && hoverOpenItem !== item) {
+      return;
+    }
+
+    if (hoverOpenTimer) {
+      window.clearTimeout(hoverOpenTimer);
+    }
+
+    hoverOpenTimer = null;
+    hoverOpenItem = null;
+  }
+
+  function scheduleMegaMenuOpen(item) {
+    cancelPendingMegaMenuOpen();
+    hoverOpenItem = item;
+    hoverOpenTimer = window.setTimeout(function () {
+      hoverOpenTimer = null;
+      hoverOpenItem = null;
+
+      if (!desktopMegaMenu.matches || !item.matches(":hover")) {
+        return;
+      }
+
+      updateMegaMenuGeometry();
+      closeOtherMegaMenus(item);
+      setMegaMenuState(item, true);
+    }, megaMenuHoverDelay);
+  }
+
   function setMegaMenuState(item, isOpen) {
     var trigger = item.querySelector(":scope > .uninet-mega-trigger");
 
@@ -53,6 +86,7 @@
   function closeOtherMegaMenus(activeItem) {
     megaItems.forEach(function (item) {
       if (item !== activeItem) {
+        cancelPendingMegaMenuOpen(item);
         setMegaMenuState(item, false);
         item.classList.remove("is-dismissed");
       }
@@ -73,10 +107,12 @@
 
       updateMegaMenuGeometry();
       closeOtherMegaMenus(item);
-      setMegaMenuState(item, true);
+      scheduleMegaMenuOpen(item);
     });
 
     item.addEventListener("mouseleave", function () {
+      cancelPendingMegaMenuOpen(item);
+
       if (!desktopMegaMenu.matches || item.contains(document.activeElement)) {
         return;
       }
@@ -89,6 +125,7 @@
         return;
       }
 
+      cancelPendingMegaMenuOpen();
       updateMegaMenuGeometry();
       closeOtherMegaMenus(item);
       setMegaMenuState(item, true);
@@ -115,6 +152,7 @@
 
         if (firstPanelLink) {
           event.preventDefault();
+          cancelPendingMegaMenuOpen();
           setMegaMenuState(item, true);
           firstPanelLink.focus();
         }
@@ -122,6 +160,7 @@
 
       if ("Escape" === event.key) {
         event.preventDefault();
+        cancelPendingMegaMenuOpen(item);
         trigger.focus({ preventScroll: true });
         setMegaMenuState(item, false);
         item.classList.add("is-dismissed");
@@ -130,6 +169,8 @@
   });
 
   desktopMegaMenu.addEventListener("change", function (event) {
+    cancelPendingMegaMenuOpen();
+
     if (event.matches) {
       updateMegaMenuGeometry();
       return;

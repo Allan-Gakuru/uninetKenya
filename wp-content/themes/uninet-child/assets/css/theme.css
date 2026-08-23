@@ -1777,8 +1777,6 @@ body.home.page.page-template-template-uninet-home .site-header {
         outline-offset: -1px;
     }
 
-    .site-header .uninet-header__navigation .primary-navigation > ul.menu > li.uninet-mega-item:hover > ul.sub-menu,
-    .site-header .uninet-header__navigation .primary-navigation > ul.menu > li.uninet-mega-item:hover > .uninet-mega-feature,
     .site-header .uninet-header__navigation .primary-navigation > ul.menu > li.uninet-mega-item.focus > ul.sub-menu,
     .site-header .uninet-header__navigation .primary-navigation > ul.menu > li.uninet-mega-item.focus > .uninet-mega-feature,
     .site-header .uninet-header__navigation .primary-navigation > ul.menu > li.uninet-mega-item.is-open > ul.sub-menu,
