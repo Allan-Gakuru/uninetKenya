@@ -11,7 +11,7 @@
     document.querySelectorAll(".primary-navigation .uninet-mega-item")
   );
   var geometryFrame = null;
-  var megaMenuHoverDelay = 800;
+  var megaMenuHoverDelay = 400;
   var hoverOpenTimer = null;
   var hoverOpenItem = null;
 
