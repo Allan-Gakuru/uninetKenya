@@ -723,7 +723,7 @@
         closeReview();
         form.hidden = true;
         success.hidden = false;
-        successMessage.textContent = payload.message || "We saved your quote request for staff review.";
+        successMessage.textContent = payload.message || "We saved your quote request and are sending a pre-tax summary to your email. Please check your inbox and spam folder.";
         referenceOutput.textContent = payload.reference ? "Quote reference: " + payload.reference : "";
         whatsappLink.href = payload.whatsappUrl || "https://wa.me/254770313200";
         success.focus();

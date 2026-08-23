@@ -67,6 +67,7 @@ Aim for WCAG 2.2 AA fundamentals: strong contrast, readable type, keyboard-frien
 - A review step explains that submitting does not reserve stock, create an order, or confirm final pricing.
 - Successful requests are stored privately in `Quote Requests` and can move through New, Reviewing, Quote prepared, and Closed statuses. Staff can filter the queue by status, save a private follow-up note, and see when the workflow was last updated.
 - After the durable dashboard record is saved, an internal email notification is queued to the configured staff recipient. It foregrounds the buyer's phone and reply-to email, products, quantities, and indicative pre-tax summary.
+- A separate buyer email confirms the request reference, products, quantities, and indicative pre-tax unit prices and totals. The success state directs the buyer to check their inbox and spam folder.
 - WhatsApp remains an optional customer-initiated continuation after the dashboard record is saved.
 - A site-wide floating WhatsApp control opens a reviewable draft to +254770313200. Product pages include the product name and canonical product link; other pages use a concise business procurement message.
 - Analytics events cover quote entry, product prefill, catalogue search, product addition, successful submission, and bounded errors. Call to Order errors and successful Contact submissions are also covered. Event parameters must not contain buyer answers or contact details.
@@ -83,7 +84,8 @@ Aim for WCAG 2.2 AA fundamentals: strong contrast, readable type, keyboard-frien
 - Browser-submitted prices and product details are never trusted; the server rebuilds quote lines from current published WooCommerce products.
 - Quote submissions must never reduce stock, reserve inventory, or create WooCommerce orders.
 - Quote notification failures must never invalidate or duplicate a saved request. Mail-processing state appears on the dashboard record, while FluentSMTP remains the source of truth for server response, delivery logs, and resending.
-- Quote emails omit the KRA PIN and full business address. Staff must open the protected dashboard record when those details are operationally required.
+- Staff and buyer quote emails are independent, idempotent jobs. Each has its own processing state so retrying one does not duplicate the other.
+- Quote emails omit the KRA PIN and full business address. The buyer email also omits every admin link and states that its pre-tax figures are an automated request summary rather than a final quotation, invoice, payment request, or stock reservation.
 - Only product lines are saved temporarily in browser session storage. Personal, organisation, location, and KRA details are not stored in the browser by the quote builder.
 - Staff should review private Contact Messages and Quote Requests at least quarterly, then delete or anonymize records that are no longer reasonably required for their original purpose.
 - Do not use automatic deletion for lead records. Anything that becomes an order, invoice, contract, warranty, dispute, or tax record must first enter the relevant accounting or legal retention process. Kenyan tax records are generally retained for five years; the final schedule requires accountant or legal confirmation.

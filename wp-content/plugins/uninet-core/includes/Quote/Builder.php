@@ -515,7 +515,7 @@ final class Builder
         wp_send_json_success([
             'quoteId' => $post_id,
             'reference' => $reference,
-            'message' => __('We saved your product list and organisation details for staff review.', 'uninet-core'),
+            'message' => __('We saved your request and are sending a pre-tax quote summary to your business email. Please check your inbox and spam folder while our team reviews availability, tax, delivery, and the final quotation.', 'uninet-core'),
             'salesPhone' => '0770 313 200',
             'telUrl' => 'tel:+254770313200',
             'whatsappUrl' => $this->whatsapp_url($reference, $values, $items, $subtotal, $unpriced_count),

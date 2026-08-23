@@ -229,32 +229,48 @@ final class RequestPostType
             echo '</p>';
         }
 
-        $notification_status = (string) get_post_meta($post->ID, Notification::STATUS_META, true);
         $notification_labels = Notification::status_labels();
-        $notification_attempts = absint(get_post_meta($post->ID, Notification::ATTEMPTS_META, true));
-        $notification_time = (string) get_post_meta($post->ID, Notification::PROCESSED_AT_META, true);
-
-        if (! $notification_time) {
-            $notification_time = (string) get_post_meta($post->ID, Notification::ATTEMPTED_AT_META, true);
-        }
+        $notifications = [
+            [
+                'label' => __('Staff inbox', 'uninet-core'),
+                'status' => (string) get_post_meta($post->ID, Notification::STATUS_META, true),
+                'attempts' => absint(get_post_meta($post->ID, Notification::ATTEMPTS_META, true)),
+                'processed_at' => (string) get_post_meta($post->ID, Notification::PROCESSED_AT_META, true),
+                'attempted_at' => (string) get_post_meta($post->ID, Notification::ATTEMPTED_AT_META, true),
+            ],
+            [
+                'label' => __('Buyer email', 'uninet-core'),
+                'status' => (string) get_post_meta($post->ID, CustomerNotification::STATUS_META, true),
+                'attempts' => absint(get_post_meta($post->ID, CustomerNotification::ATTEMPTS_META, true)),
+                'processed_at' => (string) get_post_meta($post->ID, CustomerNotification::PROCESSED_AT_META, true),
+                'attempted_at' => (string) get_post_meta($post->ID, CustomerNotification::ATTEMPTED_AT_META, true),
+            ],
+        ];
 
         echo '<hr>';
-        echo '<p><strong>' . esc_html__('Email notification', 'uninet-core') . '</strong><br>';
-        echo esc_html($notification_labels[$notification_status] ?? __('Not queued for this request', 'uninet-core'));
-        echo '</p>';
+        echo '<p><strong>' . esc_html__('Email notifications', 'uninet-core') . '</strong></p>';
 
-        if ($notification_attempts) {
-            echo '<p class="description">';
-            echo esc_html(
-                sprintf(
-                    /* translators: %d: mail-processing attempt count. */
-                    _n('%d processing attempt', '%d processing attempts', $notification_attempts, 'uninet-core'),
-                    $notification_attempts
-                )
-            );
-            if ($notification_time) {
-                echo '<br>' . esc_html(mysql2date(get_option('date_format') . ' ' . get_option('time_format'), $notification_time));
+        foreach ($notifications as $notification) {
+            $notification_time = $notification['processed_at'] ?: $notification['attempted_at'];
+
+            echo '<p><strong>' . esc_html($notification['label']) . ':</strong><br>';
+            echo esc_html($notification_labels[$notification['status']] ?? __('Not queued for this request', 'uninet-core'));
+
+            if ($notification['attempts']) {
+                echo '<br><span class="description">';
+                echo esc_html(
+                    sprintf(
+                        /* translators: %d: mail-processing attempt count. */
+                        _n('%d processing attempt', '%d processing attempts', $notification['attempts'], 'uninet-core'),
+                        $notification['attempts']
+                    )
+                );
+                if ($notification_time) {
+                    echo '<br>' . esc_html(mysql2date(get_option('date_format') . ' ' . get_option('time_format'), $notification_time));
+                }
+                echo '</span>';
             }
+
             echo '</p>';
         }
 
