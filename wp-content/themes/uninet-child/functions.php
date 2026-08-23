@@ -388,11 +388,10 @@ function uninet_child_get_social_icon($network)
 }
 
 /**
- * Render contact and social actions beside product search.
+ * Render procurement and contact actions beside product search.
  */
 function uninet_child_render_header_actions()
 {
-    $social_links = uninet_child_get_header_social_links();
     ?>
     <div class="uninet-header__actions">
         <a class="uninet-header__quote" href="<?php echo esc_url(add_query_arg('quote_source', 'header', uninet_child_get_quote_url())); ?>" data-uninet-track="uninet_quote_entry_click" data-uninet-track-location="header">
@@ -401,23 +400,6 @@ function uninet_child_render_header_actions()
         <a class="uninet-header__contact" href="<?php echo esc_url(uninet_child_get_contact_url()); ?>">
             <?php esc_html_e('Contact us', 'uninet-child'); ?>
         </a>
-        <nav class="uninet-header__socials" aria-label="<?php esc_attr_e('Uninet social media', 'uninet-child'); ?>">
-            <?php foreach ($social_links as $network => $social_link) : ?>
-                <?php if (empty($social_link['url'])) : ?>
-                    <?php continue; ?>
-                <?php endif; ?>
-                <a
-                    class="uninet-header__social uninet-header__social--<?php echo esc_attr($network); ?>"
-                    href="<?php echo esc_url($social_link['url']); ?>"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="<?php echo esc_attr($social_link['label']); ?>"
-                    title="<?php echo esc_attr($social_link['label']); ?>"
-                >
-                    <?php echo uninet_child_get_social_icon($network); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                </a>
-            <?php endforeach; ?>
-        </nav>
     </div>
     <?php
 }

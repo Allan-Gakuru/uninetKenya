@@ -81,6 +81,7 @@ The homepage foundation now:
 The Phase 4 sitewide experience now:
 
 - loads Poppins from Google Fonts with preconnect hints and heavier approved type weights
+- gives the header product search flexible width, keeps procurement actions together, and reserves social links for the footer
 - replaces Storefront's generic footer with code-owned category, trust, privacy, contact, WhatsApp, and social navigation
 - stores public contact submissions as private `Contact Messages` in the WordPress dashboard
 - uses nonce validation, a honeypot, field limits, and a one-minute browser/IP fingerprint throttle to reduce spam and duplicate submissions

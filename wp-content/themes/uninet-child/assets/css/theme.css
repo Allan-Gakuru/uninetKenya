@@ -198,8 +198,8 @@ body.home.page.page-template-template-uninet-home .site-header {
 
 .uninet-header__main-inner {
     display: grid;
-    grid-template-columns: minmax(150px, 180px) minmax(300px, 540px) minmax(230px, 1fr);
-    gap: clamp(1.25rem, 2.6vw, 2.25rem);
+    grid-template-columns: minmax(150px, 180px) minmax(320px, 1fr) auto;
+    gap: clamp(1.5rem, 2.75vw, 2.5rem);
     align-items: center;
     min-height: 5.75rem;
     padding-block: 0.75rem;
@@ -270,7 +270,7 @@ body.home.page.page-template-template-uninet-home .site-header {
     align-items: center;
     justify-content: flex-end;
     flex-wrap: nowrap;
-    gap: 0.7rem;
+    gap: 0.85rem;
 }
 
 .uninet-header__contact {
@@ -322,55 +322,16 @@ body.home.page.page-template-template-uninet-home .site-header {
 }
 
 .uninet-header__quote:focus-visible,
-.uninet-header__contact:focus-visible,
-.uninet-header__social:focus-visible {
+.uninet-header__contact:focus-visible {
     outline: 3px solid rgba(67, 196, 99, 0.45);
     outline-offset: 2px;
-}
-
-.uninet-header__socials {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-}
-
-.uninet-header__social {
-    display: grid;
-    width: 2.75rem;
-    height: 2.75rem;
-    flex: 0 0 2.75rem;
-    place-items: center;
-    border: 1px solid var(--uninet-border);
-    border-radius: 5px;
-    color: var(--uninet-heading);
-    background: var(--uninet-white);
-    text-decoration: none;
-}
-
-.uninet-header__social:hover,
-.uninet-header__social:focus {
-    border-color: var(--uninet-blue);
-    color: var(--uninet-white);
-    background: var(--uninet-blue);
-}
-
-.uninet-header__social svg {
-    width: 1.05rem;
-    height: 1.05rem;
-    fill: currentColor;
-}
-
-.uninet-header__social--instagram svg {
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.8;
 }
 
 .uninet-product-search {
     position: relative;
     display: flex;
     width: 100%;
-    max-width: 540px;
+    max-width: none;
     margin: 0;
 }
 
@@ -433,7 +394,7 @@ body.home.page.page-template-template-uninet-home .site-header {
 
 .uninet-header__search .dgwt-wcas-search-wrapp {
     width: 100%;
-    max-width: 540px;
+    max-width: none;
     margin: 0;
 }
 
@@ -1311,19 +1272,16 @@ body.home.page.page-template-template-uninet-home .site-header {
     }
 
     .uninet-header__actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem;
         width: 100%;
-        justify-content: space-between;
-        flex-wrap: wrap;
     }
 
     .uninet-header__quote,
     .uninet-header__contact {
-        flex: 1 1 calc(50% - 0.4rem);
-    }
-
-    .uninet-header__socials {
         width: 100%;
-        justify-content: flex-end;
+        min-width: 0;
     }
 
     .uninet-header__navigation-inner,
