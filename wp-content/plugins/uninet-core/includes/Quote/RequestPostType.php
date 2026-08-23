@@ -229,6 +229,37 @@ final class RequestPostType
             echo '</p>';
         }
 
+        $notification_status = (string) get_post_meta($post->ID, Notification::STATUS_META, true);
+        $notification_labels = Notification::status_labels();
+        $notification_attempts = absint(get_post_meta($post->ID, Notification::ATTEMPTS_META, true));
+        $notification_time = (string) get_post_meta($post->ID, Notification::PROCESSED_AT_META, true);
+
+        if (! $notification_time) {
+            $notification_time = (string) get_post_meta($post->ID, Notification::ATTEMPTED_AT_META, true);
+        }
+
+        echo '<hr>';
+        echo '<p><strong>' . esc_html__('Email notification', 'uninet-core') . '</strong><br>';
+        echo esc_html($notification_labels[$notification_status] ?? __('Not queued for this request', 'uninet-core'));
+        echo '</p>';
+
+        if ($notification_attempts) {
+            echo '<p class="description">';
+            echo esc_html(
+                sprintf(
+                    /* translators: %d: mail-processing attempt count. */
+                    _n('%d processing attempt', '%d processing attempts', $notification_attempts, 'uninet-core'),
+                    $notification_attempts
+                )
+            );
+            if ($notification_time) {
+                echo '<br>' . esc_html(mysql2date(get_option('date_format') . ' ' . get_option('time_format'), $notification_time));
+            }
+            echo '</p>';
+        }
+
+        echo '<p class="description">' . esc_html__('Accepted for processing does not prove inbox delivery. Use FluentSMTP email logs for the server response and resend controls.', 'uninet-core') . '</p>';
+
         echo '<p class="description">' . esc_html__('Delete synthetic tests after validation. Move completed requests to Closed and review retained records periodically.', 'uninet-core') . '</p>';
     }
 

@@ -18,6 +18,7 @@ use Uninet\Core\Contact\InquiryPostType;
 use Uninet\Core\Conversion\WhatsAppButton;
 use Uninet\Core\Helpers\Assets;
 use Uninet\Core\Quote\Builder as QuoteBuilder;
+use Uninet\Core\Quote\Notification as QuoteNotification;
 use Uninet\Core\Quote\RequestPostType as QuoteRequestPostType;
 use Uninet\Core\Setup\SitePages;
 use Uninet\Core\Tracking\Events;
@@ -78,6 +79,7 @@ final class Plugin
 
         (new QuoteRequestPostType())->register();
         (new QuoteBuilder())->register();
+        (new QuoteNotification())->register();
 
         $metadata = new Metadata();
         $validation = new Validation();

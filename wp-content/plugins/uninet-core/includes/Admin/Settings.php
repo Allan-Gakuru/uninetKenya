@@ -35,6 +35,7 @@ final class Settings
             'business_hours' => '',
             'footer_contact' => '',
             'footer_location' => '',
+            'quote_notification_email' => 'uninettechnologies@gmail.com',
         ];
     }
 
@@ -122,6 +123,26 @@ final class Settings
                 ]
             );
         }
+
+        add_settings_section(
+            'uninet_core_quote_notifications',
+            __('Quote Notifications', 'uninet-core'),
+            function () {
+                echo '<p>' . esc_html__('New Build a Quote requests are sent to this internal inbox after the dashboard record is saved.', 'uninet-core') . '</p>';
+            },
+            'uninet-core'
+        );
+
+        add_settings_field(
+            'quote_notification_email',
+            __('Notification recipient', 'uninet-core'),
+            [$this, 'render_email_field'],
+            'uninet-core',
+            'uninet_core_quote_notifications',
+            [
+                'key' => 'quote_notification_email',
+            ]
+        );
     }
 
     /**
@@ -138,6 +159,12 @@ final class Settings
         }
 
         foreach ($output as $key => $value) {
+            if ('quote_notification_email' === $key) {
+                $email = sanitize_email($input[$key] ?? '');
+                $output[$key] = is_email($email) ? $email : self::defaults()[$key];
+                continue;
+            }
+
             $output[$key] = isset($input[$key]) ? sanitize_text_field($input[$key]) : '';
         }
 
@@ -161,6 +188,26 @@ final class Settings
             esc_attr(self::OPTION_KEY),
             esc_attr($value)
         );
+    }
+
+    /**
+     * Render an email field.
+     *
+     * @param array $args Field args.
+     */
+    public function render_email_field($args)
+    {
+        $settings = self::get_all();
+        $key = $args['key'];
+        $value = isset($settings[$key]) ? $settings[$key] : '';
+
+        printf(
+            '<input type="email" class="regular-text" id="%1$s" name="%2$s[%1$s]" value="%3$s" required />',
+            esc_attr($key),
+            esc_attr(self::OPTION_KEY),
+            esc_attr($value)
+        );
+        echo '<p class="description">' . esc_html__('Delivery, server response, and resend controls remain available in FluentSMTP email logs.', 'uninet-core') . '</p>';
     }
 
     /**

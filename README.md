@@ -101,6 +101,9 @@ The Build a Quote procurement workflow now:
 - recalculates every price from WooCommerce on the server before storing the request
 - stores each submission privately under `Quote Requests` with buyer, KRA, delivery, product, price, source, and workflow details
 - gives staff a filterable status queue, private follow-up note, and workflow-update timestamp
+- queues an internal notification to the configurable staff inbox after the complete dashboard record is saved
+- puts the buyer's phone, reply-to email, requested products, quantities, and indicative pre-tax summary in the notification while keeping KRA PIN and the full business address in the protected dashboard
+- uses the background job queue when available, falls back safely to immediate mail processing, and never makes an email failure invalidate a saved customer request
 - never creates a WooCommerce order, reserves stock, or reduces inventory
 - offers a bounded WhatsApp handoff only after the dashboard record is saved
 - protects submissions with a nonce, honeypot, field and line limits, catalogue validation, and a one-minute duplicate throttle
@@ -136,7 +139,7 @@ The site-wide floating WhatsApp control:
 4. Review the Privacy Policy before launch, especially after enabling or changing Site Kit, analytics, cookie, backup, search, security, email, or marketing services.
 5. Submit one clearly labelled test contact message. Confirm it appears under `Contact Messages`, verify the WhatsApp summary, then delete the test record.
 6. Test the footer, contact form, Poppins loading, focus states, and navigation at mobile and desktop widths.
-7. Clear any page, object, CDN, or browser cache if the theme version shown is older than `0.6.6` or the plugin version is older than `0.5.0`.
+7. Clear any page, object, CDN, or browser cache if the theme version shown is older than `0.6.6` or the plugin version is older than `0.5.7`.
 
 ## Phase 5 Post-Deployment Checklist
 
@@ -146,10 +149,11 @@ The site-wide floating WhatsApp control:
 4. Search by product name, model, SKU, and category. Confirm newly published WooCommerce products appear without code changes.
 5. Submit one clearly labelled synthetic request containing a priced and, when available, an unpriced product. Check the desktop review dialog and mobile review bar.
 6. Confirm the record appears under `Quote Requests`, the pre-tax totals match current WooCommerce prices, and staff can filter by status, change status, and save an internal note.
-7. Confirm the submission did not create a WooCommerce order, reserve inventory, or change product stock.
-8. Review the generated WhatsApp summary and test Call to Order and Contact once with synthetic data.
-9. In Site Kit/Analytics debug tools, verify the quote entry, prefill, search, product-add, submission, Contact submission, and Call to Order events. Do not expect form answers in event parameters.
-10. Delete all synthetic records and clear page, object, CDN, and browser caches if the new page or assets do not appear after deployment.
+7. Confirm the buyer's phone, reply-to email, products, quantities, and pre-tax summary reached `uninettechnologies@gmail.com`. Check the Quote Request email status and FluentSMTP email log; use the FluentSMTP resend control if needed.
+8. Confirm the submission did not create a WooCommerce order, reserve inventory, or change product stock.
+9. Review the generated WhatsApp summary and test Call to Order and Contact once with synthetic data.
+10. In Site Kit/Analytics debug tools, verify the quote entry, prefill, search, product-add, submission, Contact submission, and Call to Order events. Do not expect form answers in event parameters.
+11. Delete all synthetic records and clear page, object, CDN, and browser caches if the new page or assets do not appear after deployment.
 
 ## Contact Data Operations
 
