@@ -51,6 +51,14 @@ final class Validation
             return $this->error('quantity', __('Please enter a valid quantity.', 'uninet-core'));
         }
 
+        if ('' === $validated['email']) {
+            return $this->error('email', __('Please enter your email address.', 'uninet-core'));
+        }
+
+        if (! is_email($validated['email'])) {
+            return $this->error('email', __('Please enter a valid email address.', 'uninet-core'));
+        }
+
         if ('' === $validated['county']) {
             return $this->error('county', __('Please select your county.', 'uninet-core'));
         }
@@ -65,7 +73,6 @@ final class Validation
 
         if (! $validated['business_purchase']) {
             $validated['business_name'] = '';
-            $validated['email'] = '';
             $validated['kra_pin'] = '';
         }
 
@@ -73,16 +80,8 @@ final class Validation
             return $this->error('business_name', __('Please enter the business name.', 'uninet-core'));
         }
 
-        if ($validated['business_purchase'] && '' === $validated['email']) {
-            return $this->error('email', __('Please enter the business email for invoice follow-up.', 'uninet-core'));
-        }
-
         if ($validated['business_purchase'] && '' === $validated['kra_pin']) {
             return $this->error('kra_pin', __('Please enter the business KRA PIN.', 'uninet-core'));
-        }
-
-        if ('' !== $validated['email'] && ! is_email($validated['email'])) {
-            return $this->error('email', __('Please enter a valid email address.', 'uninet-core'));
         }
 
         return $validated;

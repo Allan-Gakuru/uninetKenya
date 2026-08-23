@@ -9,6 +9,7 @@ namespace Uninet\Core;
 
 use Uninet\Core\Admin\Settings;
 use Uninet\Core\CallToOrder\AjaxController;
+use Uninet\Core\CallToOrder\CustomerNotification as OrderCustomerNotification;
 use Uninet\Core\CallToOrder\Form;
 use Uninet\Core\CallToOrder\Metadata;
 use Uninet\Core\CallToOrder\OrderFactory;
@@ -87,6 +88,7 @@ final class Plugin
         $validation = new Validation();
         $order_factory = new OrderFactory($metadata);
 
+        (new OrderCustomerNotification())->register();
         (new Form())->register();
         (new AjaxController($validation, $order_factory))->register();
         (new ProductCards())->register();

@@ -107,6 +107,8 @@ final class OrderFactory
         $order->add_order_note($this->build_internal_note($data, $product, $sales_phone), false);
         $order->save();
 
+        do_action('uninet_call_to_order_created', $order->get_id(), $data);
+
         return $order;
     }
 

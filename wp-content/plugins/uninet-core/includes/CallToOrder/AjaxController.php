@@ -94,7 +94,7 @@ final class AjaxController
 
         wp_send_json_success(
             [
-                'message' => __('Your order details have been saved. Call our sales team to finish confirmation.', 'uninet-core'),
+                'message' => __('Your order request has been saved, and we are sending a pre-tax summary to your email. Check your inbox and spam folder, then call our sales team to finish confirmation.', 'uninet-core'),
                 'orderId' => $order->get_id(),
                 'orderNumber' => $order->get_order_number(),
                 'salesPhone' => $sales_phone,

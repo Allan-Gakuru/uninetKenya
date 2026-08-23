@@ -55,10 +55,13 @@ The plugin foundation includes:
 The Phase 3 Call to Order flow now:
 
 - renders a product-page Call to Order button
-- collects buyer and business invoice details in a modal form
+- collects a required buyer email plus buyer and conditional business invoice details in a modal form
 - creates WooCommerce `Pending payment` orders
 - stores readable order metadata and an internal staff note
 - leaves stock untouched until staff confirms the order
+- independently queues a branded buyer email with the order reference, requested product, quantity, indicative pre-tax pricing, location summary, and call and WhatsApp follow-up actions
+- tells the buyer to check their inbox and spam folder without presenting the automated email as a final invoice, payment request, or stock confirmation
+- keeps the saved pending order successful if the email transport fails and leaves delivery diagnostics and resend controls in FluentSMTP
 - replaces product-card Add to Cart buttons with `View Details`
 - keeps public buyers out of cart and checkout pages during phase one
 
@@ -141,7 +144,7 @@ The site-wide floating WhatsApp control:
 4. Review the Privacy Policy before launch, especially after enabling or changing Site Kit, analytics, cookie, backup, search, security, email, or marketing services.
 5. Submit one clearly labelled test contact message. Confirm it appears under `Contact Messages`, verify the WhatsApp summary, then delete the test record.
 6. Test the footer, contact form, Poppins loading, focus states, and navigation at mobile and desktop widths.
-7. Clear any page, object, CDN, or browser cache if the theme version shown is older than `0.6.9` or the plugin version is older than `0.5.8`.
+7. Clear any page, object, CDN, or browser cache if the theme version shown is older than `0.6.9` or the plugin version is older than `0.5.9`.
 
 ## Phase 5 Post-Deployment Checklist
 
@@ -155,7 +158,7 @@ The site-wide floating WhatsApp control:
 8. Confirm the buyer received a separate pre-tax request summary at the submitted business email and that it contains no dashboard link, KRA PIN, or full business address.
 9. Check both email-processing statuses on the Quote Request and both messages in FluentSMTP email logs; use the FluentSMTP resend control if needed.
 10. Confirm the submission did not create a WooCommerce order, reserve inventory, or change product stock.
-11. Review the generated WhatsApp summary and test Call to Order and Contact once with synthetic data.
+11. Review the generated WhatsApp summary and test Call to Order and Contact once with synthetic data. Confirm the Call to Order buyer receives the separate pre-tax request email, then check its delivery record in FluentSMTP.
 12. In Site Kit/Analytics debug tools, verify the quote entry, prefill, search, product-add, submission, Contact submission, and Call to Order events. Do not expect form answers in event parameters.
 13. Delete all synthetic records and clear page, object, CDN, and browser caches if the new page or assets do not appear after deployment.
 

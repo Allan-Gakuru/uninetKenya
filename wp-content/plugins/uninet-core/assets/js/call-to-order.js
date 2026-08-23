@@ -190,7 +190,7 @@
 
     success.textContent = "";
     title.textContent = "Order request saved";
-    message.textContent = payload.message || "Your order request has been saved. Call our sales team to finish confirmation.";
+    message.textContent = payload.message || "Your order request has been saved, and we are sending a pre-tax summary to your email. Check your inbox and spam folder, then call our sales team to finish confirmation.";
     orderNumber.className = "uninet-call-success__order";
     orderNumber.textContent = payload.orderNumber ? "Reference #" + payload.orderNumber : "";
 
