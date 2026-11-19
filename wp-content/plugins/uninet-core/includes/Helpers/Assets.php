@@ -36,33 +36,33 @@ final class Assets
             $this->asset_version('assets/css/uninet-core.css')
         );
 
-        wp_enqueue_script(
-            'uninet-call-to-order',
-            UNINET_CORE_URL . 'assets/js/call-to-order.js',
-            [],
-            $this->asset_version('assets/js/call-to-order.js'),
-            true
-        );
+        if (is_product()) {
+            wp_enqueue_script(
+                'uninet-call-to-order',
+                UNINET_CORE_URL . 'assets/js/call-to-order.js',
+                [],
+                $this->asset_version('assets/js/call-to-order.js'),
+                true
+            );
 
-        wp_localize_script(
-            'uninet-call-to-order',
-            'uninetCore',
-            [
-                'ajaxUrl' => admin_url('admin-ajax.php'),
-                'nonce' => wp_create_nonce('uninet_call_to_order'),
-                'salesPhone' => Settings::get('sales_phone'),
-                'whatsappPhone' => Settings::get('whatsapp_phone'),
-                'events' => [
-                    'callOrderOpen' => 'uninet_call_order_open',
-                    'callOrderSubmit' => 'uninet_call_order_submit',
-                    'callOrderError' => 'uninet_call_order_error',
-                    'phoneClick' => 'uninet_phone_click',
-                    'whatsappClick' => 'uninet_whatsapp_click',
-                    'productView' => 'uninet_product_view',
-                    'searchUsed' => 'uninet_search_used',
-                ],
-            ]
-        );
+            wp_localize_script(
+                'uninet-call-to-order',
+                'uninetCore',
+                [
+                    'ajaxUrl' => admin_url('admin-ajax.php'),
+                    'nonce' => wp_create_nonce('uninet_call_to_order'),
+                    'salesPhone' => Settings::get('sales_phone'),
+                    'whatsappPhone' => Settings::get('whatsapp_phone'),
+                    'events' => [
+                        'callOrderOpen' => 'uninet_call_order_open',
+                        'callOrderSubmit' => 'uninet_call_order_submit',
+                        'callOrderError' => 'uninet_call_order_error',
+                        'productView' => 'uninet_product_view',
+                        'searchUsed' => 'uninet_search_used',
+                    ],
+                ]
+            );
+        }
 
         if ($this->is_product_archive()) {
             wp_enqueue_script(

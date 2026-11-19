@@ -64,6 +64,38 @@ add_filter('wp_resource_hints', function ($urls, $relation_type) {
 }, 10, 2);
 
 /**
+ * Share the homepage background URL between its preload and template.
+ */
+function uninet_child_home_hero_url($page_id)
+{
+    return get_the_post_thumbnail_url($page_id, 'large') ?: get_theme_file_uri('assets/images/uninet-home-hero.webp');
+}
+
+add_filter('wp_preload_resources', function ($resources) {
+    if (is_page_template('template-uninet-home.php')) {
+        $resources[] = [
+            'href' => uninet_child_home_hero_url(get_queried_object_id()),
+            'as' => 'image',
+            'fetchpriority' => 'high',
+        ];
+    }
+
+    return $resources;
+});
+
+add_filter('get_custom_logo_image_attributes', function ($attributes, $logo_id) {
+    $image = wp_get_attachment_image_src($logo_id, 'medium');
+
+    if ($image && $image[3]) {
+        $attributes['src'] = $image[0];
+    }
+
+    $attributes['sizes'] = '180px';
+
+    return $attributes;
+}, 10, 2);
+
+/**
  * Replace Storefront's default commerce header with Uninet's procurement header.
  */
 function uninet_child_prepare_header()
@@ -192,9 +224,9 @@ function uninet_child_render_footer()
                     <a id="uninet-footer-brand" class="uninet-footer__wordmark" href="<?php echo esc_url(home_url('/')); ?>">
                         <img
                             class="uninet-footer__logo"
-                            src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/images/uninet-logo-white.png'); ?>"
-                            width="596"
-                            height="394"
+                            src="<?php echo esc_url(get_theme_file_uri('assets/images/uninet-logo-white.webp')); ?>"
+                            width="590"
+                            height="324"
                             loading="lazy"
                             decoding="async"
                             alt="<?php esc_attr_e('Uninet Technologies', 'uninet-child'); ?>"
@@ -635,14 +667,17 @@ function uninet_child_get_mega_menu_feature($item, $config)
             </a>
         </div>
         <figure class="uninet-mega-feature__media">
+            <?php ob_start(); ?>
             <img
                 src="<?php echo esc_url($image_url); ?>"
                 alt="<?php echo esc_attr($config['alt']); ?>"
                 width="960"
                 height="640"
-                loading="lazy"
                 decoding="async"
             />
+            <?php $image = ob_get_clean(); ?>
+            <template data-uninet-mega-image><?php echo $image; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Attributes escaped above. ?></template>
+            <noscript><?php echo $image; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Attributes escaped above. ?></noscript>
         </figure>
     </section>
     <?php

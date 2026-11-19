@@ -76,6 +76,10 @@
 
     if (isOpen) {
       item.classList.remove("is-dismissed");
+      var image = item.querySelector("[data-uninet-mega-image]");
+      if (image) {
+        image.replaceWith(image.content);
+      }
     }
 
     if (trigger) {

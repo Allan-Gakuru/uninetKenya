@@ -144,15 +144,14 @@ $render_product_loop = static function (array $products) {
 };
 
 $featured_products = $get_products(4, true);
-$hero_image_id = get_post_thumbnail_id();
-$hero_image_url = $hero_image_id ? wp_get_attachment_image_url($hero_image_id, 'large') : get_theme_file_uri('assets/images/uninet-home-hero.jpg');
+$hero_image_url = uninet_child_home_hero_url(get_queried_object_id());
 
 $outcome_paths = [
     [
         'label' => __('Team devices', 'uninet-child'),
         'title' => __('Outfit productive workstations', 'uninet-child'),
         'summary' => __('Match employees with the right computing setup for their role, desk, budget, and performance needs.', 'uninet-child'),
-        'image' => get_theme_file_uri('assets/images/outcome-workstations.jpg'),
+        'image' => get_theme_file_uri('assets/images/outcome-workstations.webp'),
         'image_alt' => __('Laptops, desktop computers, and monitors arranged for a business workstation setup.', 'uninet-child'),
         'categories' => [
             [
@@ -191,7 +190,7 @@ $outcome_paths = [
         'label' => __('Desk essentials', 'uninet-child'),
         'title' => __('Complete everyday office setups', 'uninet-child'),
         'summary' => __('Finish workstations with the accessories staff touch every day, from input devices to ergonomic desk support.', 'uninet-child'),
-        'image' => get_theme_file_uri('assets/images/outcome-office-essentials.jpg'),
+        'image' => get_theme_file_uri('assets/images/outcome-office-essentials.webp'),
         'image_alt' => __('Office desk accessories including a keyboard, mouse, laptop stand, cables, and storage devices.', 'uninet-child'),
         'categories' => [
             [
@@ -211,7 +210,7 @@ $outcome_paths = [
         'label' => __('Premises security', 'uninet-child'),
         'title' => __('Secure and monitor your premises', 'uninet-child'),
         'summary' => __('Plan CCTV and access control around the site, not just the device list, so staff can confirm fit before payment.', 'uninet-child'),
-        'image' => get_theme_file_uri('assets/images/outcome-security.jpg'),
+        'image' => get_theme_file_uri('assets/images/outcome-security.webp'),
         'image_alt' => __('CCTV cameras, access control hardware, network equipment, and security cables on an office desk.', 'uninet-child'),
         'categories' => [
             [
@@ -338,7 +337,7 @@ get_header();
                     <article class="uninet-outcome-lane">
                         <?php if (! empty($path['image'])) : ?>
                             <figure class="uninet-outcome-lane__media">
-                                <img src="<?php echo esc_url($path['image']); ?>" alt="<?php echo esc_attr($path['image_alt'] ?? ''); ?>" width="1680" height="945" loading="lazy" decoding="async" />
+                                <img src="<?php echo esc_url($path['image']); ?>" alt="<?php echo esc_attr($path['image_alt'] ?? ''); ?>" width="1200" height="675" loading="lazy" decoding="async" />
                             </figure>
                         <?php endif; ?>
 

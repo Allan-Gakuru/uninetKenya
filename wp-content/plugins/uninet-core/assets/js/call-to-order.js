@@ -301,8 +301,6 @@
   document.addEventListener("click", function (event) {
     var openButton = event.target.closest("[data-uninet-call-open]");
     var closeButton = event.target.closest("[data-uninet-call-close]");
-    var phoneLink = event.target.closest('[href^="tel:"]');
-    var whatsappLink = event.target.closest('a[href*="wa.me"], a[href*="whatsapp"]');
 
     if (openButton) {
       event.preventDefault();
@@ -316,18 +314,6 @@
 
     if (event.target === modal) {
       closeModal();
-    }
-
-    if (phoneLink && window.uninetCore && window.uninetCore.events) {
-      track(window.uninetCore.events.phoneClick, {
-        href: phoneLink.getAttribute("href")
-      });
-    }
-
-    if (whatsappLink && window.uninetCore && window.uninetCore.events) {
-      track(window.uninetCore.events.whatsappClick, {
-        location: whatsappLink.getAttribute("data-uninet-track-location") || "site"
-      });
     }
   });
 

@@ -144,7 +144,7 @@ The site-wide floating WhatsApp control:
 4. Review the Privacy Policy before launch, especially after enabling or changing Site Kit, analytics, cookie, backup, search, security, email, or marketing services.
 5. Submit one clearly labelled test contact message. Confirm it appears under `Contact Messages`, verify the WhatsApp summary, then delete the test record.
 6. Test the footer, contact form, Poppins loading, focus states, and navigation at mobile and desktop widths.
-7. Clear any page, object, CDN, or browser cache if the theme version shown is older than `0.6.9` or the plugin version is older than `0.5.9`.
+7. Clear any page, object, CDN, or browser cache if the theme version shown is older than `0.6.10` or the plugin version is older than `0.5.10`.
 
 ## Phase 5 Post-Deployment Checklist
 
