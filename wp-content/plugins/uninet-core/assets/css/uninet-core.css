@@ -238,6 +238,16 @@ body:has(.uninet-quote-success:not([hidden])) .uninet-whatsapp-float {
     background: var(--uninet-white, #ffffff);
 }
 
+/* Show the lead photo while WooCommerce initializes the slider. */
+.single-product .woocommerce-product-gallery[style*="opacity: 0;"] {
+    opacity: 1 !important;
+}
+
+.single-product .woocommerce-product-gallery[style*="opacity: 0;"]
+    > .woocommerce-product-gallery__wrapper > .woocommerce-product-gallery__image:not(:first-child) {
+    display: none;
+}
+
 .uninet-product-callout__title {
     margin: 0 0 0.35rem;
     color: var(--uninet-heading, #132033);

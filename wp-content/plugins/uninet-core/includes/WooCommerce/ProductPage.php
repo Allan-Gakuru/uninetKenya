@@ -25,6 +25,26 @@ final class ProductPage
         add_action('woocommerce_after_single_product_summary', [$this, 'render_business_product_details'], 8);
         add_action('wp_footer', [$this, 'render_sticky_order_bar']);
         add_filter('woocommerce_product_tabs', [$this, 'customize_product_tabs'], 30);
+        add_filter('woocommerce_gallery_image_html_attachment_image_params', [$this, 'gallery_image_loading'], 10, 4);
+    }
+
+    /**
+     * Prioritize the first photo and defer the other gallery images.
+     */
+    public function gallery_image_loading($attributes, $attachment_id, $image_size, $main_image)
+    {
+        if (! is_product()) {
+            return $attributes;
+        }
+
+        if ($main_image) {
+            $attributes['loading'] = 'eager';
+            $attributes['fetchpriority'] = 'high';
+        } elseif (! isset($attributes['loading'])) {
+            $attributes['loading'] = 'lazy';
+        }
+
+        return $attributes;
     }
 
     /**
