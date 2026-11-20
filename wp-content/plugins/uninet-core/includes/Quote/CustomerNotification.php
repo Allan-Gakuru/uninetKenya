@@ -7,6 +7,8 @@
 
 namespace Uninet\Core\Quote;
 
+use Uninet\Core\Admin\Settings;
+
 if (! defined('ABSPATH')) {
     exit;
 }
@@ -254,7 +256,8 @@ final class CustomerNotification
         $html .= '<tr><td style="padding:24px 28px 28px;">';
         $html .= '<div style="padding:16px;border-left:4px solid #2dbf64;background:#f2fbf5;color:#35455d;font-size:13px;line-height:1.7;">This is an automated request summary, not a final quotation, pro forma invoice, or stock reservation. Prices shown are indicative and exclude tax and delivery. Products awaiting staff pricing are not included in the subtotal. Our team will confirm availability, tax, delivery charges, and the final quotation before payment.</div>';
         $html .= '<p style="margin:20px 0 14px;color:#445366;font-size:14px;line-height:1.7;">Need to add context or discuss alternatives? Reply to this email, call us, or continue on WhatsApp using your quote reference.</p>';
-        $html .= '<a href="tel:+254770313200" style="display:inline-block;margin:0 8px 8px 0;padding:12px 18px;background:#2dbf64;color:#0d253f;font-weight:700;text-decoration:none;">Call 0770 313 200</a>';
+        $sales_phone = Settings::get('sales_phone');
+        $html .= '<a href="' . esc_url(Settings::sales_tel_url($sales_phone)) . '" style="display:inline-block;margin:0 8px 8px 0;padding:12px 18px;background:#2dbf64;color:#0d253f;font-weight:700;text-decoration:none;">Call ' . esc_html($sales_phone) . '</a>';
         $html .= '<a href="' . esc_url($whatsapp_url) . '" style="display:inline-block;margin:0 0 8px;padding:12px 18px;border:1px solid #173f76;color:#173f76;font-weight:700;text-decoration:none;">Continue on WhatsApp</a>';
         $html .= '</td></tr></table></td></tr></table></body></html>';
 

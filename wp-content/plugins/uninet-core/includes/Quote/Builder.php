@@ -7,6 +7,8 @@
 
 namespace Uninet\Core\Quote;
 
+use Uninet\Core\Admin\Settings;
+
 if (! defined('ABSPATH')) {
     exit;
 }
@@ -87,10 +89,13 @@ final class Builder
      */
     public function render()
     {
+        $sales_phone = Settings::get('sales_phone');
+
         if (! class_exists('WooCommerce')) {
-            return '<p>' . esc_html__('The product catalogue is temporarily unavailable. Please call 0770 313 200 for assistance.', 'uninet-core') . '</p>';
+            return '<p>' . esc_html(sprintf(__('The product catalogue is temporarily unavailable. Please call %s for assistance.', 'uninet-core'), $sales_phone)) . '</p>';
         }
 
+        $sales_tel_url = Settings::sales_tel_url($sales_phone);
         $categories = $this->categories();
         $source = $this->request_source();
         $initial_product = $this->initial_product();
@@ -216,7 +221,7 @@ final class Builder
                             <div class="uninet-quote-fields">
                                 <?php $this->text_field('organisation_name', __('Organisation name', 'uninet-core'), __('e.g. Karibu Consulting Ltd', 'uninet-core'), true, 'text', 'organization'); ?>
                                 <?php $this->text_field('full_name', __('Contact person', 'uninet-core'), __('Your full name', 'uninet-core'), true, 'text', 'name'); ?>
-                                <?php $this->text_field('phone', __('Phone number', 'uninet-core'), __('e.g. 0770 313 200', 'uninet-core'), true, 'tel', 'tel'); ?>
+                                <?php $this->text_field('phone', __('Phone number', 'uninet-core'), __('e.g. +254 7XX XXX XXX', 'uninet-core'), true, 'tel', 'tel'); ?>
                                 <?php $this->text_field('email', __('Business email', 'uninet-core'), __('name@organisation.co.ke', 'uninet-core'), true, 'email', 'email'); ?>
                                 <?php $this->kra_pin_field(); ?>
                                 <?php $this->select_field('organisation_type', __('Organisation type', 'uninet-core'), $this->organisation_types(), false); ?>
@@ -269,7 +274,7 @@ final class Builder
                             </button>
                             <p class="uninet-quote-summary__support">
                                 <?php esc_html_e('Need help choosing?', 'uninet-core'); ?>
-                                <a href="tel:+254770313200">0770 313 200</a>
+                                <a href="<?php echo esc_url($sales_tel_url); ?>"><?php echo esc_html($sales_phone); ?></a>
                             </p>
                         </div>
                     </aside>
@@ -314,14 +319,14 @@ final class Builder
                     <p class="uninet-quote-success__reference" data-uninet-quote-reference></p>
                     <div class="uninet-quote-success__actions">
                         <a class="button" data-uninet-quote-whatsapp data-uninet-track-location="quote-success" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Continue on WhatsApp', 'uninet-core'); ?></a>
-                        <a class="button uninet-quote-success__call" href="tel:+254770313200"><?php esc_html_e('Call 0770 313 200', 'uninet-core'); ?></a>
+                        <a class="button uninet-quote-success__call" href="<?php echo esc_url($sales_tel_url); ?>"><?php echo esc_html(sprintf(__('Call %s', 'uninet-core'), $sales_phone)); ?></a>
                     </div>
                     <p><?php esc_html_e('Staff will confirm product availability, tax, delivery, and the final quotation before any payment.', 'uninet-core'); ?></p>
                 </div>
             </section>
 
             <noscript>
-                <p class="uninet-quote-noscript"><?php esc_html_e('This quote builder needs JavaScript for catalogue search and line-item totals. Please enable JavaScript or call 0770 313 200.', 'uninet-core'); ?></p>
+                <p class="uninet-quote-noscript"><?php echo esc_html(sprintf(__('This quote builder needs JavaScript for catalogue search and line-item totals. Please enable JavaScript or call %s.', 'uninet-core'), $sales_phone)); ?></p>
             </noscript>
         </section>
         <?php
@@ -469,7 +474,7 @@ final class Builder
 
         if (is_wp_error($post_id)) {
             wp_send_json_error([
-                'message' => __('We could not save the quote request. Please try again or call 0770 313 200.', 'uninet-core'),
+                'message' => sprintf(__('We could not save the quote request. Please try again or call %s.', 'uninet-core'), Settings::get('sales_phone')),
             ], 500);
         }
 
@@ -516,8 +521,8 @@ final class Builder
             'quoteId' => $post_id,
             'reference' => $reference,
             'message' => __('We saved your request and are sending a pre-tax quote summary to your business email. Please check your inbox and spam folder while our team reviews availability, tax, delivery, and the final quotation.', 'uninet-core'),
-            'salesPhone' => '0770 313 200',
-            'telUrl' => 'tel:+254770313200',
+            'salesPhone' => Settings::get('sales_phone'),
+            'telUrl' => Settings::sales_tel_url(),
             'whatsappUrl' => $this->whatsapp_url($reference, $values, $items, $subtotal, $unpriced_count),
         ]);
     }

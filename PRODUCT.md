@@ -20,7 +20,7 @@ Professional, practical, and high-trust. The tone should feel like an experience
 
 ## Contact Details
 
-- Sales phone: 0770 313 200
+- Sales phone: 0708 990 595
 - WhatsApp: +254 770 313 200
 - Facebook: https://www.facebook.com/UniNietTechnologies
 

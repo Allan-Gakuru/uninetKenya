@@ -7,13 +7,15 @@
 
 namespace Uninet\Core\Setup;
 
+use Uninet\Core\Admin\Settings;
+
 if (! defined('ABSPATH')) {
     exit;
 }
 
 final class SitePages
 {
-    const SETUP_VERSION = '4';
+    const SETUP_VERSION = '5';
 
     /**
      * Register the one-time admin setup.
@@ -149,6 +151,7 @@ final class SitePages
         $generated_versions = [
             trim($this->legacy_privacy_content()),
             trim($this->previous_privacy_content()),
+            trim($this->privacy_content('0770 313 200', 'tel:+254770313200')),
         ];
 
         if (! in_array($current, $generated_versions, true)) {
@@ -208,8 +211,11 @@ final class SitePages
     /**
      * Return the starter privacy notice for the current site behavior.
      */
-    private function privacy_content()
+    private function privacy_content($phone = null, $tel_url = null)
     {
+        $phone = $phone ?? Settings::get('sales_phone');
+        $tel_url = $tel_url ?? Settings::sales_tel_url($phone);
+
         return '<h2>Information we collect</h2>'
             . '<p>Uninet Technologies collects the information you provide through contact, quote-request, and order-request forms, including your name, phone number, email address, business and invoicing details, location, product requirements, and messages.</p>'
             . '<h2>How we use your information</h2>'
@@ -223,6 +229,6 @@ final class SitePages
             . '<h2>Your choices</h2>'
             . '<p>You may ask to access, correct, or delete personal information that we hold, subject to applicable legal and business record requirements.</p>'
             . '<h2>Contact us about privacy</h2>'
-            . '<p>Call <a href="tel:+254770313200">0770 313 200</a> or use the <a href="' . esc_url(home_url('/contact-us/')) . '">contact page</a> for privacy questions or requests.</p>';
+            . '<p>Call <a href="' . esc_url($tel_url) . '">' . esc_html($phone) . '</a> or use the <a href="' . esc_url(home_url('/contact-us/')) . '">contact page</a> for privacy questions or requests.</p>';
     }
 }

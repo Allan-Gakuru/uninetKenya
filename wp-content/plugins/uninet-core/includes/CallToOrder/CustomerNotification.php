@@ -170,8 +170,7 @@ final class CustomerNotification
         $county = (string) $order->get_meta(Metadata::COUNTY, true);
         $town = (string) $order->get_meta(Metadata::TOWN, true);
         $location = implode(', ', array_filter([$town, $county]));
-        $sales_phone = (string) $order->get_meta(Metadata::SALES_NUMBER_SHOWN, true);
-        $sales_phone = $sales_phone ?: Settings::get('sales_phone');
+        $sales_phone = Settings::get('sales_phone');
         $reference = '#' . $order->get_order_number();
         $unit_count = 0;
         $pre_tax_total = null;
@@ -204,8 +203,7 @@ final class CustomerNotification
             )
         );
         $whatsapp_url = 'https://wa.me/254770313200?text=' . $whatsapp_text;
-        $tel_number = preg_replace('/[^0-9+]/', '', $sales_phone);
-        $tel_url = $tel_number ? 'tel:' . $tel_number : '';
+        $tel_url = Settings::sales_tel_url($sales_phone);
 
         $html = '<!doctype html><html><body style="margin:0;padding:0;background:#f3f6f9;color:#122033;font-family:Arial,sans-serif;">';
         $html .= '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f3f6f9;padding:24px 10px;"><tr><td align="center">';

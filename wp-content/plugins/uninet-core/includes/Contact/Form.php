@@ -7,6 +7,8 @@
 
 namespace Uninet\Core\Contact;
 
+use Uninet\Core\Admin\Settings;
+
 if (! defined('ABSPATH')) {
     exit;
 }
@@ -58,6 +60,7 @@ final class Form
      */
     public function render()
     {
+        $sales_phone = Settings::get('sales_phone');
         $state = $this->response_state();
         $values = isset($state['values']) && is_array($state['values']) ? $state['values'] : [];
         $errors = isset($state['errors']) && is_array($state['errors']) ? $state['errors'] : [];
@@ -70,7 +73,7 @@ final class Form
                 <div class="uninet-contact__direct">
                     <div>
                         <strong><?php esc_html_e('Prefer to call?', 'uninet-core'); ?></strong>
-                        <a href="tel:+254770313200">0770 313 200</a>
+                        <a href="<?php echo esc_url(Settings::sales_tel_url($sales_phone)); ?>"><?php echo esc_html($sales_phone); ?></a>
                     </div>
                     <p><?php esc_html_e('Messages are saved securely in the Uninet dashboard for staff follow-up.', 'uninet-core'); ?></p>
                 </div>
@@ -115,7 +118,7 @@ final class Form
 
                         <div class="uninet-contact-form__grid">
                             <?php $this->text_field('full_name', __('Full name', 'uninet-core'), __('Jane Wanjiku', 'uninet-core'), $values, true, 'text', 'name'); ?>
-                            <?php $this->text_field('phone', __('Phone number', 'uninet-core'), __('e.g. 0770 313 200', 'uninet-core'), $values, true, 'tel', 'tel'); ?>
+                            <?php $this->text_field('phone', __('Phone number', 'uninet-core'), __('e.g. +254 7XX XXX XXX', 'uninet-core'), $values, true, 'tel', 'tel'); ?>
                             <?php $this->text_field('email', __('Email address', 'uninet-core'), __('name@business.co.ke', 'uninet-core'), $values, true, 'email', 'email'); ?>
                             <?php $this->text_field('business_name', __('Business name', 'uninet-core'), __('Optional', 'uninet-core'), $values, false, 'text', 'organization'); ?>
                         </div>
@@ -190,7 +193,7 @@ final class Form
             $this->redirect_with_state(
                 $return_url,
                 [
-                    'errors' => [__('We could not save your message. Please try again or call 0770 313 200.', 'uninet-core')],
+                    'errors' => [sprintf(__('We could not save your message. Please try again or call %s.', 'uninet-core'), Settings::get('sales_phone'))],
                     'values' => $values,
                 ]
             );

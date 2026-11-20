@@ -98,21 +98,9 @@ final class AjaxController
                 'orderId' => $order->get_id(),
                 'orderNumber' => $order->get_order_number(),
                 'salesPhone' => $sales_phone,
-                'telUrl' => $this->build_tel_url($sales_phone),
+                'telUrl' => Settings::sales_tel_url($sales_phone),
             ],
             201
         );
-    }
-
-    /**
-     * Build a tel URL from the configured sales phone.
-     *
-     * @param string $phone Phone number.
-     */
-    private function build_tel_url($phone)
-    {
-        $tel = preg_replace('/[^0-9+]/', '', $phone);
-
-        return $tel ? 'tel:' . $tel : '';
     }
 }

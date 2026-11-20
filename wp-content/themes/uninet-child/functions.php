@@ -182,10 +182,25 @@ function uninet_child_get_product_category_url($slug)
 }
 
 /**
+ * Keep the sales contact usable if the core plugin is temporarily disabled.
+ */
+function uninet_child_sales_contact()
+{
+    if (class_exists('Uninet\\Core\\Admin\\Settings')) {
+        $phone = \Uninet\Core\Admin\Settings::get('sales_phone');
+
+        return [$phone, \Uninet\Core\Admin\Settings::sales_tel_url($phone)];
+    }
+
+    return ['0708 990 595', 'tel:+254708990595'];
+}
+
+/**
  * Render the complete site footer.
  */
 function uninet_child_render_footer()
 {
+    [$sales_phone, $sales_tel_url] = uninet_child_sales_contact();
     $shop_links = [
         __('Laptops', 'uninet-child') => uninet_child_get_product_category_url('laptops'),
         __('Desktops', 'uninet-child') => uninet_child_get_product_category_url('desktops'),
@@ -233,7 +248,7 @@ function uninet_child_render_footer()
                         >
                     </a>
                     <p><?php esc_html_e('Business technology procurement, practical product guidance, and staff-confirmed ordering for organisations across Kenya.', 'uninet-child'); ?></p>
-                    <a class="uninet-footer__phone" href="tel:+254770313200">0770 313 200</a>
+                    <a class="uninet-footer__phone" href="<?php echo esc_url($sales_tel_url); ?>"><?php echo esc_html($sales_phone); ?></a>
                     <span class="uninet-footer__availability"><?php esc_html_e('Sales and order confirmation', 'uninet-child'); ?></span>
                 </section>
 
@@ -290,6 +305,7 @@ function uninet_child_render_footer()
  */
 function uninet_child_render_header()
 {
+    [$sales_phone, $sales_tel_url] = uninet_child_sales_contact();
     ?>
     <div class="uninet-header">
         <div class="uninet-header__trust">
@@ -297,11 +313,11 @@ function uninet_child_render_header()
                 <span class="uninet-header__trust-copy"><?php esc_html_e('Business technology for Kenyan organisations', 'uninet-child'); ?></span>
                 <ul class="uninet-header__trust-list" aria-label="<?php esc_attr_e('Buyer assurances', 'uninet-child'); ?>">
                     <li class="uninet-header__phone">
-                        <a href="tel:+254770313200" aria-label="<?php esc_attr_e('Call Uninet Technologies on 0770 313 200', 'uninet-child'); ?>">
+                        <a href="<?php echo esc_url($sales_tel_url); ?>" aria-label="<?php echo esc_attr(sprintf(__('Call Uninet Technologies on %s', 'uninet-child'), $sales_phone)); ?>">
                             <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
                                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.33 1.84.56 2.8.69A2 2 0 0 1 22 16.92z"></path>
                             </svg>
-                            <span>0770 313 200</span>
+                            <span><?php echo esc_html($sales_phone); ?></span>
                         </a>
                     </li>
                     <li><?php esc_html_e('6-month warranty', 'uninet-child'); ?></li>

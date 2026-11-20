@@ -14,6 +14,7 @@ if (! defined('ABSPATH')) {
 final class Settings
 {
     const OPTION_KEY = 'uninet_core_settings';
+    const SALES_PHONE = '0708 990 595';
 
     /**
      * Register settings hooks.
@@ -30,7 +31,7 @@ final class Settings
     public static function defaults()
     {
         return [
-            'sales_phone' => '',
+            'sales_phone' => self::SALES_PHONE,
             'whatsapp_phone' => '',
             'business_hours' => '',
             'footer_contact' => '',
@@ -50,7 +51,15 @@ final class Settings
             $saved = [];
         }
 
-        return wp_parse_args($saved, self::defaults());
+        $settings = wp_parse_args($saved, self::defaults());
+        $sales_phone = trim((string) $settings['sales_phone']);
+        $digits = preg_replace('/\D+/', '', $sales_phone);
+
+        if ('' === $digits || in_array($digits, ['0770313200', '254770313200', '00254770313200'], true)) {
+            $settings['sales_phone'] = self::SALES_PHONE;
+        }
+
+        return $settings;
     }
 
     /**
@@ -63,6 +72,24 @@ final class Settings
         $settings = self::get_all();
 
         return isset($settings[$key]) ? $settings[$key] : '';
+    }
+
+    /**
+     * Return a dialable sales link, including the Kenya country code for local numbers.
+     */
+    public static function sales_tel_url($phone = null)
+    {
+        $number = preg_replace('/[^0-9+]/', '', $phone ?? self::get('sales_phone'));
+
+        if (preg_match('/^0[0-9]{9}$/', $number)) {
+            $number = '+254' . substr($number, 1);
+        } elseif (preg_match('/^254[0-9]{9}$/', $number)) {
+            $number = '+' . $number;
+        } elseif (0 === strpos($number, '00')) {
+            $number = '+' . substr($number, 2);
+        }
+
+        return $number ? 'tel:' . $number : '';
     }
 
     /**
