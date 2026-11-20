@@ -24,6 +24,7 @@ use Uninet\Core\Quote\Notification as QuoteNotification;
 use Uninet\Core\Quote\RequestPostType as QuoteRequestPostType;
 use Uninet\Core\Setup\SitePages;
 use Uninet\Core\Tracking\Events;
+use Uninet\Core\WooCommerce\ArchiveSeo;
 use Uninet\Core\WooCommerce\CartCheckoutVisibility;
 use Uninet\Core\WooCommerce\ProductArchives;
 use Uninet\Core\WooCommerce\ProductCards;
@@ -94,6 +95,7 @@ final class Plugin
         (new ProductCards())->register();
         (new ProductPage())->register();
         (new ProductArchives())->register();
+        (new ArchiveSeo())->register();
         (new CartCheckoutVisibility())->register();
     }
 

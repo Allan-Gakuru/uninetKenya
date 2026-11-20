@@ -37,6 +37,7 @@ $uninet_core_files = [
     'includes/WooCommerce/ProductCards.php',
     'includes/WooCommerce/ProductPage.php',
     'includes/WooCommerce/ProductArchives.php',
+    'includes/WooCommerce/ArchiveSeo.php',
     'includes/WooCommerce/CartCheckoutVisibility.php',
     'includes/Tracking/Events.php',
     'includes/Plugin.php',

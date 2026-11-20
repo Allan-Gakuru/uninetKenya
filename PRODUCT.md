@@ -76,6 +76,7 @@ Aim for WCAG 2.2 AA fundamentals: strong contrast, readable type, keyboard-frien
 
 - Rank Math settings live in WordPress. Keep the homepage, public catalogue, and useful brand and product category archives indexable. Keep account, checkout, cart, and private maintenance pages out of the public XML sitemap.
 - Preserve existing product and category URLs. Use Kenya in category search titles, and a unique description for important categories. Product search metadata and structured data should reflect the published WooCommerce listing.
+- Uninet Core supplies unique search metadata for the current product category and brand archives. An explicit title or description entered in a term's Rank Math snippet editor takes precedence for that field. The Shop archive is configured in Rank Math; URLs, canonicals, and sitemap inclusion stay under WordPress and Rank Math control.
 - In the Media Library, give each meaningful product photo alt text in the form `Brand and model + view or visible detail`, for example `Dell Latitude 5410 lid and front view`. Describe what the photo actually shows, vary the description by angle, and leave decorative images empty. Do not repeat marketing keywords or add specifications that the image does not show.
 - The canonical Search Console property is `https://uninetkenya.com/`. Submit `/sitemap_index.xml` and use URL Inspection to distinguish crawl eligibility from actual indexing.
 
