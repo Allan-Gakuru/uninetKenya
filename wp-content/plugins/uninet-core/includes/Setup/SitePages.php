@@ -23,7 +23,76 @@ final class SitePages
     public function register()
     {
         add_action('admin_init', [$this, 'maybe_create_pages']);
+        add_action('admin_init', [$this, 'maybe_update_saved_sales_number']);
         add_filter('the_content', [$this, 'remove_privacy_tutorial_label'], 20);
+    }
+
+    /**
+     * Update call references that staff pasted into published descriptions.
+     */
+    public function maybe_update_saved_sales_number()
+    {
+        $migration = 'uninet_core_sales_phone_content_updated';
+
+        if (! current_user_can('manage_options') || get_option($migration)) {
+            return;
+        }
+
+        $phone = Settings::get('sales_phone');
+        $tel_url = Settings::sales_tel_url($phone);
+        $success = true;
+        $posts = get_posts([
+            'post_type' => ['page', 'post', 'product'],
+            'post_status' => 'publish',
+            'numberposts' => -1,
+        ]);
+
+        foreach ($posts as $post) {
+            $changes = ['ID' => $post->ID];
+
+            foreach (['post_content', 'post_excerpt'] as $field) {
+                $current = $post->$field;
+                $updated = self::replace_legacy_call_number($current, $phone, $tel_url);
+
+                if ($updated !== $current) {
+                    $changes[$field] = $updated;
+                }
+            }
+
+            if (count($changes) > 1 && is_wp_error(wp_update_post(wp_slash($changes), true))) {
+                $success = false;
+            }
+        }
+
+        if ($success) {
+            update_option($migration, true, false);
+        }
+    }
+
+    private static function replace_legacy_call_number($content, $phone, $tel_url)
+    {
+        $separator = '(?:[\s().-]|&nbsp;|&#160;)*';
+        $old = '(?:0|(?:00|\+)?254' . $separator . ')770' . $separator . '313' . $separator . '200(?![0-9])';
+        $label = '\b(?:call(?:\s+(?:us|our (?:sales )?team|the sales team))?(?:\s+(?:on|at))?|(?:sales\s+)?(?:phone|telephone)(?:\s+number)?|sales\s+number)';
+        $inline = '(?:\s|&nbsp;|&#160;|<\/?(?:strong|b|em|span)\b[^>]*>)*';
+
+        $updated = preg_replace_callback(
+            '/(' . $label . '\s*:?\s*' . $inline . ')' . $old . '/i',
+            static function ($match) use ($phone) {
+                return $match[1] . $phone;
+            },
+            $content
+        );
+
+        $updated = preg_replace_callback(
+            '/(\bhref\s*=\s*[\'\"])tel:' . $old . '(?=[\'\"])/i',
+            static function ($match) use ($tel_url) {
+                return $match[1] . $tel_url;
+            },
+            $updated ?? $content
+        );
+
+        return $updated ?? $content;
     }
 
     /**
